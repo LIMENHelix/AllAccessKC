@@ -14,8 +14,10 @@
 // "Phase 2 audit log" marker below.
 
 import Anthropic from "@anthropic-ai/sdk";
-import fs from "node:fs/promises";
-import path from "node:path";
+// Direct JSON import — esbuild (Vercel's bundler) inlines the JSON content
+// into the function bundle. Eliminates runtime fs.readFile dependency on
+// process.cwd(), which is unreliable in serverless.
+import topicsData from "./topics.json";
 
 // ─── Configuration ────────────────────────────────────────────────────
 const ANTHROPIC_MODEL = "claude-sonnet-4-5-20250929";
@@ -73,11 +75,9 @@ export interface PostResult {
 export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
   let step = "init";
   try {
-    // ── Load topics from disk (read-only is fine on serverless) ─────
+    // ── Load topics (bundled at build time) ─────────────────────────
     step = "load_topics";
-    const topicsPath = path.join(process.cwd(), "api", "topics.json");
-    const topicsRaw = await fs.readFile(topicsPath, "utf8");
-    const topics: string[] = JSON.parse(topicsRaw);
+    const topics = topicsData as string[];
     if (!Array.isArray(topics) || topics.length === 0) {
       throw new Error("topics.json is empty or malformed");
     }

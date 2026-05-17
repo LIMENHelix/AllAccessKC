@@ -32,3 +32,50 @@ Static site — no build step required. Vercel auto-detects HTML.
 ## Local preview
 
 Open any of the three HTML files directly in a browser — no server required.
+
+## Auto-post (weekly Facebook teaser)
+
+`/api/auto-post.ts` is a Vercel serverless function that fires every Sunday at **15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (25 prompts → 6-month cycle), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
+
+**Topic rotation is stateless** — derived from week-of-year against a fixed epoch (`2026-05-17`) — so no database or KV is required. Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
+
+### Endpoints
+
+| Path | Purpose | Auth |
+|---|---|---|
+| `/api/auto-post` | Production endpoint — invoked by Vercel cron | `Authorization: Bearer ${CRON_SECRET}` |
+| `/api/auto-post-test` | Dry-run preview — generates post + image but does NOT post to Facebook | None (forced dry-run) |
+
+### Required environment variables (set in Vercel dashboard)
+
+| Name | Required | Notes |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | yes | `sk-ant-...` — console.anthropic.com |
+| `UNSPLASH_ACCESS_KEY` | yes | Unsplash app access key — unsplash.com/developers |
+| `FB_PAGE_ID` | yes | Numeric Facebook page ID (not the @handle) |
+| `FB_PAGE_ACCESS_TOKEN` | yes | Long-lived page access token. User tokens expire in 60 days — use Meta Business Suite system-user flow for a permanent token. |
+| `CRON_SECRET` | yes | Random string. Vercel auto-attaches `Authorization: Bearer ${CRON_SECRET}` to cron invocations once this is set. |
+| `KILL_SWITCH` | no | Set to `true` to pause posting without redeploying. Default: off. |
+| `DRY_RUN` | no | Set to `true` to make the production endpoint also dry-run (won't post to FB). Default: off. |
+
+### Testing before going live
+
+After deploying and setting env vars, hit `https://allaccesskc.com/api/auto-post-test` (or your `*.vercel.app` URL). Returns JSON with the generated `topic`, `postText`, `imageKeywords`, and `imageUrl`. Reload to roll new variants (temperature is 0.8). No Facebook post is made.
+
+### Pausing
+
+Set `KILL_SWITCH=true` in the Vercel dashboard env vars. Takes effect immediately on next invocation, no redeploy needed. Set back to anything else to resume.
+
+### Cost
+
+- Anthropic: ~1 message/week × ~$0.01 = ~$0.50/year
+- Unsplash: free (50 requests/hour limit, we use 1/week)
+- Facebook Graph: free
+- Vercel cron + serverless: free tier covers this volume
+
+Total: ~$1/year.
+
+### Editing the rotation
+
+Edit `api/topics.json` — array of strings, one prompt per topic. Order matters; the function picks `topics[weeksSinceEpoch mod topics.length]` each Sunday. Adding/removing an entry shifts every future rotation by one notch.
+

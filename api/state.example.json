@@ -1,0 +1,7 @@
+{
+  "_note": "DOCUMENTATION ONLY — this file is not read at runtime. Topic rotation is stateless (week-of-year derived from a fixed epoch anchor in _shared.ts). This file documents the shape we would persist if and when Vercel KV is added for audit logging. To migrate: add @vercel/kv to package.json, set up KV in the Vercel dashboard, read+write this shape in _shared.ts in the place marked 'Phase 2 audit log'.",
+  "lastTopicIndex": -1,
+  "lastPosted": null,
+  "lastPostId": null,
+  "history": []
+}

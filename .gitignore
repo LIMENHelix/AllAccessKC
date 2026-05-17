@@ -1,5 +1,14 @@
+# Node / TypeScript build artifacts
+node_modules/
+dist/
+*.tsbuildinfo
+
 # Vercel
 .vercel
+
+# Auto-post runtime state (would only matter if you bolt on @vercel/kv-backed
+# local mirroring; see api/state.example.json for shape)
+api/state.json
 
 # OS
 .DS_Store
@@ -14,5 +23,3 @@ Thumbs.db
 # Backups
 *.bak
 *.orig
-
-.vercel

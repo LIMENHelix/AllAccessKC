@@ -6,10 +6,11 @@ The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, i
 
 | File | Purpose |
 |---|---|
-| `kc.html` | Landing / sales page ($5 purchase entry) |
+| `index.html` | Landing / sales page ($5 purchase entry) |
 | `kc-guide.html` | The paid guide itself (tabs: Events, Eat, Drink, Watch, Game Day, Explore, Itineraries, Travel) |
 | `kc-thanks.html` | Post-purchase unlock confirmation |
-| `kc-skyline.jpg` | Hero image used by kc.html (add separately) |
+| `privacy.html` · `terms.html` · `refund.html` | Legal pages |
+| `kc-skyline.jpg` | Hero image used by index.html (add separately) |
 | `kc-skyline-2.jpg` | Hero image used by kc-thanks.html (add separately) |
 
 ## Deployment
@@ -18,7 +19,7 @@ Static site — no build step required. Vercel auto-detects HTML.
 
 - **Domain:** allaccesskc.com
 - **Stack:** plain HTML/CSS/JS, single file per page
-- **i18n:** 16 languages via live Google Translate fallback (kc-guide.html) + minimal static dictionary (kc.html, kc-thanks.html)
+- **i18n:** 16 languages via live Google Translate fallback (kc-guide.html) + minimal static dictionary (index.html, kc-thanks.html)
 
 ## Brand notes
 

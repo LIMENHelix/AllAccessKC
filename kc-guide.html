@@ -7,7 +7,7 @@
 <title>All Access KC — Your Guide</title>
 <style>
   :root{
-    /* Cream-editorial palette — matches kc.html. Variable names kept as
+    /* Cream-editorial palette — matches index.html. Variable names kept as
        'cream' / 'soft' for diff-minimal reasons, but VALUES now reference
        the dark-ink-on-cream system. */
     --bg:#f7f1e3;            /* page background — warm cream */
@@ -5719,7 +5719,7 @@
       applyLangGuide(langSelectGuide.value);
     });
   }
-  // First load — saved (kc_lang) → browser → English. Shared key with kc.html and kc-thanks.html.
+  // First load — saved (kc_lang) → browser → English. Shared key with index.html and kc-thanks.html.
   (function(){
     var saved = null;
     try { saved = localStorage.getItem('kc_lang'); } catch(e){}

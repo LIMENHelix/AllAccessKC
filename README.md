@@ -1,13 +1,13 @@
 # All Access KC
 
-The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, day plans, transit, parking. Written by locals. Updated weekly.
+The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, itineraries, transit, parking. Written by locals. Updated weekly.
 
 ## Files
 
 | File | Purpose |
 |---|---|
 | `kc.html` | Landing / sales page ($5 purchase entry) |
-| `kc-guide.html` | The paid guide itself (tabs: Schedule, Eat, Drink, Watch, Match Day, Explore, Day Plans, Travel) |
+| `kc-guide.html` | The paid guide itself (tabs: Events, Eat, Drink, Watch, Game Day, Explore, Itineraries, Travel) |
 | `kc-thanks.html` | Post-purchase unlock confirmation |
 | `kc-skyline.jpg` | Hero image used by kc.html (add separately) |
 | `kc-skyline-2.jpg` | Hero image used by kc-thanks.html (add separately) |

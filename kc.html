@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
+<title>All Access KC — Welcome to Kansas City · The Local's $5 Visitor Guide</title>
+<meta name="description" content="The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, day plans, transit, parking, and visitor essentials — written by locals, updated weekly. One device, one purchase.">
+<meta name="keywords" content="Kansas City visitor guide, KC restaurants, KC bars, KC neighborhoods, KC transit, KC parking, Arrowhead Stadium guide, Kansas City things to do, KC day plans, KC travel tips, KC tourism">
+<meta name="author" content="All Access KC">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://allaccesskc.com/">
+
+<!-- Open Graph — Facebook, LinkedIn, WhatsApp, iMessage, Discord, Slack -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="All Access KC">
+<meta property="og:title" content="All Access KC — Welcome to Kansas City · The Local's $5 Visitor Guide">
+<meta property="og:description" content="The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, day plans, transit, parking. Written by locals. Updated weekly.">
+<meta property="og:url" content="https://allaccesskc.com/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale:alternate" content="ar_SA">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="ru_RU">
+<!-- og:image — KC skyline at golden hour over Penn Valley Park -->
+<meta property="og:image" content="https://allaccesskc.com/kc-skyline.jpg">
+<meta property="og:image:width" content="1248">
+<meta property="og:image:height" content="832">
+<meta property="og:image:alt" content="Kansas City skyline at golden hour">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="All Access KC — Welcome to Kansas City · The Local's $5 Visitor Guide">
+<meta name="twitter:description" content="The local's $5 visitor guide to Kansas City. Restaurants, bars, neighborhoods, transit, parking, day plans. Written by locals.">
+<meta name="twitter:image" content="https://allaccesskc.com/kc-skyline.jpg">
+
+<!-- JSON-LD: Product ($5 visitor guide) + Organization. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "@id": "https://allaccesskc.com/#product",
+      "name": "All Access KC — Kansas City Visitor Guide",
+      "description": "An independent local visitor guide to Kansas City. Restaurants, bars, neighborhoods, day plans, transit, parking, and visitor essentials. Written by locals. Updated weekly. One device, one purchase.",
+      "category": "Travel Guide",
+      "brand": { "@type": "Brand", "name": "All Access KC" },
+      "offers": {
+        "@type": "Offer",
+        "price": "5.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://allaccesskc.com/",
+        "seller": { "@type": "Organization", "name": "All Access KC" }
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "All Access KC",
+      "url": "https://allaccesskc.com/",
+      "email": "info@allaccesskc.com",
+      "description": "Independent local's guide to Kansas City — restaurants, bars, neighborhoods, day plans."
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --bg:#f7f1e3;
+    --bg-soft:#fbf6e8;
+    --ink:#1a1d2a;
+    --ink-mid:#3d4053;
+    --ink-soft:#646774;
+    --ink-faint:#9a9b9f;
+    --rule:#d4cdb8;
+    --gold:#8b6914;
+    --gold-bright:#b8881c;
+    --accent-soft:#e8dfc4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{
+    min-height:100%;background:var(--bg);
+    font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  body{padding:72px 24px 80px 24px;position:relative}
+
+  main{max-width:680px;margin:0 auto;width:100%}
+
+  /* Language picker — fixed top-center, floating pill */
+  .lang{
+    position:fixed;top:14px;right:14px;
+    z-index:60;
+  }
+  .lang select{
+    appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    background:rgba(251,246,232,0.92);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--rule);
+    color:var(--ink);font-family:Georgia,serif;
+    padding:9px 34px 9px 14px;font-size:0.82rem;
+    cursor:pointer;line-height:1.2;
+    border-radius:999px;
+    background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3e%3cpath fill='%238b6914' d='M0 0l5 6 5-6z'/%3e%3c/svg%3e");
+    background-repeat:no-repeat;background-position:right 14px center;background-size:10px 6px;
+    box-shadow:0 3px 14px rgba(26,29,42,0.14);
+    transition:all 0.15s;max-width:240px;
+  }
+  .lang select:hover{border-color:var(--gold);box-shadow:0 5px 18px rgba(139,105,20,0.22)}
+  .lang select:focus{outline:none;border-color:var(--gold)}
+  .lang select option{background:var(--bg-soft);color:var(--ink);padding:8px;border-radius:0}
+
+  /* Translation-in-progress pill below the language picker */
+  .lang-status{
+    margin-top:8px;font-size:0.72rem;
+    color:#ffffff;font-style:italic;font-weight:500;
+    text-align:right;letter-spacing:0.3px;
+    background:rgba(26,29,42,0.78);
+    padding:5px 12px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:7px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.25);
+    opacity:0;transform:translateY(-4px);
+    transition:opacity 0.18s, transform 0.18s;
+    pointer-events:none;float:right;
+  }
+  .lang-status.show{opacity:1;transform:translateY(0)}
+  .lang-status::before{
+    content:'';display:inline-block;
+    width:10px;height:10px;
+    border:1.5px solid #fff3a8;border-top-color:transparent;
+    border-radius:50%;
+    animation:i18n-spin 0.7s linear infinite;
+  }
+  @keyframes i18n-spin{to{transform:rotate(360deg)}}
+
+  /* ── Google Translate widget — hidden, driven by our .lang select ── */
+  .goog-te-banner-frame.skiptranslate,
+  .goog-te-balloon-frame,
+  .goog-logo-link,
+  .goog-te-gadget img,
+  .goog-te-gadget > span > a{display:none!important}
+  .goog-te-gadget{font-size:0!important;color:transparent!important}
+  body{top:0!important;position:relative!important}
+  .goog-tooltip,.goog-tooltip:hover{display:none!important}
+  .goog-text-highlight{background:none!important;box-shadow:none!important;border:none!important}
+  #google_translate_element{position:absolute!important;top:-9999px!important;left:-9999px!important;visibility:hidden!important}
+
+  /* Quiet top mast */
+  .mast{
+    font-size:0.62rem;letter-spacing:4px;color:var(--gold);
+    text-transform:uppercase;font-weight:600;
+    text-align:center;margin-bottom:28px;
+  }
+
+  /* Big ball — the only graphic flourish */
+  .ball{
+    font-size:4.5rem;text-align:center;line-height:1;
+    margin-bottom:36px;
+    filter:drop-shadow(0 4px 6px rgba(26,29,42,0.15));
+  }
+
+  /* Skyline hero — image dominates above the fold; CTA is right inside.
+     Long gradual fade below the CTA before transitioning to cream content. */
+  .skyline{
+    position:relative;overflow:hidden;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-top:-72px;                   /* cancel body padding-top */
+    margin-bottom:32px;
+    padding:96px 0 32px 0;
+    background:#1a1d2a;
+    text-align:center;
+  }
+  /* Direct-child selector — applies only to the background image,
+     NOT to flag <img>s nested inside .flag-line. */
+  .skyline > img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:center 25%;
+    z-index:0;
+  }
+  /* Darkening overlay — keeps hero text readable up top, then long gradual fade.
+     0–55%: dark enough for text contrast.
+     55–100%: image still visible but progressively fades into cream. */
+  .skyline::before{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,
+      rgba(26,29,42,0.52) 0%,
+      rgba(26,29,42,0.58) 25%,
+      rgba(26,29,42,0.66) 55%,
+      rgba(26,29,42,0.78) 85%,
+      var(--bg) 100%);
+  }
+  /* All direct children of .skyline (except the img) sit above the overlay */
+  .skyline > *:not(img){position:relative;z-index:2}
+
+  .skyline-text{
+    text-align:center;
+    padding:0 28px 60px 28px;
+    max-width:780px;width:100%;margin:0 auto;
+  }
+  /* Color + shadow overrides — scoped to elements over the image */
+  .skyline-text .mast,
+  .skyline .intro p b,
+  .skyline .what-label{
+    color:#f9d080;
+    text-shadow:0 2px 14px rgba(0,0,0,0.55);
+  }
+  .skyline-text .mast{margin-bottom:22px}
+  .skyline-text .h1-kicker{
+    color:#f9d080;
+    text-shadow:0 2px 14px rgba(0,0,0,0.55);
+    margin-bottom:18px;
+  }
+  .skyline-text h1{
+    color:#f7f1e3;
+    text-shadow:0 3px 22px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+    margin-bottom:24px;
+  }
+  .skyline-text h1 .em{color:#f9d080}
+  .skyline-text .dek{
+    color:#f7f1e3;
+    text-shadow:0 2px 14px rgba(0,0,0,0.6);
+    margin:0 auto;
+    max-width:600px;
+    font-size:1.1rem;
+    font-style:italic;
+    opacity:0.92;
+  }
+  /* Rule inside skyline — a subtle gold line on the dark image */
+  .skyline .rule{
+    background:rgba(240,192,96,0.45);
+    width:84px;height:1px;margin:0 auto 40px auto;
+  }
+  /* Intro paragraphs over the image */
+  .skyline .intro{
+    max-width:680px;margin:48px auto 48px auto;
+    padding:0 28px;
+  }
+  .skyline .intro p{
+    color:#f7f1e3;
+    text-shadow:0 2px 12px rgba(0,0,0,0.55);
+    font-size:1.05rem;line-height:1.65;margin-bottom:18px;
+  }
+  /* What-you-get list over the image */
+  .skyline .what{
+    max-width:680px;margin:72px auto 0 auto;padding:0 28px;
+  }
+  .skyline .what-label{
+    margin-bottom:18px;
+  }
+  .skyline .what ul{
+    text-align:left;list-style:none;padding:0;margin:0;
+  }
+  .skyline .what ul li{
+    color:#f7f1e3;
+    text-shadow:0 1px 10px rgba(0,0,0,0.55);
+    padding:10px 0;
+    border-bottom:1px solid rgba(240,192,96,0.18);
+  }
+  .skyline .what ul li:last-child{border-bottom:none}
+  .skyline .what ul li .num{color:#f9d080}
+
+  /* Flag strip + offer block — sit over the image at the bottom of the hero */
+  .skyline .flag-line{
+    max-width:760px;margin:72px auto 24px auto;padding:0 28px;
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;
+  }
+  .skyline .flag-line-foot{
+    color:#f9d080;
+    text-shadow:0 2px 12px rgba(0,0,0,0.55);
+    text-align:center;font-size:0.78rem;letter-spacing:2.5px;
+    text-transform:uppercase;font-weight:500;margin-bottom:36px;
+  }
+  .skyline .offer{
+    text-align:center;margin:0 auto 0 auto;padding:0 28px 12px 28px;
+  }
+  .skyline .offer .price{
+    color:#f9d080;
+    text-shadow:0 2px 12px rgba(0,0,0,0.55);
+  }
+  .skyline .offer .price .amount{
+    color:#f7f1e3;
+    text-shadow:0 2px 14px rgba(0,0,0,0.6);
+  }
+  .skyline .offer .stock{
+    color:#f7f1e3;
+    text-shadow:0 2px 12px rgba(0,0,0,0.6);
+    font-size:0.92rem;
+    font-style:normal;
+    letter-spacing:0.3px;
+    font-weight:400;
+    margin-bottom:32px;
+  }
+  .skyline .offer .stock #stockNum{
+    color:#f9d080;
+    font-weight:600;
+    font-size:1rem;
+  }
+  .skyline .offer .cta{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+    box-shadow:0 8px 28px rgba(0,0,0,0.45);
+  }
+  .skyline .offer .cta:hover{
+    background:var(--bg);
+    border-color:var(--bg);
+    color:var(--ink);
+  }
+  /* Primary CTA over the image — cream fill on dark for max contrast */
+  .skyline .offer-hero{
+    text-align:center;margin:8px auto 0 auto;padding:0 28px;
+    max-width:560px;
+  }
+  .skyline .offer-hero .price{
+    color:#f9d080;font-size:0.82rem;
+    text-shadow:0 2px 12px rgba(0,0,0,0.55);margin-bottom:8px;
+  }
+  .skyline .offer-hero .price .amount{
+    color:#f7f1e3;font-size:1.9rem;
+    text-shadow:0 2px 14px rgba(0,0,0,0.6);
+  }
+  .skyline .offer-hero .stock{
+    color:#e8dfc4;font-size:0.82rem;
+    text-shadow:0 1px 10px rgba(0,0,0,0.55);margin-bottom:24px;
+  }
+  .skyline .offer-hero .cta{
+    background:var(--bg);
+    border-color:var(--bg);
+    color:var(--ink);
+    padding:18px 52px;font-size:0.88rem;letter-spacing:3.5px;
+    box-shadow:0 10px 32px rgba(0,0,0,0.5);
+  }
+  .skyline .offer-hero .cta:hover{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+  }
+  .skyline .offer-hero .urgency-mini{
+    color:#e8dfc4;font-size:0.78rem;font-style:italic;
+    text-shadow:0 1px 10px rgba(0,0,0,0.55);
+    margin-top:18px;letter-spacing:0.5px;
+  }
+  .skyline .offer-hero .urgency-mini b{
+    color:#f9d080;font-style:normal;font-weight:600;
+  }
+
+  /* Secondary CTA — now over the image. Cream fill on dark background. */
+  .skyline .offer-secondary{
+    text-align:center;margin:32px auto 56px auto;
+  }
+  .skyline .offer-secondary .cta{
+    background:var(--bg);
+    border-color:var(--bg);
+    color:var(--ink);
+    box-shadow:0 8px 28px rgba(0,0,0,0.45);
+  }
+  .skyline .offer-secondary .cta:hover{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+  }
+
+  /* Foot — over the image, cream text with gold accents on links */
+  .skyline .foot{
+    max-width:680px;margin:0 auto;padding:24px 28px 0 28px;
+    border-top:1px solid rgba(240,192,96,0.25);
+    text-align:center;
+  }
+  .skyline .foot p{
+    color:#e8dfc4;
+    text-shadow:0 1px 10px rgba(0,0,0,0.55);
+    font-size:0.85rem;line-height:1.7;margin-bottom:12px;
+  }
+  .skyline .foot a{
+    color:#f9d080;
+    text-shadow:0 1px 10px rgba(0,0,0,0.55);
+    border-bottom:1px solid rgba(240,192,96,0.4);
+  }
+  .skyline .foot a:hover{
+    color:#f7f1e3;border-color:#f7f1e3;
+  }
+  .skyline .foot .signoff{
+    color:#e8dfc4;
+    text-shadow:0 1px 8px rgba(0,0,0,0.55);
+    font-size:0.6rem;letter-spacing:3px;
+    text-transform:uppercase;margin-top:20px;opacity:0.85;
+  }
+
+  /* Urgency line — cream content right after the image fade */
+  .urgency{
+    text-align:center;margin:24px auto 32px auto;
+    font-size:0.84rem;color:var(--ink-soft);font-style:italic;
+  }
+
+  @media (max-width:600px){
+    .skyline{
+      margin-top:-60px;
+      padding:80px 0 60px 0;
+    }
+    .skyline-text{padding:0 18px 44px 18px}
+    .skyline .intro,
+    .skyline .what{padding:0 18px}
+  }
+
+  /* Hero — editorial: kicker + main line stacked */
+  .h1-kicker{
+    display:block;font-size:1.05rem;letter-spacing:4.5px;
+    text-transform:uppercase;color:var(--gold);font-weight:600;
+    margin-bottom:20px;text-align:center;
+  }
+  h1{
+    font-size:3.6rem;font-weight:300;letter-spacing:-0.8px;
+    line-height:1.05;text-align:center;margin-bottom:28px;
+    color:var(--ink);
+  }
+  h1 .em{font-style:italic;color:var(--gold)}
+
+  .dek{
+    font-size:1.18rem;color:var(--ink-mid);
+    text-align:center;line-height:1.55;
+    max-width:560px;margin:0 auto 56px auto;
+  }
+
+  /* Thin rule */
+  .rule{
+    width:60px;height:1px;background:var(--rule);
+    margin:0 auto 56px auto;
+  }
+  .rule.tight{margin:32px auto 32px auto}
+
+  /* Personal intro — editorial voice */
+  .intro{
+    font-size:1.05rem;color:var(--ink-mid);
+    line-height:1.7;margin-bottom:48px;
+  }
+  .intro p{margin-bottom:18px}
+  .intro p:last-child{margin-bottom:0}
+  .intro b{color:var(--ink);font-weight:600}
+
+  /* Value list — clean, restrained */
+  .what{margin-bottom:48px}
+  .what-label{
+    font-size:0.62rem;letter-spacing:4px;color:var(--gold);
+    text-transform:uppercase;font-weight:600;margin-bottom:18px;
+    text-align:center;
+  }
+  .what ul{list-style:none;margin:0;padding:0}
+  .what li{
+    font-size:1.02rem;color:var(--ink);line-height:1.55;
+    padding:14px 0;border-top:1px solid var(--rule);
+    display:flex;gap:14px;align-items:baseline;
+  }
+  .what li:last-child{border-bottom:1px solid var(--rule)}
+  .what li .num{
+    font-size:0.7rem;color:var(--gold);font-weight:600;
+    letter-spacing:2px;min-width:24px;flex-shrink:0;
+  }
+  .what li b{color:var(--ink);font-weight:600}
+
+  /* Price + CTA */
+  .offer{text-align:center;margin-bottom:32px}
+  .price{
+    font-size:0.78rem;letter-spacing:3px;color:var(--ink-mid);
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  .price .amount{
+    font-size:1.6rem;color:var(--ink);font-weight:400;letter-spacing:-0.5px;
+    margin:0 4px;font-family:Georgia,serif;
+  }
+  .stock{
+    font-size:0.85rem;color:var(--ink-soft);font-style:italic;
+    margin-bottom:28px;
+  }
+  .stock #stockNum{color:var(--gold);font-style:normal;font-weight:600}
+
+  .cta{
+    display:inline-block;padding:16px 44px;
+    background:var(--ink);color:var(--bg);
+    font-size:0.82rem;letter-spacing:3px;text-transform:uppercase;
+    font-weight:600;text-decoration:none;font-family:Georgia,serif;
+    transition:all 0.2s;border:1px solid var(--ink);
+  }
+  .cta:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+
+  /* Quiet urgency — single line, no animations */
+  .urgency{
+    margin-top:18px;font-size:0.84rem;color:var(--ink-soft);font-style:italic;
+  }
+  .urgency b{color:var(--ink);font-style:normal;font-weight:600}
+
+  /* Footer */
+  .foot{
+    margin-top:72px;padding-top:32px;border-top:1px solid var(--rule);
+    text-align:center;
+  }
+  .foot p{
+    font-size:0.82rem;color:var(--ink-soft);line-height:1.7;
+    margin-bottom:10px;
+  }
+  .foot a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:all 0.15s}
+  .foot a:hover{border-color:var(--gold)}
+  .foot .signoff{
+    font-size:0.7rem;letter-spacing:3px;color:var(--ink);
+    text-transform:uppercase;margin-top:18px;font-weight:800;
+  }
+  .foot .disclaimer{
+    font-size:0.78rem;color:var(--ink);
+    font-style:italic;line-height:1.55;font-weight:600;
+    max-width:560px;margin:20px auto 0 auto;
+    opacity:1;
+  }
+
+  @media (max-width:600px){
+    body{padding:60px 18px 60px 18px}
+    h1{font-size:2.4rem}
+    .h1-kicker{font-size:0.82rem;letter-spacing:3.2px;margin-bottom:14px}
+    .ball{font-size:3.4rem;margin-bottom:28px}
+    .lang select{font-size:0.74rem;padding:8px 28px 8px 12px}
+    .dek{font-size:1.02rem}
+    .intro{font-size:0.97rem}
+    .price .amount{font-size:1.4rem}
+    .cta{padding:14px 32px;font-size:0.76rem}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- Skyline mega-hero with text overlay — image covers most of the page -->
+  <div class="skyline">
+    <img src="kc-skyline.jpg" alt="Kansas City skyline at golden hour">
+
+    <div class="skyline-text">
+      <div class="mast">ALL ACCESS KC</div>
+      <div class="h1-kicker">Welcome to</div>
+      <h1><span class="em">Kansas City</span>.</h1>
+      <p class="dek">
+        The local's $5 visitor guide. Restaurants, bars, neighborhoods, day plans, transit, parking — written by locals, updated weekly.
+      </p>
+    </div>
+
+    <!-- Price + CTA — right under the headline -->
+    <div class="offer">
+      <div class="price"><span>Full guide</span> · <span class="amount">$5</span></div>
+      <a class="cta" href="#">Unlock the guide</a>
+    </div>
+
+    <div class="rule"></div>
+
+    <!-- Personal intro — editorial voice, over the image -->
+    <div class="intro">
+      <p>
+        Hi — I'm Alex. I live in Kansas City. I've spent years figuring out where locals actually go, where they don't, and which spots quietly book up first. Whether you're here for a weekend, a week, or a major sporting summer — this is the guide.
+      </p>
+      <p>
+        <b>$5 unlocks the full guide</b> — on whichever device you're reading this on. Updated weekly, indefinitely.
+      </p>
+    </div>
+
+    <!-- What's inside — list, not a card grid -->
+    <div class="what">
+      <div class="what-label">What you get</div>
+      <ul>
+        <li><span class="num">01</span><span>Every BBQ joint, every bar, every neighborhood — with the real reservation link, not a screenshot.</span></li>
+        <li><span class="num">02</span><span>Sports bars by team and league — where to watch any game in town.</span></li>
+        <li><span class="num">03</span><span>Visitor essentials — visas, tipping, currency, eSIM, transit, parking, what to bring.</span></li>
+        <li><span class="num">04</span><span>Day plans for every neighborhood and every visitor profile — first-timer, family, foodie, sports fan.</span></li>
+        <li><span class="num">05</span><span>Booking help when you can't get a seat — email and we sort it.</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Foot — cream background, below the image -->
+  <div class="foot">
+    <p>One device, one purchase. Reservation links go directly to each spot's booking page — if a venue is full, email and we find you an alternative. Updated weekly.</p>
+    <p>Questions? <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a></p>
+    <div class="signoff">All Access KC · Independent Kansas City Visitor Guide</div>
+    <div class="disclaimer">Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government.</div>
+  </div>
+
+  <!-- Language picker — fixed top-right pill -->
+  <div class="lang">
+    <select id="langSelect" aria-label="Language" title="First switch fetches translations live (~1–3s). Cached after that, switching is instant.">
+      <option value="en">🇺🇸  English</option>
+      <option value="es">🇪🇸  Español</option>
+      <option value="pt">🇧🇷  Português</option>
+      <option value="fr">🇫🇷  Français</option>
+      <option value="de">🇩🇪  Deutsch</option>
+      <option value="it">🇮🇹  Italiano</option>
+      <option value="nl">🇳🇱  Nederlands</option>
+      <option value="pl">🇵🇱  Polski</option>
+      <option value="tr">🇹🇷  Türkçe</option>
+      <option value="hr">🇭🇷  Hrvatski</option>
+      <option value="ja">🇯🇵  日本語</option>
+      <option value="ko">🇰🇷  한국어</option>
+      <option value="ar">🇸🇦  العربية</option>
+      <option value="fa">🇮🇷  فارسی</option>
+      <option value="ru">🇷🇺  Русский</option>
+      <option value="zh">🇨🇳  中文</option>
+    </select>
+    <div class="lang-status" id="langStatus" aria-live="polite"></div>
+  </div>
+
+
+</main>
+
+<script>
+  // No-op for legacy applyLang call site — countdown + scarcity removed.
+  function updateAll(){}
+
+  // ── Translations ──
+  // Static dictionary intentionally minimal. The hero copy is in plain English
+  // in the HTML; non-English visitors are served by the live Google-Translate
+  // fallback further down (translateDOMviaApi). Per-language hand-curated
+  // marketing copy can be added back here later if desired.
+  var T = { en: {} };  // stub — live translator handles all languages
+
+  // RTL languages — flip page direction so Arabic and Persian read right-to-left
+  var RTL = { ar: 1, fa: 1 };
+
+  // ── Client-side translation via Google's free /translate_a/single endpoint.
+  var GT_ENDPOINT = 'https://translate.googleapis.com/translate_a/single';
+  var GT_DELIM = ' ||| ', GT_CHUNK = 2500, GT_PARALLEL = 10;
+  var I18N_LANG_NAMES = { en:'English', es:'Español', pt:'Português', fr:'Français',
+    de:'Deutsch', it:'Italiano', nl:'Nederlands', pl:'Polski', tr:'Türkçe',
+    hr:'Hrvatski', ja:'日本語', ko:'한국어', ar:'العربية', fa:'فارسی',
+    ru:'Русский', zh:'中文' };
+  function setI18nStatus(state, code){
+    var el = document.getElementById('langStatus');
+    if (!el) return;
+    if (state === 'translating') {
+      el.textContent = 'Translating · ' + (I18N_LANG_NAMES[code] || code);
+      el.classList.add('show');
+    } else el.classList.remove('show');
+  }
+  var i18nCache = {};
+  try { i18nCache = JSON.parse(localStorage.getItem('i18nCache_v1') || '{}'); } catch(e){}
+  function i18nSaveCache(){ try { localStorage.setItem('i18nCache_v1', JSON.stringify(i18nCache)); } catch(e){} }
+  function i18nCollectNodes(){
+    var out = [];
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var t = n.textContent;
+        if (!t || !t.trim()) return NodeFilter.FILTER_REJECT;
+        if (/^[\s\d\W]+$/.test(t)) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode;
+        while (p && p.nodeType === 1) {
+          var tag = p.nodeName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'CODE') return NodeFilter.FILTER_REJECT;
+          if (p.hasAttribute('data-t')) return NodeFilter.FILTER_REJECT;
+          if (p.classList && p.classList.contains('notranslate')) return NodeFilter.FILTER_REJECT;
+          if (p.getAttribute('translate') === 'no') return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n; while ((n = walker.nextNode())) { if (!n.__orig) n.__orig = n.textContent; out.push(n); }
+    return out;
+  }
+  function i18nFetchBatch(texts, code){
+    var joined = texts.map(function(t){ return t.trim(); }).join(GT_DELIM);
+    var url = GT_ENDPOINT + '?client=gtx&sl=en&tl=' + code + '&dt=t&q=' + encodeURIComponent(joined);
+    return fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      var full = '';
+      if (data && data[0]) data[0].forEach(function(seg){ if (seg && seg[0]) full += seg[0]; });
+      var parts = full.split(/\s*\|\|\|\s*/);
+      while (parts.length < texts.length) parts.push(texts[parts.length].trim());
+      return parts;
+    });
+  }
+  function translateDOMviaApi(code){
+    if (code === 'en') {
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var n; while ((n = walker.nextNode())) if (n.__orig) n.textContent = n.__orig;
+      setI18nStatus('idle');
+      return;
+    }
+    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+    var nodes = i18nCollectNodes();
+    if (!nodes.length) return;
+    // Dedupe identical phrases (Map / Order: / free / etc.)
+    var uniqueMap = {}, uniqueOrder = [];
+    nodes.forEach(function(node){
+      var orig = node.__orig, origTrim = orig.trim();
+      var key = code + ':' + origTrim;
+      if (i18nCache[key]) {
+        var lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
+        node.textContent = lead + i18nCache[key] + trail; return;
+      }
+      if (!uniqueMap[origTrim]) { uniqueMap[origTrim] = []; uniqueOrder.push(origTrim); }
+      uniqueMap[origTrim].push(node);
+    });
+    if (!uniqueOrder.length) return;
+    var batches = [], pt = [], chars = 0;
+    uniqueOrder.forEach(function(text){
+      pt.push(text); chars += text.length + GT_DELIM.length;
+      if (chars > GT_CHUNK) { batches.push({texts:pt}); pt=[]; chars=0; }
+    });
+    if (pt.length) batches.push({texts:pt});
+    setI18nStatus('translating', code);
+    var idx = 0, inFlight = 0, completed = 0;
+    function applyBatch(batchTexts, parts){
+      batchTexts.forEach(function(text, j){
+        var t = (parts[j] || text).trim();
+        i18nCache[code + ':' + text] = t;
+        (uniqueMap[text] || []).forEach(function(node){
+          var orig = node.__orig;
+          var lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
+          node.textContent = lead + t + trail;
+        });
+      });
+    }
+    function batchDone(){
+      completed++; inFlight--;
+      if (completed === batches.length) { i18nSaveCache(); setI18nStatus('idle'); }
+      else spawn();
+    }
+    function spawn(){
+      while (inFlight < GT_PARALLEL && idx < batches.length) {
+        var b = batches[idx++]; inFlight++;
+        (function(batchTexts){
+          i18nFetchBatch(batchTexts, code)
+            .then(function(parts){ applyBatch(batchTexts, parts); })
+            .catch(function(err){ console.warn('[i18n] batch failed:', err); })
+            .then(batchDone);
+        })(b.texts);
+      }
+    }
+    spawn();
+  }
+  function triggerGoogleTranslate(code){ translateDOMviaApi(code); }
+  document.addEventListener('toggle', function(e){
+    if (e.target.tagName !== 'DETAILS' || !e.target.open) return;
+    var lang = document.documentElement.lang;
+    if (lang && lang !== 'en') translateDOMviaApi(lang);
+  }, true);
+
+  function applyLang(code){
+    var dict = T[code] || T.en;
+    document.documentElement.lang = code;
+    document.documentElement.dir = RTL[code] ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-t]').forEach(function(el){
+      var key = el.getAttribute('data-t');
+      var val = dict[key];
+      if (val == null) return;
+      if (key === 'h1' && Array.isArray(val)) {
+        // Even-indexed parts are plain; odd-indexed parts get .em styling
+        el.innerHTML = val.map(function(p, i){
+          return i % 2 === 0 ? p : '<span class="em">' + p + '</span>';
+        }).join('');
+      } else if (key === 'intro1' || key === 'intro2' || key === 'footP2') {
+        // Render **bold** markdown into <b> tags + allow raw HTML for the email link
+        var html = val.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+        el.innerHTML = html;
+      } else {
+        el.textContent = val;
+      }
+    });
+    // Sync the dropdown to the current language
+    var sel = document.getElementById('langSelect');
+    if (sel && sel.value !== code) sel.value = code;
+    try { localStorage.setItem('kc_lang', code); } catch(e){}
+    updateAll();
+    // Drive Google Translate for anything outside data-t coverage
+    triggerGoogleTranslate(code);
+  }
+
+  // Wire the dropdown
+  var langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.addEventListener('change', function(){
+      applyLang(langSelect.value);
+    });
+  }
+
+  // First load — saved choice → browser language → English
+  (function(){
+    var saved = null;
+    try { saved = localStorage.getItem('kc_lang'); } catch(e){}
+    if (saved && T[saved]) { applyLang(saved); return; }
+    var nav = (navigator.language || 'en').slice(0,2);
+    if (T[nav]) applyLang(nav); else applyLang('en');
+  })();
+</script>
+
+</body>
+</html>

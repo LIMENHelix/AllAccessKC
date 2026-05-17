@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>All Access KC — Guide unlocked</title>
+<meta name="description" content="Your All Access KC visitor guide is unlocked.">
+<style>
+  :root{
+    --bg:#f7f1e3;
+    --bg-soft:#fbf6e8;
+    --bg-card:#ffffff;
+    --ink:#1a1d2a;
+    --ink-mid:#3d4053;
+    --ink-soft:#646774;
+    --ink-faint:#9a9b9f;
+    --rule:#d4cdb8;
+    --gold:#8b6914;
+    --gold-bright:#b8881c;
+    --accent-soft:#e8dfc4;
+    --green:#3e8a52;
+    --green-soft:#dbeede;
+    --yellow:#e8b923;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{
+    min-height:100%;background:var(--bg);font-family:Georgia,'Times New Roman',serif;
+    color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  body{position:relative;padding:60px 24px 80px 24px}
+  main{max-width:560px;margin:0 auto;text-align:center}
+
+  .check{
+    width:64px;height:64px;border-radius:50%;
+    background:var(--green-soft);
+    border:2px solid var(--green);
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-bottom:28px;font-size:1.8rem;color:var(--yellow);
+  }
+  .badge{
+    display:inline-block;font-size:0.7rem;letter-spacing:3px;
+    color:#ffffff;text-transform:uppercase;font-weight:800;
+    background:var(--green);
+    border:none;border-radius:999px;
+    padding:6px 14px;margin-bottom:22px;
+    box-shadow:0 2px 8px rgba(62,138,82,0.35);
+  }
+  h1{
+    font-size:2.6rem;font-weight:300;letter-spacing:-0.3px;line-height:1.15;
+    margin-bottom:14px;color:var(--ink);
+  }
+  h1 .em{color:var(--gold);font-style:italic}
+  .lede{
+    font-size:1.02rem;color:var(--ink-mid);max-width:480px;
+    margin:0 auto 38px auto;line-height:1.65;
+  }
+
+  /* QR pass — centerpiece, cream card on cream bg with gold border */
+  .pass{
+    background:var(--bg-soft);
+    border:1px solid var(--gold);border-left-width:3px;border-right-width:3px;
+    padding:34px 28px 28px 28px;margin-bottom:32px;
+    position:relative;
+    box-shadow:0 6px 32px rgba(139,105,20,0.1);
+  }
+  .pass::before{
+    content:'';position:absolute;top:12px;left:12px;right:12px;bottom:12px;
+    border:1px solid rgba(139,105,20,0.18);pointer-events:none;
+  }
+  .pass-label{
+    font-size:0.6rem;letter-spacing:4px;color:var(--gold);
+    text-transform:uppercase;margin-bottom:6px;font-weight:600;
+  }
+  .pass-title{
+    font-size:1.2rem;color:var(--ink);letter-spacing:0.2px;
+    margin-bottom:24px;font-weight:400;
+  }
+  .pass-title .em{color:var(--gold);font-style:italic}
+  .qr-frame{
+    display:inline-block;background:#ffffff;padding:14px;
+    margin-bottom:18px;line-height:0;
+    border:1px solid var(--rule);
+  }
+  .qr-frame img{
+    display:block;width:240px;height:240px;
+  }
+  .pass-id{
+    font-size:0.66rem;letter-spacing:2px;color:var(--ink-soft);
+    font-family:'Courier New',monospace;margin-bottom:6px;
+  }
+  .pass-foot{
+    font-size:0.82rem;color:var(--ink-mid);line-height:1.6;
+    max-width:380px;margin:0 auto;font-style:italic;
+  }
+
+  .open-btn{
+    display:inline-block;padding:18px 48px;margin-top:8px;
+    background:var(--ink);color:var(--bg);
+    font-size:0.86rem;letter-spacing:3px;text-transform:uppercase;
+    font-weight:600;text-decoration:none;font-family:Georgia,serif;
+    border:1px solid var(--ink);transition:all 0.2s;
+  }
+  .open-btn:hover{
+    background:var(--gold);border-color:var(--gold);color:var(--bg);
+  }
+
+  .tip{
+    background:var(--bg-soft);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--gold);
+    padding:16px 20px;margin-bottom:14px;text-align:left;
+  }
+  .tip-label{
+    font-size:0.6rem;letter-spacing:3px;color:var(--gold);
+    text-transform:uppercase;margin-bottom:6px;font-weight:600;
+  }
+  .tip-body{font-size:0.95rem;color:var(--ink-mid);line-height:1.65}
+  .tip-body b{color:var(--ink);font-weight:600}
+  .tip-body a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(139,105,20,0.3);transition:all 0.15s}
+  .tip-body a:hover{color:var(--ink);border-color:var(--ink)}
+
+  footer{
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);
+    font-size:0.7rem;letter-spacing:3px;font-weight:800;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .disclaimer{
+    font-size:0.78rem;color:var(--ink);
+    font-style:italic;line-height:1.55;font-weight:600;
+    max-width:560px;margin:18px auto 0 auto;text-align:center;
+    opacity:1;
+  }
+
+  /* Flag strip — matches kc.html sizing (flex layout, 760px max, 24×36 flags) */
+  .flag-line{
+    max-width:760px;margin:24px auto 24px auto;padding:0 28px;
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;
+  }
+  .flag-line .flag{
+    height:24px;width:36px;
+    object-fit:cover;
+    box-shadow:0 1px 3px rgba(26,29,42,0.18);
+    border:1px solid rgba(26,29,42,0.08);
+  }
+  .flag-line-foot{
+    text-align:center;font-size:0.78rem;color:var(--ink-mid);
+    font-style:italic;margin-bottom:24px;font-weight:600;
+  }
+
+  /* Skyline hero — Union Station + KC skyline at twilight.
+     Hero content overlays the image; tips + foot stay on cream below. */
+  .skyline{
+    position:relative;overflow:hidden;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-top:-60px;                   /* cancel body padding-top */
+    margin-bottom:36px;
+    padding:96px 24px 28px 24px;
+    background:#1a1d2a;
+    text-align:center;
+  }
+  .skyline > img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:center 45%;
+    z-index:0;
+  }
+  .skyline::before{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,
+      rgba(26,29,42,0.34) 0%,
+      rgba(26,29,42,0.38) 25%,
+      rgba(26,29,42,0.34) 45%,
+      rgba(26,29,42,0.26) 60%,
+      rgba(26,29,42,0.18) 72%,
+      rgba(247,241,227,0.12) 82%,
+      rgba(247,241,227,0.40) 90%,
+      rgba(247,241,227,0.72) 96%,
+      var(--bg) 100%);
+  }
+  .skyline > *:not(img){position:relative;z-index:2}
+  .skyline-inner{max-width:560px;margin:0 auto}
+
+  /* 1 inch (96px) gap between Open-the-guide button and first tip,
+     so the image shows through between them. */
+  .skyline .tip.tip-first{margin-top:96px}
+
+  /* Hero elements over the dark image */
+  .skyline .check{
+    box-shadow:0 8px 28px rgba(0,0,0,0.45);
+  }
+  .skyline .badge{
+    color:#ffffff;
+    background:var(--green);
+    box-shadow:0 3px 14px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.15);
+  }
+  .skyline h1{
+    color:#f7f1e3;
+    text-shadow:0 3px 22px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+  }
+  .skyline h1 .em{color:#f9d080}
+  .skyline .lede{
+    color:#f7f1e3;
+    text-shadow:0 2px 14px rgba(0,0,0,0.6);
+  }
+  /* QR pass card — boost shadow so it lifts from the dark image */
+  .skyline .pass{
+    box-shadow:0 12px 40px rgba(0,0,0,0.5);
+  }
+  /* Open-the-guide CTA — gold-bright over dark image, matches kc.html */
+  .skyline .open-btn{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+    box-shadow:0 10px 32px rgba(0,0,0,0.5);
+  }
+  .skyline .open-btn:hover{
+    background:var(--bg);
+    border-color:var(--bg);
+    color:var(--ink);
+  }
+
+  /* Language picker — fixed top-right pill (matches other pages) */
+  .lang{
+    position:fixed;top:14px;right:14px;
+    z-index:60;
+  }
+  .lang select{
+    appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    background:rgba(251,246,232,0.92);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--rule);
+    color:var(--ink);font-family:Georgia,serif;
+    padding:9px 34px 9px 14px;font-size:0.82rem;
+    cursor:pointer;line-height:1.2;
+    border-radius:999px;
+    background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3e%3cpath fill='%238b6914' d='M0 0l5 6 5-6z'/%3e%3c/svg%3e");
+    background-repeat:no-repeat;background-position:right 14px center;background-size:10px 6px;
+    box-shadow:0 3px 14px rgba(26,29,42,0.14);
+    transition:all 0.15s;max-width:240px;
+  }
+  .lang select:hover{border-color:var(--gold);box-shadow:0 5px 18px rgba(139,105,20,0.22)}
+  .lang select:focus{outline:none;border-color:var(--gold)}
+  .lang select option{background:var(--bg-soft);color:var(--ink);padding:8px;border-radius:0}
+  @media (max-width:600px){
+    .lang select{font-size:0.74rem;padding:8px 28px 8px 12px}
+  }
+
+  /* Translation-in-progress pill below the language picker */
+  .lang-status{
+    margin-top:8px;font-size:0.72rem;
+    color:#ffffff;font-style:italic;font-weight:500;
+    text-align:right;letter-spacing:0.3px;
+    background:rgba(26,29,42,0.78);
+    padding:5px 12px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:7px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.25);
+    opacity:0;transform:translateY(-4px);
+    transition:opacity 0.18s, transform 0.18s;
+    pointer-events:none;float:right;
+  }
+  .lang-status.show{opacity:1;transform:translateY(0)}
+  .lang-status::before{
+    content:'';display:inline-block;
+    width:10px;height:10px;
+    border:1.5px solid #fff3a8;border-top-color:transparent;
+    border-radius:50%;
+    animation:i18n-spin 0.7s linear infinite;
+  }
+  @keyframes i18n-spin{to{transform:rotate(360deg)}}
+
+  /* ── Google Translate widget — hidden, driven by our .lang select ── */
+  .goog-te-banner-frame.skiptranslate,
+  .goog-te-balloon-frame,
+  .goog-logo-link,
+  .goog-te-gadget img,
+  .goog-te-gadget > span > a{display:none!important}
+  .goog-te-gadget{font-size:0!important;color:transparent!important}
+  body{top:0!important;position:relative!important}
+  .goog-tooltip,.goog-tooltip:hover{display:none!important}
+  .goog-text-highlight{background:none!important;box-shadow:none!important;border:none!important}
+  #google_translate_element{position:absolute!important;top:-9999px!important;left:-9999px!important;visibility:hidden!important}
+</style>
+</head>
+<body>
+
+  <!-- Language picker — fixed top-right pill -->
+  <div class="lang">
+    <select id="langSelect" aria-label="Language" title="First switch fetches translations live (~1–3s). Cached after that, switching is instant.">
+      <option value="en">🇺🇸  English</option>
+      <option value="es">🇪🇸  Español</option>
+      <option value="pt">🇧🇷  Português</option>
+      <option value="fr">🇫🇷  Français</option>
+      <option value="de">🇩🇪  Deutsch</option>
+      <option value="it">🇮🇹  Italiano</option>
+      <option value="nl">🇳🇱  Nederlands</option>
+      <option value="pl">🇵🇱  Polski</option>
+      <option value="tr">🇹🇷  Türkçe</option>
+      <option value="hr">🇭🇷  Hrvatski</option>
+      <option value="ja">🇯🇵  日本語</option>
+      <option value="ko">🇰🇷  한국어</option>
+      <option value="ar">🇸🇦  العربية</option>
+      <option value="fa">🇮🇷  فارسی</option>
+      <option value="ru">🇷🇺  Русский</option>
+      <option value="zh">🇨🇳  中文</option>
+    </select>
+    <div class="lang-status" id="langStatus" aria-live="polite"></div>
+  </div>
+
+
+<!-- Skyline hero — Union Station view, content overlaid -->
+<div class="skyline">
+  <img src="kc-skyline-2.jpg" alt="Kansas City skyline with Union Station at twilight">
+  <div class="skyline-inner">
+
+    <div class="check">✓</div>
+    <div class="badge" data-t="paymentReceived">Payment received</div>
+
+    <h1><span data-t="youreIn1">You're</span> <span class="em" data-t="youreIn2">in</span>.</h1>
+    <p class="lede" data-t="lede">
+      Your Kansas City visitor guide is unlocked. Bound to this device.
+    </p>
+
+    <a class="open-btn" href="kc-guide.html" target="_blank" rel="noopener" data-t="openGuide">Open the guide</a>
+
+    <!-- Unlock receipt — hidden while previewing the page without it. Remove style to restore. -->
+    <div class="pass" style="display:none">
+      <div class="pass-label" data-t="passLabel">Guide unlocked · All Access KC</div>
+      <div class="pass-title"><span data-t="allAccess">Full guide</span> · <span class="em" data-t="paid">$5 paid</span></div>
+      <div class="qr-frame">
+        <img id="qr" alt="Your unlock receipt QR code" src="">
+      </div>
+      <div class="pass-id" id="passId">UNLOCK · loading…</div>
+      <div class="pass-foot" data-t="passFoot">
+        This QR is your unlock receipt — verifies a real $5 purchase on this device. Don't share — code is device-bound.
+      </div>
+    </div>
+
+    <div class="tip tip-first">
+      <div class="tip-label" data-t="resLabel">How reservations work</div>
+      <div class="tip-body" data-t="resBody">
+        Each spot in the guide has a direct link to <b>its own reservation page</b> (OpenTable, Resy, the venue's site). Click, book, done. If a place is full or you hit a wall, email <a href="mailto:info@allaccesskc.com?subject=All%20Access%20KC%20%E2%80%94%20Booking%20help">info@allaccesskc.com</a> and we'll find you an alternative.
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-label" data-t="updatesLabel">Updates</div>
+      <div class="tip-body" data-t="updatesBody">
+        The guide is live — new spots, party calendar, and late-breaking secrets land every Monday through the summer. Come back to this URL any time.
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-label" data-t="lostLabel">Lost the link</div>
+      <div class="tip-body" data-t="lostBody">
+        Search your email for the Stripe receipt — it has a link back to your unlocked guide. Or bookmark this page now.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<main>
+
+  <footer data-t="footer">ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE</footer>
+  <div class="disclaimer" data-t="disclaimer">Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government.</div>
+
+</main>
+
+<script>
+  // Read session_id from Stripe success URL, or fall back to local
+  var params = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id') || params.get('session');
+
+  // If first visit on this device with a fresh Stripe session, persist it
+  if (sessionId) {
+    try { localStorage.setItem('kc_pass', sessionId); } catch(e){}
+  } else {
+    // Returning visitor — try restoring from localStorage
+    try { sessionId = localStorage.getItem('kc_pass'); } catch(e){}
+  }
+
+  // Generate a stable per-device pass ID even if Stripe session not provided
+  if (!sessionId) {
+    try {
+      sessionId = localStorage.getItem('kc_pass_local');
+      if (!sessionId) {
+        sessionId = 'LOCAL-' + Math.random().toString(36).slice(2,10).toUpperCase() + '-' + Date.now().toString(36).toUpperCase();
+        localStorage.setItem('kc_pass_local', sessionId);
+      }
+    } catch(e) {
+      sessionId = 'PREVIEW-' + Date.now().toString(36).toUpperCase();
+    }
+  }
+
+  // Verification URL encoded in the QR
+  var verifyUrl = window.location.origin + '/kc-verify.html?s=' + encodeURIComponent(sessionId);
+
+  // Render QR via goqr.me (free, no key, reliable)
+  document.getElementById('qr').src =
+    'https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=4&qzone=2&data=' +
+    encodeURIComponent(verifyUrl);
+
+  // Pretty pass ID for human display — shortened version
+  var shortId = (sessionId.match(/[A-Z0-9]{4,8}/g) || []).join('').slice(-8) || sessionId.slice(-8);
+  document.getElementById('passId').textContent = 'PASS · ' + shortId.toUpperCase();
+
+  // ── i18n ───────────────────────────────────────────────────
+  // Per-page T dict. Keys match kc.html where it makes sense.
+  var T = {
+    en: { paymentReceived:"Payment received", youreIn1:"You're", youreIn2:"in", lede:"Your Kansas City visitor guide is unlocked. Bound to this device.", passLabel:"Guide unlocked · All Access KC", allAccess:"Full guide", paid:"$5 paid", passFoot:"This QR is your unlock receipt — verifies a real $5 purchase on this device. Don't share — code is device-bound.", openGuide:"Open the guide", resLabel:"How reservations work", resBody:'Each spot in the guide has a direct link to <b>its own reservation page</b> (OpenTable, Resy, the venue\'s site). Click, book, done. If a place is full or you hit a wall, email <a href="mailto:info@allaccesskc.com?subject=All%20Access%20KC%20%E2%80%94%20Booking%20help">info@allaccesskc.com</a> and we\'ll find you an alternative.', updatesLabel:"Updates", updatesBody:"The guide is live — new spots, party calendar, and late-breaking secrets land every Monday through the summer. Come back to this URL any time.", lostLabel:"Lost the link", lostBody:"Search your email for the Stripe receipt — it has a link back to your unlocked guide. Or bookmark this page now.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    es: { paymentReceived:"Pago recibido", youreIn1:"Ya estás", youreIn2:"dentro", lede:"Tu guía para visitantes de Kansas City está desbloqueada. Vinculada a este dispositivo durante todo el verano.", passLabel:"Guía desbloqueada · All Access KC", allAccess:"Guía completa", paid:"$5 pagado", passFoot:"Este QR es tu recibo de desbloqueo — verifica una compra real de $5 en este dispositivo. No lo compartas — el código está vinculado al dispositivo.", openGuide:"Abrir la guía", resLabel:"Cómo funcionan las reservas", resBody:'Cada lugar en la guía tiene un enlace directo a <b>su propia página de reservas</b> (OpenTable, Resy, sitio del local). Haz clic, reserva, listo. Si está lleno, escribe a <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> y te buscamos una alternativa.', updatesLabel:"Actualizaciones", updatesBody:"La guía está viva — nuevos lugares, calendario de fiestas, y secretos de último minuto cada lunes durante el verano. Vuelve a esta URL cuando quieras.", lostLabel:"Perdiste el enlace", lostBody:"Busca el recibo de Stripe en tu correo — tiene un enlace de vuelta a tu guía desbloqueada. O marca esta página ahora.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    pt: { paymentReceived:"Pagamento recebido", youreIn1:"Você está", youreIn2:"dentro", lede:"Seu guia para visitantes de Kansas City está desbloqueado. Vinculado a este dispositivo durante todo o verão.", passLabel:"Guia desbloqueado · All Access KC", allAccess:"Guia completo", paid:"$5 pago", passFoot:"Este QR é seu recibo de desbloqueio — verifica uma compra real de $5 neste dispositivo. Não compartilhe — o código está vinculado ao dispositivo.", openGuide:"Abrir o guia", resLabel:"Como funcionam as reservas", resBody:'Cada lugar no guia tem um link direto para <b>sua própria página de reservas</b> (OpenTable, Resy, site do local). Clica, reserva, pronto. Se estiver lotado, escreva para <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> e encontramos uma alternativa.', updatesLabel:"Atualizações", updatesBody:"O guia está vivo — novos lugares, calendário de festas, e segredos de última hora toda segunda durante o verão. Volte para esta URL quando quiser.", lostLabel:"Perdeu o link", lostBody:"Procure o recibo do Stripe no seu email — tem um link de volta para o seu guia desbloqueado. Ou favorite esta página agora.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    fr: { paymentReceived:"Paiement reçu", youreIn1:"Vous êtes", youreIn2:"dedans", lede:"Votre guide pour visiteurs de Kansas City est débloqué. Lié à cet appareil pendant tout l'été.", passLabel:"Guide débloqué · All Access KC", allAccess:"Guide complet", paid:"$5 payé", passFoot:"Ce QR est votre reçu de déblocage — vérifie un vrai achat de $5 sur cet appareil. Ne partagez pas — le code est lié à l'appareil.", openGuide:"Ouvrir le guide", resLabel:"Comment fonctionnent les réservations", resBody:'Chaque lieu dans le guide a un lien direct vers <b>sa propre page de réservation</b> (OpenTable, Resy, site du lieu). Cliquez, réservez, fini. Si complet, écrivez à <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> et on trouve une alternative.', updatesLabel:"Mises à jour", updatesBody:"Le guide est vivant — nouveaux lieux, calendrier des fêtes, et secrets de dernière minute chaque lundi pendant l'été. Revenez à cette URL quand vous voulez.", lostLabel:"Lien perdu", lostBody:"Cherchez le reçu Stripe dans votre email — il a un lien vers votre guide débloqué. Ou mettez cette page en favoris maintenant.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    de: { paymentReceived:"Zahlung erhalten", youreIn1:"Du bist", youreIn2:"drin", lede:"Dein Kansas-City-Besucherführer ist freigeschaltet. An dieses Gerät gebunden für den ganzen Sommer.", passLabel:"Guide freigeschaltet · All Access KC", allAccess:"Vollständiger Guide", paid:"$5 bezahlt", passFoot:"Dieser QR ist deine Freischaltungsquittung — verifiziert einen echten $5-Kauf auf diesem Gerät. Nicht teilen — der Code ist an das Gerät gebunden.", openGuide:"Guide öffnen", resLabel:"So funktionieren Reservierungen", resBody:'Jeder Ort im Guide hat einen direkten Link zur <b>eigenen Reservierungsseite</b> (OpenTable, Resy, Webseite des Lokals). Klicken, reservieren, fertig. Wenn voll, schreibe an <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> und wir finden eine Alternative.', updatesLabel:"Updates", updatesBody:"Der Guide ist lebendig — neue Orte, Party-Kalender und Last-Minute-Geheimnisse jeden Montag während des Sommers. Komm jederzeit zu dieser URL zurück.", lostLabel:"Link verloren", lostBody:"Suche die Stripe-Quittung in deiner E-Mail — sie hat einen Link zurück zu deinem freigeschalteten Guide. Oder speichere diese Seite jetzt als Lesezeichen.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    it: { paymentReceived:"Pagamento ricevuto", youreIn1:"Sei", youreIn2:"dentro", lede:"La tua guida per visitatori di Kansas City è sbloccata. Legata a questo dispositivo per tutta l'estate.", passLabel:"Guida sbloccata · All Access KC", allAccess:"Guida completa", paid:"$5 pagati", passFoot:"Questo QR è la tua ricevuta di sblocco — verifica un vero acquisto da $5 su questo dispositivo. Non condividere — il codice è legato al dispositivo.", openGuide:"Apri la guida", resLabel:"Come funzionano le prenotazioni", resBody:'Ogni locale nella guida ha un link diretto alla <b>propria pagina di prenotazione</b> (OpenTable, Resy, sito del locale). Clicca, prenota, fatto. Se è pieno, scrivi a <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> e troviamo un\'alternativa.', updatesLabel:"Aggiornamenti", updatesBody:"La guida è viva — nuovi locali, calendario delle feste e segreti dell\'ultimo minuto ogni lunedì durante l\'estate. Torna a questo URL quando vuoi.", lostLabel:"Link perso", lostBody:"Cerca la ricevuta Stripe nella tua email — ha un link alla tua guida sbloccata. Oppure salva questa pagina nei segnalibri ora.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    nl: { paymentReceived:"Betaling ontvangen", youreIn1:"Je bent", youreIn2:"binnen", lede:"Je Kansas City-bezoekersgids is ontgrendeld. Gekoppeld aan dit apparaat tijdens de hele zomer.", passLabel:"Gids ontgrendeld · All Access KC", allAccess:"Volledige gids", paid:"$5 betaald", passFoot:"Deze QR is je ontgrendelingsbewijs — verifieert een echte $5-aankoop op dit apparaat. Niet delen — de code is gekoppeld aan het apparaat.", openGuide:"Open de gids", resLabel:"Hoe reserveringen werken", resBody:'Elke locatie in de gids heeft een directe link naar <b>de eigen reserveringspagina</b> (OpenTable, Resy, site van de locatie). Klik, boek, klaar. Vol? Mail <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> en we vinden een alternatief.', updatesLabel:"Updates", updatesBody:"De gids leeft — nieuwe locaties, feestkalender en last-minute geheimen elke maandag tijdens de zomer. Kom terug naar deze URL wanneer je wilt.", lostLabel:"Link kwijt", lostBody:"Zoek de Stripe-bon in je email — die heeft een link terug naar je ontgrendelde gids. Of bladwijzer deze pagina nu.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    pl: { paymentReceived:"Płatność otrzymana", youreIn1:"Jesteś", youreIn2:"w środku", lede:"Twój przewodnik dla odwiedzających Kansas City jest odblokowany. Przypisany do tego urządzenia przez całe lato.", passLabel:"Przewodnik odblokowany · All Access KC", allAccess:"Pełny przewodnik", paid:"$5 zapłacone", passFoot:"Ten QR to potwierdzenie odblokowania — weryfikuje prawdziwy zakup za $5 na tym urządzeniu. Nie udostępniaj — kod jest przypisany do urządzenia.", openGuide:"Otwórz przewodnik", resLabel:"Jak działają rezerwacje", resBody:'Każde miejsce w przewodniku ma bezpośredni link do <b>własnej strony rezerwacji</b> (OpenTable, Resy, strona lokalu). Kliknij, zarezerwuj, gotowe. Jeśli pełne, napisz na <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> i znajdziemy alternatywę.', updatesLabel:"Aktualizacje", updatesBody:"Przewodnik żyje — nowe miejsca, kalendarz imprez i sekrety z ostatniej chwili w każdy poniedziałek przez całe lato. Wracaj na ten URL kiedy chcesz.", lostLabel:"Zgubiony link", lostBody:"Poszukaj paragonu Stripe w mailu — ma link z powrotem do odblokowanego przewodnika. Albo dodaj tę stronę do ulubionych teraz.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    tr: { paymentReceived:"Ödeme alındı", youreIn1:"İçeridesin", youreIn2:"!", lede:"Kansas City ziyaretçi rehberinin kilidi açıldı. Tüm yaz boyunca bu cihaza bağlı.", passLabel:"Rehberin kilidi açık · All Access KC", allAccess:"Tam rehber", paid:"$5 ödendi", passFoot:"Bu QR senin kilit açma makbuzun — bu cihazda gerçek $5 satın almayı doğrular. Paylaşma — kod cihaza bağlı.", openGuide:"Rehberi aç", resLabel:"Rezervasyonlar nasıl çalışır", resBody:'Rehberdeki her mekanın <b>kendi rezervasyon sayfasına</b> doğrudan bağlantısı var (OpenTable, Resy, mekan sitesi). Tıkla, ayırt, tamam. Doluysa <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> adresine yaz, alternatif bulalım.', updatesLabel:"Güncellemeler", updatesBody:"Rehber canlı — yeni mekanlar, parti takvimi ve son dakika sırları her Pazartesi tüm yaz boyunca. Dilediğinde bu URL\'ye geri dön.", lostLabel:"Bağlantıyı kaybettiyseniz", lostBody:"E-postanızda Stripe makbuzunu arayın — kilidi açık rehberinize geri dönen bir bağlantısı var. Veya bu sayfayı şimdi yer imlerine ekleyin.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    hr: { paymentReceived:"Plaćanje primljeno", youreIn1:"Unutra", youreIn2:"si", lede:"Vaš vodič za posjetitelje Kansas Cityja je otključan. Vezan za ovaj uređaj tijekom cijelog ljeta.", passLabel:"Vodič otključan · All Access KC", allAccess:"Cijeli vodič", paid:"$5 plaćeno", passFoot:"Ovaj QR je vaša potvrda otključavanja — potvrđuje stvarnu kupnju od $5 na ovom uređaju. Ne dijeli — kod je vezan za uređaj.", openGuide:"Otvori vodič", resLabel:"Kako rade rezervacije", resBody:'Svako mjesto u vodiču ima direktan link na <b>vlastitu stranicu za rezervacije</b> (OpenTable, Resy, stranica lokala). Klikni, rezerviraj, gotovo. Ako je puno, piši na <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> i naći ćemo alternativu.', updatesLabel:"Ažuriranja", updatesBody:"Vodič je živ — nova mjesta, kalendar zabava i tajne u zadnji čas svaki ponedjeljak tijekom ljeta. Vrati se na ovaj URL kad god želiš.", lostLabel:"Izgubio si link", lostBody:"Potraži Stripe račun u emailu — ima link natrag do tvog otključanog vodiča. Ili spremi ovu stranicu u favorite sada.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    ja: { paymentReceived:"お支払い受領", youreIn1:"参加完了", youreIn2:"！", lede:"カンザスシティ訪問者ガイドがアンロックされました。夏のあいだずっとこのデバイスに紐付けられます。", passLabel:"ガイドアンロック済 · All Access KC", allAccess:"フルガイド", paid:"$5支払い済み", passFoot:"このQRはアンロック受領証です — このデバイスでの$5の実購入を確認します。共有しないでください — コードはデバイスに紐付けられています。", openGuide:"ガイドを開く", resLabel:"予約の仕組み", resBody:'ガイドの各お店には<b>専用予約ページ</b>への直接リンクがあります（OpenTable、Resy、お店のサイト）。クリック、予約、完了。満席の場合は<a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a>までメールで、代替案をご提案します。', updatesLabel:"アップデート", updatesBody:"ガイドはライブです — 新店舗、パーティーカレンダー、最新情報を夏のあいだ毎週月曜に追加。いつでもこのURLに戻ってきてください。", lostLabel:"リンクを失った場合", lostBody:"メールでStripeの領収書を検索 — アンロックしたガイドに戻るリンクがあります。または今このページをブックマークしてください。", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    ko: { paymentReceived:"결제 완료", youreIn1:"입장", youreIn2:"완료", lede:"캔자스시티 방문자 가이드가 잠금 해제되었습니다. 여름 내내 이 디바이스에 묶여 있습니다.", passLabel:"가이드 잠금 해제 · All Access KC", allAccess:"전체 가이드", paid:"$5 결제됨", passFoot:"이 QR은 잠금 해제 영수증입니다 — 이 디바이스에서의 실제 $5 구매를 확인합니다. 공유하지 마세요 — 코드는 디바이스에 묶여 있습니다.", openGuide:"가이드 열기", resLabel:"예약 작동 방식", resBody:'가이드의 각 장소에는 <b>자체 예약 페이지</b>로의 직접 링크가 있습니다 (OpenTable, Resy, 장소 사이트). 클릭, 예약, 완료. 만석이면 <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a>로 이메일을 보내주시면 대안을 찾아드립니다.', updatesLabel:"업데이트", updatesBody:"가이드는 살아있습니다 — 새 장소, 파티 캘린더, 막바지 비밀이 여름 내내 매주 월요일에 추가됩니다. 언제든지 이 URL로 돌아오세요.", lostLabel:"링크를 잃어버린 경우", lostBody:"이메일에서 Stripe 영수증을 검색하세요 — 잠금 해제된 가이드로 돌아가는 링크가 있습니다. 또는 지금 이 페이지를 북마크하세요.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    ar: { paymentReceived:"تم استلام الدفع", youreIn1:"أنت", youreIn2:"داخل", lede:"تم فتح دليل زوار كانساس سيتي الخاص بك. مرتبط بهذا الجهاز طوال الصيف.", passLabel:"الدليل مفتوح · All Access KC", allAccess:"الدليل الكامل", paid:"$5 مدفوع", passFoot:"هذا الـ QR هو إيصال الفتح الخاص بك — يتحقق من شراء حقيقي بقيمة $5 على هذا الجهاز. لا تشاركه — الرمز مرتبط بالجهاز.", openGuide:"افتح الدليل", resLabel:"كيف تعمل الحجوزات", resBody:'كل مكان في الدليل له رابط مباشر إلى <b>صفحة الحجز الخاصة به</b> (OpenTable أو Resy أو موقع المكان). انقر، احجز، انتهيت. إذا كان ممتلئاً، راسل <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> ونجد لك بديلاً.', updatesLabel:"التحديثات", updatesBody:"الدليل حي — أماكن جديدة، تقويم الحفلات، وأسرار اللحظة الأخيرة كل اثنين خلال الصيف. عد إلى هذا الرابط متى شئت.", lostLabel:"فقدت الرابط", lostBody:"ابحث عن إيصال Stripe في بريدك — يحتوي على رابط للعودة إلى دليلك المفتوح. أو احفظ هذه الصفحة في المفضلة الآن.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    fa: { paymentReceived:"پرداخت دریافت شد", youreIn1:"تو", youreIn2:"داخل شدی", lede:"راهنمای بازدیدکنندگان کانزاس سیتی شما باز شد. در طول تمام تابستان به این دستگاه گره خورده است.", passLabel:"راهنما باز شد · All Access KC", allAccess:"راهنمای کامل", paid:"$5 پرداخت شده", passFoot:"این QR رسید باز شدن راهنمای شماست — خرید واقعی $5 را روی این دستگاه تأیید می‌کند. به اشتراک نگذارید — کد به دستگاه گره خورده است.", openGuide:"باز کردن راهنما", resLabel:"رزروها چگونه کار می‌کنند", resBody:'هر مکان در راهنما لینک مستقیم به <b>صفحه رزرو خود</b> دارد (OpenTable، Resy، سایت مکان). کلیک کن، رزرو کن، تمام. اگر پر باشد، به <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> ایمیل بزنید و جایگزین پیدا می‌کنیم.', updatesLabel:"به‌روزرسانی‌ها", updatesBody:"راهنما زنده است — مکان‌های جدید، تقویم مهمانی، و اسرار لحظه آخر هر دوشنبه در طول تابستان. هر وقت خواستی به این آدرس برگرد.", lostLabel:"لینک را گم کردی", lostBody:"در ایمیلت رسید Stripe را جستجو کن — لینک بازگشت به راهنمای باز شده‌ات را دارد. یا الان این صفحه را بوکمارک کن.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." }
+  };
+  var RTL = { ar: 1, fa: 1 };
+
+  // ── Client-side translation via Google's free /translate_a/single endpoint.
+  var GT_ENDPOINT = 'https://translate.googleapis.com/translate_a/single';
+  var GT_DELIM = ' ||| ', GT_CHUNK = 2500, GT_PARALLEL = 10;
+  var I18N_LANG_NAMES = { en:'English', es:'Español', pt:'Português', fr:'Français',
+    de:'Deutsch', it:'Italiano', nl:'Nederlands', pl:'Polski', tr:'Türkçe',
+    hr:'Hrvatski', ja:'日本語', ko:'한국어', ar:'العربية', fa:'فارسی',
+    ru:'Русский', zh:'中文' };
+  function setI18nStatus(state, code){
+    var el = document.getElementById('langStatus');
+    if (!el) return;
+    if (state === 'translating') {
+      el.textContent = 'Translating · ' + (I18N_LANG_NAMES[code] || code);
+      el.classList.add('show');
+    } else el.classList.remove('show');
+  }
+  var i18nCache = {};
+  try { i18nCache = JSON.parse(localStorage.getItem('i18nCache_v1') || '{}'); } catch(e){}
+  function i18nSaveCache(){ try { localStorage.setItem('i18nCache_v1', JSON.stringify(i18nCache)); } catch(e){} }
+  function i18nCollectNodes(){
+    var out = [];
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var t = n.textContent;
+        if (!t || !t.trim()) return NodeFilter.FILTER_REJECT;
+        if (/^[\s\d\W]+$/.test(t)) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode;
+        while (p && p.nodeType === 1) {
+          var tag = p.nodeName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'CODE') return NodeFilter.FILTER_REJECT;
+          if (p.hasAttribute('data-t')) return NodeFilter.FILTER_REJECT;
+          if (p.classList && p.classList.contains('notranslate')) return NodeFilter.FILTER_REJECT;
+          if (p.getAttribute('translate') === 'no') return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n; while ((n = walker.nextNode())) { if (!n.__orig) n.__orig = n.textContent; out.push(n); }
+    return out;
+  }
+  function i18nFetchBatch(texts, code){
+    var joined = texts.map(function(t){ return t.trim(); }).join(GT_DELIM);
+    var url = GT_ENDPOINT + '?client=gtx&sl=en&tl=' + code + '&dt=t&q=' + encodeURIComponent(joined);
+    return fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      var full = '';
+      if (data && data[0]) data[0].forEach(function(seg){ if (seg && seg[0]) full += seg[0]; });
+      var parts = full.split(/\s*\|\|\|\s*/);
+      while (parts.length < texts.length) parts.push(texts[parts.length].trim());
+      return parts;
+    });
+  }
+  function translateDOMviaApi(code){
+    if (code === 'en') {
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var n; while ((n = walker.nextNode())) if (n.__orig) n.textContent = n.__orig;
+      setI18nStatus('idle');
+      return;
+    }
+    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+    var nodes = i18nCollectNodes();
+    if (!nodes.length) return;
+    var uniqueMap = {}, uniqueOrder = [];
+    nodes.forEach(function(node){
+      var orig = node.__orig, origTrim = orig.trim();
+      var key = code + ':' + origTrim;
+      if (i18nCache[key]) {
+        var lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
+        node.textContent = lead + i18nCache[key] + trail; return;
+      }
+      if (!uniqueMap[origTrim]) { uniqueMap[origTrim] = []; uniqueOrder.push(origTrim); }
+      uniqueMap[origTrim].push(node);
+    });
+    if (!uniqueOrder.length) return;
+    var batches = [], pt = [], chars = 0;
+    uniqueOrder.forEach(function(text){
+      pt.push(text); chars += text.length + GT_DELIM.length;
+      if (chars > GT_CHUNK) { batches.push({texts:pt}); pt=[]; chars=0; }
+    });
+    if (pt.length) batches.push({texts:pt});
+    setI18nStatus('translating', code);
+    var idx = 0, inFlight = 0, completed = 0;
+    function applyBatch(batchTexts, parts){
+      batchTexts.forEach(function(text, j){
+        var t = (parts[j] || text).trim();
+        i18nCache[code + ':' + text] = t;
+        (uniqueMap[text] || []).forEach(function(node){
+          var orig = node.__orig;
+          var lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
+          node.textContent = lead + t + trail;
+        });
+      });
+    }
+    function batchDone(){
+      completed++; inFlight--;
+      if (completed === batches.length) { i18nSaveCache(); setI18nStatus('idle'); }
+      else spawn();
+    }
+    function spawn(){
+      while (inFlight < GT_PARALLEL && idx < batches.length) {
+        var b = batches[idx++]; inFlight++;
+        (function(batchTexts){
+          i18nFetchBatch(batchTexts, code)
+            .then(function(parts){ applyBatch(batchTexts, parts); })
+            .catch(function(err){ console.warn('[i18n] batch failed:', err); })
+            .then(batchDone);
+        })(b.texts);
+      }
+    }
+    spawn();
+  }
+  function triggerGoogleTranslate(code){ translateDOMviaApi(code); }
+  document.addEventListener('toggle', function(e){
+    if (e.target.tagName !== 'DETAILS' || !e.target.open) return;
+    var lang = document.documentElement.lang;
+    if (lang && lang !== 'en') translateDOMviaApi(lang);
+  }, true);
+
+  function applyLang(code){
+    var dict = T[code] || T.en;
+    document.documentElement.lang = code;
+    document.documentElement.dir = RTL[code] ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-t]').forEach(function(el){
+      var key = el.getAttribute('data-t');
+      var val = dict[key];
+      if (val == null) return;
+      // Treat resBody / updatesBody / lostBody as HTML so embedded <a>/<b> render
+      if (/Body$/.test(key) || /^res/.test(key)) {
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
+      }
+    });
+    var sel = document.getElementById('langSelect');
+    if (sel && sel.value !== code) sel.value = code;
+    try { localStorage.setItem('kc_lang', code); } catch(e){}
+    triggerGoogleTranslate(code);
+  }
+
+  var langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.addEventListener('change', function(){ applyLang(langSelect.value); });
+  }
+  // First load — saved → browser → English
+  (function(){
+    var saved = null;
+    try { saved = localStorage.getItem('kc_lang'); } catch(e){}
+    if (saved && T[saved]) { applyLang(saved); return; }
+    var nav = (navigator.language || 'en').slice(0,2);
+    if (T[nav]) applyLang(nav); else applyLang('en');
+  })();
+</script>
+
+</body>
+</html>

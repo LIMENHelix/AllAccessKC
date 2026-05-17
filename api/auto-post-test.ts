@@ -13,29 +13,20 @@
 //
 // Hit: https://allaccesskc.com/api/auto-post-test
 
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { runPost } from "./_shared.js";
 
-export default async function handler(_request: Request): Promise<Response> {
+export default async function handler(_req: VercelRequest, res: VercelResponse) {
   try {
     const result = await runPost({ dryRun: true });
-    return new Response(JSON.stringify(result, null, 2), {
-      status: result.ok ? 200 : 500,
-      headers: { "content-type": "application/json; charset=utf-8" },
-    });
+    res.status(result.ok ? 200 : 500).json(result);
   } catch (err: any) {
-    // Catch-all for errors that escape runPost's internal try/catch
-    // (module load failures, sync errors during await, etc.). Make them
-    // visible as JSON so the browser shows something useful.
-    const body = {
+    res.status(500).json({
       ok: false,
       step: "handler_uncaught",
       error: err?.message || String(err),
       name: err?.name || null,
       stack: err?.stack || null,
-    };
-    return new Response(JSON.stringify(body, null, 2), {
-      status: 500,
-      headers: { "content-type": "application/json; charset=utf-8" },
     });
   }
 }

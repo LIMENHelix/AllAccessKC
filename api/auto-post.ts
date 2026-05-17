@@ -7,52 +7,49 @@
 //
 // To pause posting without redeploying, set KILL_SWITCH=true in env vars.
 
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { runPost } from "./_shared.js";
 
-export default async function handler(request: Request): Promise<Response> {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // ── 1. Authorize ────────────────────────────────────────────────
     const secret = process.env.CRON_SECRET;
     if (!secret) {
-      return jsonResponse(
-        { ok: false, step: "auth", error: "CRON_SECRET env var not set on server" },
-        500
-      );
+      return res.status(500).json({
+        ok: false,
+        step: "auth",
+        error: "CRON_SECRET env var not set on server",
+      });
     }
-    const authHeader = request.headers.get("authorization") || "";
+    const authHeader = (req.headers.authorization as string) || "";
     if (authHeader !== `Bearer ${secret}`) {
-      return jsonResponse({ ok: false, step: "auth", error: "unauthorized" }, 401);
+      return res.status(401).json({ ok: false, step: "auth", error: "unauthorized" });
     }
 
     // ── 2. Kill switch ──────────────────────────────────────────────
     if ((process.env.KILL_SWITCH || "").toLowerCase() === "true") {
       console.log("[auto-post] KILL_SWITCH=true, skipping run");
-      return jsonResponse({ ok: true, step: "kill_switch", skipped: true, dryRun: false });
+      return res.status(200).json({
+        ok: true,
+        step: "kill_switch",
+        skipped: true,
+        dryRun: false,
+      });
     }
 
     // ── 3. Run the pipeline ─────────────────────────────────────────
     // DRY_RUN can be flipped on at the env-var level without touching code.
     const dryRun = (process.env.DRY_RUN || "").toLowerCase() === "true";
     const result = await runPost({ dryRun });
-    return jsonResponse(result, result.ok ? 200 : 500);
+    return res.status(result.ok ? 200 : 500).json(result);
   } catch (err: any) {
     // Catch-all for errors that escape runPost's internal try/catch.
-    return jsonResponse(
-      {
-        ok: false,
-        step: "handler_uncaught",
-        error: err?.message || String(err),
-        name: err?.name || null,
-        stack: err?.stack || null,
-      },
-      500
-    );
+    return res.status(500).json({
+      ok: false,
+      step: "handler_uncaught",
+      error: err?.message || String(err),
+      name: err?.name || null,
+      stack: err?.stack || null,
+    });
   }
-}
-
-function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body, null, 2), {
-    status,
-    headers: { "content-type": "application/json; charset=utf-8" },
-  });
 }

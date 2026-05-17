@@ -9,9 +9,11 @@
 //
 // Hit: https://allaccesskc.com/api/status
 
-export default async function handler(_request: Request): Promise<Response> {
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+
+export default function handler(_req: VercelRequest, res: VercelResponse) {
   try {
-    const body = {
+    res.status(200).json({
       ok: true,
       timestamp: new Date().toISOString(),
       runtime: {
@@ -27,23 +29,12 @@ export default async function handler(_request: Request): Promise<Response> {
         killSwitch: process.env.KILL_SWITCH || null,
         dryRunFlag: process.env.DRY_RUN || null,
       },
-    };
-    return new Response(JSON.stringify(body, null, 2), {
-      status: 200,
-      headers: { "content-type": "application/json; charset=utf-8" },
     });
   } catch (err: any) {
-    return new Response(
-      JSON.stringify(
-        {
-          ok: false,
-          error: err?.message || String(err),
-          stack: err?.stack || null,
-        },
-        null,
-        2
-      ),
-      { status: 500, headers: { "content-type": "application/json; charset=utf-8" } }
-    );
+    res.status(500).json({
+      ok: false,
+      error: err?.message || String(err),
+      stack: err?.stack || null,
+    });
   }
 }

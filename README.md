@@ -35,11 +35,11 @@ Open any of the three HTML files directly in a browser — no server required.
 
 ## Auto-post (daily Facebook teaser)
 
-`/api/auto-post.ts` is a Vercel serverless function that fires **every day at 15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (currently 25 prompts → each topic repeats every 25 days), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
+`/api/auto-post.ts` is a Vercel serverless function that fires **every day at 15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (currently 75 prompts → each topic repeats every ~2.5 months), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
 
 **Topic rotation is stateless** — derived from day-of-epoch against a fixed anchor (`2026-05-17`) — so no database or KV is required. Each daily run produces a deterministic topic index, so reruns on the same day pick the same topic (useful for testing). Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
 
-**Cycle length:** with N topics in `topics.json`, the same topic returns every N days. 25 topics ≈ once every 3.5 weeks. Expand `topics.json` if you want longer rotations (e.g. 60 topics ≈ once every 2 months).
+**Cycle length:** with N topics in `topics.json`, the same topic returns every N days. 75 topics ≈ once every 2.5 months. The Anthropic prompt includes an `ANTI-REPETITION` instruction so re-visits of the same topic shift angle/opening/phrasing. For true content-level anti-repetition (avoid actual phrase reuse), you'd need to persist past outputs and feed them into future prompts — a Vercel KV add-on, not currently wired.
 
 ### Endpoints
 

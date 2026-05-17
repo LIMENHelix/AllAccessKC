@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "crons": [
-    { "path": "/api/auto-post", "schedule": "0 15 * * 0" }
+    { "path": "/api/auto-post", "schedule": "0 15 * * *" }
   ],
   "headers": [
     {

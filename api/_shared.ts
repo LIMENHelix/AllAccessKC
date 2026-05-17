@@ -5,7 +5,9 @@
 // Files in /api whose name starts with _ are treated as non-routes by Vercel.
 //
 // Architecture: stateless rotation.
-//   topicIndex = floor((now - ANCHOR) / 1 week) mod topics.length
+//   topicIndex = floor((now - ANCHOR) / 1 day) mod topics.length
+// Daily cadence: one post per day, cycling through topics.json. With N topics,
+// each topic repeats every N days. Expand topics.json to lengthen the cycle.
 // No filesystem writes (Vercel serverless filesystem is read-only outside /tmp).
 // Audit log lives in Vercel function logs (~30 day retention).
 // If long-term persistence is desired later: bolt on @vercel/kv at the
@@ -22,11 +24,11 @@ const TEMPERATURE = 0.8;
 const FB_GRAPH_VERSION = "v22.0";
 const UNSPLASH_PER_PAGE = 10;
 
-// Anchor for the deterministic rotation. The first Sunday after this anchor
-// posts topic index 0; the next Sunday posts index 1; etc. Changing this
-// constant shifts every future post — only change in tandem with topics.json.
+// Anchor for the deterministic rotation. The first daily run after this anchor
+// posts topic index 0; the next day posts index 1; etc. Changing this constant
+// shifts every future post — only change in tandem with topics.json.
 const ROTATION_EPOCH = new Date("2026-05-17T00:00:00Z").getTime();
-const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 // Verbatim prompt from project spec. Keep "{topic}" placeholder; do not edit.
 const PROMPT_TEMPLATE = `You are Alex, a Kansas City local writing a Facebook post for AllAccessKC, a paid $5 visitor guide.
@@ -80,10 +82,10 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
 
     // ── Stateless rotation ──────────────────────────────────────────
     step = "pick_topic";
-    const weeksSince = Math.floor((Date.now() - ROTATION_EPOCH) / WEEK_MS);
-    const topicIndex = ((weeksSince % topics.length) + topics.length) % topics.length;
+    const daysSince = Math.floor((Date.now() - ROTATION_EPOCH) / DAY_MS);
+    const topicIndex = ((daysSince % topics.length) + topics.length) % topics.length;
     const topic = topics[topicIndex];
-    console.log(`[auto-post] week ${weeksSince} -> topic ${topicIndex}/${topics.length}: ${topic}`);
+    console.log(`[auto-post] day ${daysSince} -> topic ${topicIndex}/${topics.length}: ${topic}`);
 
     // ── Anthropic content generation ────────────────────────────────
     step = "anthropic";

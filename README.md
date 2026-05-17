@@ -33,11 +33,13 @@ Static site — no build step required. Vercel auto-detects HTML.
 
 Open any of the three HTML files directly in a browser — no server required.
 
-## Auto-post (weekly Facebook teaser)
+## Auto-post (daily Facebook teaser)
 
-`/api/auto-post.ts` is a Vercel serverless function that fires every Sunday at **15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (25 prompts → 6-month cycle), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
+`/api/auto-post.ts` is a Vercel serverless function that fires **every day at 15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (currently 25 prompts → each topic repeats every 25 days), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
 
-**Topic rotation is stateless** — derived from week-of-year against a fixed epoch (`2026-05-17`) — so no database or KV is required. Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
+**Topic rotation is stateless** — derived from day-of-epoch against a fixed anchor (`2026-05-17`) — so no database or KV is required. Each daily run produces a deterministic topic index, so reruns on the same day pick the same topic (useful for testing). Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
+
+**Cycle length:** with N topics in `topics.json`, the same topic returns every N days. 25 topics ≈ once every 3.5 weeks. Expand `topics.json` if you want longer rotations (e.g. 60 topics ≈ once every 2 months).
 
 ### Endpoints
 
@@ -66,16 +68,16 @@ After deploying and setting env vars, hit `https://allaccesskc.com/api/auto-post
 
 Set `KILL_SWITCH=true` in the Vercel dashboard env vars. Takes effect immediately on next invocation, no redeploy needed. Set back to anything else to resume.
 
-### Cost
+### Cost (daily cadence)
 
-- Anthropic: ~1 message/week × ~$0.01 = ~$0.50/year
-- Unsplash: free (50 requests/hour limit, we use 1/week)
+- Anthropic: ~1 message/day × ~$0.01 = ~$4/year
+- Unsplash: free (50 requests/hour limit; we use 1/day)
 - Facebook Graph: free
 - Vercel cron + serverless: free tier covers this volume
 
-Total: ~$1/year.
+Total: under $5/year.
 
 ### Editing the rotation
 
-Edit `api/topics.json` — array of strings, one prompt per topic. Order matters; the function picks `topics[weeksSinceEpoch mod topics.length]` each Sunday. Adding/removing an entry shifts every future rotation by one notch.
+Edit `api/topics.json` — array of strings, one prompt per topic. Order matters; the function picks `topics[daysSinceEpoch mod topics.length]` each day. Adding/removing an entry shifts every future rotation by one notch.
 

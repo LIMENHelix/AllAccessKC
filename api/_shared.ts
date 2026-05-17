@@ -70,8 +70,10 @@ export interface PostResult {
   postText?: string;
   imageKeywords?: string;
   imageUrl?: string;
-  fbPostId?: string;
+  fbPostId?: string | null;
   fbResponse?: any;
+  emailSent?: boolean;
+  manualModeNote?: string;
   anthropicUsage?: { input_tokens?: number; output_tokens?: number };
   error?: string;
   details?: any;
@@ -194,7 +196,49 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
       };
     }
 
-    // ── Facebook Graph API post ─────────────────────────────────────
+    // ── Manual-mode gate ────────────────────────────────────────────
+    // FB_POSTING_ENABLED must be exactly "true" to actually publish to
+    // Facebook. Anything else (unset, "false", empty) puts us in manual
+    // mode: skip the FB POST, log the generated content prominently to
+    // stdout (visible in Vercel runtime logs), and return everything in
+    // the response body so the operator can copy + post manually.
+    //
+    // KILL_SWITCH still short-circuits ABOVE this — it's checked in
+    // auto-post.ts before runPost() is even called.
+    const fbPostingEnabled =
+      (process.env.FB_POSTING_ENABLED || "").toLowerCase() === "true";
+
+    if (!fbPostingEnabled) {
+      step = "manual_mode";
+      // Big, clearly-delimited block in the logs so it's easy to grab.
+      console.log("[auto-post] ============ MANUAL MODE — POST CONTENT ============");
+      console.log(`[auto-post] TOPIC: ${topic}`);
+      console.log(`[auto-post] IMAGE: ${imageUrl}`);
+      console.log(`[auto-post] KEYWORDS: ${imageKeywords}`);
+      console.log("[auto-post] ----- POST TEXT -----");
+      console.log(postText);
+      console.log("[auto-post] ====================================================");
+      return {
+        ok: true,
+        dryRun: false,
+        step: "complete_manual_mode",
+        topicIndex,
+        topic,
+        postText,
+        imageKeywords,
+        imageUrl,
+        fbPostId: null,
+        emailSent: false,
+        // emailSent: future hook. If RESEND_API_KEY (or similar) is added
+        // later, send the post content to info@allaccesskc.com and flip
+        // this to true. For now: log + return.
+        manualModeNote:
+          "FB_POSTING_ENABLED is not 'true' — generated content above is for manual posting. Copy postText + imageUrl from this response or from Vercel function logs.",
+        anthropicUsage: usage,
+      };
+    }
+
+    // ── Facebook Graph API post (only reached when FB_POSTING_ENABLED=true) ─
     step = "facebook";
     if (!process.env.FB_PAGE_ID) throw new Error("FB_PAGE_ID not set");
     if (!process.env.FB_PAGE_ACCESS_TOKEN) throw new Error("FB_PAGE_ACCESS_TOKEN not set");

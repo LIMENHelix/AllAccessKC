@@ -57,8 +57,9 @@ Open any of the three HTML files directly in a browser — no server required.
 | `FB_PAGE_ID` | yes | Numeric Facebook page ID (not the @handle) |
 | `FB_PAGE_ACCESS_TOKEN` | yes | Long-lived page access token. User tokens expire in 60 days — use Meta Business Suite system-user flow for a permanent token. |
 | `CRON_SECRET` | yes | Random string. Vercel auto-attaches `Authorization: Bearer ${CRON_SECRET}` to cron invocations once this is set. |
-| `KILL_SWITCH` | no | Set to `true` to pause posting without redeploying. Default: off. |
-| `DRY_RUN` | no | Set to `true` to make the production endpoint also dry-run (won't post to FB). Default: off. |
+| `KILL_SWITCH` | no | Set to `true` to short-circuit the whole pipeline (no Anthropic call, no Unsplash call, no FB post). Default: off. |
+| `DRY_RUN` | no | Set to `true` to make the production endpoint also dry-run (runs Anthropic + Unsplash, returns preview, never touches FB). Default: off. |
+| `FB_POSTING_ENABLED` | no | **Must be exactly `"true"` to actually publish to Facebook.** Anything else (unset, `"false"`, empty) puts the pipeline in **manual mode**: generates the post + image, logs everything to Vercel function logs, returns the content in the response body, and skips the FB POST. Use this to run the cron daily for content generation while you handle posting manually. |
 
 ### Testing before going live
 

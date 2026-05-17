@@ -28,6 +28,7 @@ export default function handler(_req: VercelRequest, res: VercelResponse) {
         hasCronSecret: !!process.env.CRON_SECRET,
         killSwitch: process.env.KILL_SWITCH || null,
         dryRunFlag: process.env.DRY_RUN || null,
+        fbPostingEnabled: process.env.FB_POSTING_ENABLED || null,
       },
     });
   } catch (err: any) {

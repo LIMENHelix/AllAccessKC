@@ -466,6 +466,11 @@
   .what li .num{
     font-size:0.7rem;color:var(--gold);font-weight:600;
     letter-spacing:2px;min-width:24px;flex-shrink:0;
+    margin-right:6px;
+  }
+  .what li .num::after{
+    content:" ·";color:var(--gold);opacity:0.55;
+    margin-left:6px;letter-spacing:0;
   }
   .what li b{color:var(--ink);font-weight:600}
 
@@ -555,6 +560,12 @@
     <div class="offer">
       <div class="price"><span>Full guide</span> · <span class="amount">$5</span></div>
       <a class="cta" href="https://buy.stripe.com/aFa3cu9rtcVOd97a9TfQI00">Unlock the guide</a>
+      <div class="trust-row" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px 20px;margin-top:16px;font-size:0.78rem;color:var(--ink-soft);letter-spacing:0.2px">
+        <span style="white-space:nowrap">✓ Instant access</span>
+        <span style="white-space:nowrap">✓ Updated weekly</span>
+        <span style="white-space:nowrap">✓ 14-day refund</span>
+        <span style="white-space:nowrap">✓ Secure payment via Stripe</span>
+      </div>
     </div>
 
     <div class="rule"></div>
@@ -565,7 +576,7 @@
         Hi — I'm Alex. I live in Kansas City. I've spent years figuring out where locals actually go, where they don't, and which spots quietly book up first. Whether you're here for a weekend, a week, or a major sporting summer — this is the guide.
       </p>
       <p>
-        <b>$5 unlocks the full guide</b> — on whichever device you're reading this on. Updated weekly, indefinitely.
+        <b>$5 unlocks the full guide</b> — on whichever device you're reading this on. Updated weekly.
       </p>
     </div>
 
@@ -577,7 +588,7 @@
         <li><span class="num">02</span><span>Sports bars by team and league — where to watch any game in town.</span></li>
         <li><span class="num">03</span><span>Visitor essentials — visas, tipping, currency, eSIM, transit, parking, what to bring.</span></li>
         <li><span class="num">04</span><span>Itineraries for every neighborhood and every visitor profile — first-timer, family, foodie, sports fan.</span></li>
-        <li><span class="num">05</span><span>Booking help when you can't get a seat — email and we sort it.</span></li>
+        <li><span class="num">05</span><span>Booking help — email and we'll do our best to find you an alternative.</span></li>
       </ul>
     </div>
 

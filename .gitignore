@@ -14,3 +14,5 @@ Thumbs.db
 # Backups
 *.bak
 *.orig
+
+.vercel

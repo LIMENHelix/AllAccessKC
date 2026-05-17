@@ -132,14 +132,42 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
       throw new Error(`Unsplash ${uRes.status}: ${await uRes.text()}`);
     }
     const uJson = (await uRes.json()) as {
-      results: Array<{ urls: { regular: string }; user?: { name?: string }; links?: { html?: string } }>;
+      results: Array<{
+        id: string;
+        urls: { regular: string };
+        user?: { name?: string };
+        links?: { html?: string; download_location?: string };
+      }>;
     };
     if (!uJson.results || uJson.results.length === 0) {
       throw new Error(`Unsplash returned 0 results for "${imageKeywords}"`);
     }
     const pick = uJson.results[Math.floor(Math.random() * uJson.results.length)];
     const imageUrl = pick.urls.regular;
-    console.log(`[auto-post] image: ${imageUrl}`);
+    console.log(`[auto-post] image: ${imageUrl} (id=${pick.id})`);
+
+    // ── Unsplash download tracking (REQUIRED by API guidelines) ─────
+    // Per Unsplash API Guidelines, any download or use of a photo must
+    // trigger a GET to the photo's download_location endpoint. This bumps
+    // the photographer's download count and is a TOS requirement for
+    // production apps. Fire-and-forget semantics: we don't act on the
+    // result, but we briefly await so the request actually executes
+    // before the serverless function exits (unawaited promises can be
+    // killed on response).
+    const downloadTrigger = pick.links?.download_location;
+    if (downloadTrigger) {
+      try {
+        await fetch(downloadTrigger, {
+          headers: { Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}` },
+        });
+        console.log(`[auto-post] Unsplash download tracked`);
+      } catch (err: any) {
+        // Non-fatal — tracking failure shouldn't block the post.
+        console.warn(`[auto-post] Unsplash download tracking failed (non-fatal): ${err?.message || err}`);
+      }
+    } else {
+      console.warn(`[auto-post] Unsplash result missing links.download_location; tracking skipped`);
+    }
 
     // ── Dry-run short-circuit ───────────────────────────────────────
     if (opts.dryRun) {

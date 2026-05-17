@@ -5379,7 +5379,7 @@
 
   function render(filter){
     filter = filter || 'all';
-    var container = document.getElementById('schedule');
+    var container = document.getElementById('events');
     var byDay = {};
     SCHEDULE.forEach(function(m){
       var isKC = KC_MATCH_IDS.indexOf(m.id) >= 0;
@@ -5426,25 +5426,26 @@
   render('all');
 
   // ── Tab switching ────────────────────────────────────────
-  // Six top-level tabs: schedule / eat / drink / watch / matchday / travel
+  // Eight top-level tabs: events / eat / drink / watch / gameday / explore / itineraries / travel
   // Hash-routed: /kc-guide.html#eat opens the Eat tab.
   // Per-tab background images + crop position. Values can be:
   //   a string (just the image URL — uses 'center' position), or
   //   an object { url, position } for a custom crop.
+  // Image filenames retain their original short names; the dict key is the new tab name.
   var TAB_BACKGROUNDS = {
-    schedule: 'kc-schedule-bg.jpg',
-    eat:      'kc-eat-bg.jpg',
-    drink:    'kc-drink-bg.jpg',
-    watch:    { url: 'kc-watch-bg.jpg', position: 'center 28%' },
-    matchday: 'kc-matchday-bg.jpg',
-    explore:  'kc-explore-bg.jpg',
-    plans:    'kc-plans-bg.jpg',
-    travel:   'kc-travel-bg.jpg'
+    events:       'kc-schedule-bg.jpg',
+    eat:          'kc-eat-bg.jpg',
+    drink:        'kc-drink-bg.jpg',
+    watch:        { url: 'kc-watch-bg.jpg', position: 'center 28%' },
+    gameday:      'kc-matchday-bg.jpg',
+    explore:      'kc-explore-bg.jpg',
+    itineraries:  'kc-plans-bg.jpg',
+    travel:       'kc-travel-bg.jpg'
   };
 
   function activateTab(name){
-    var validTabs = ['schedule','eat','drink','watch','matchday','explore','plans','travel'];
-    if (validTabs.indexOf(name) < 0) name = 'schedule';
+    var validTabs = ['events','eat','drink','watch','gameday','explore','itineraries','travel'];
+    if (validTabs.indexOf(name) < 0) name = 'events';
     document.querySelectorAll('.tab-btn').forEach(function(b){
       b.classList.toggle('active', b.getAttribute('data-tab') === name);
     });

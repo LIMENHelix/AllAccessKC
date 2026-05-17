@@ -14,10 +14,16 @@
 // "Phase 2 audit log" marker below.
 
 import Anthropic from "@anthropic-ai/sdk";
-// Direct JSON import — esbuild (Vercel's bundler) inlines the JSON content
-// into the function bundle. Eliminates runtime fs.readFile dependency on
-// process.cwd(), which is unreliable in serverless.
-import topicsData from "./topics.json";
+import { createRequire } from "node:module";
+
+// Load topics.json via createRequire (CommonJS resolver) rather than a bare
+// ESM `import topicsData from "./topics.json"`. The bare ESM JSON import
+// throws ERR_IMPORT_ATTRIBUTE_MISSING at runtime under "type": "module"
+// (strict ESM requires `with { type: "json" }`). createRequire bypasses
+// the ESM import-attribute requirement entirely and works on every Node
+// version Vercel supports. The JSON is still bundled into the function.
+const requireCJS = createRequire(import.meta.url);
+const topicsData = requireCJS("./topics.json") as string[];
 
 // ─── Configuration ────────────────────────────────────────────────────
 const ANTHROPIC_MODEL = "claude-sonnet-4-5-20250929";

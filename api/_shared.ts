@@ -171,7 +171,14 @@ export interface PostResult {
 }
 
 // ─── Entry point ──────────────────────────────────────────────────────
-export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
+export async function runPost(opts: {
+  dryRun: boolean;
+  // When true AND dryRun is also true, send the daily-post email anyway.
+  // Used by /api/auto-post-test?email=1 to preview the full email pipeline
+  // without authenticating against /api/auto-post. Skip the FB POST either
+  // way — this is still dry-run for Facebook purposes.
+  sendEmailInDryRun?: boolean;
+}): Promise<PostResult> {
   let step = "init";
   try {
     // ── Load topics (bundled at build time) ─────────────────────────
@@ -305,6 +312,28 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
 
     // ── Dry-run short-circuit ───────────────────────────────────────
     if (opts.dryRun) {
+      // Optionally send the email anyway — used by /api/auto-post-test?email=1
+      // to preview the daily email without hitting the auth-protected
+      // production endpoint. Default is to skip email on dry-run to prevent
+      // inbox spam during testing iterations.
+      let emailSent = false;
+      let emailError: string | undefined;
+      if (opts.sendEmailInDryRun && process.env.RESEND_API_KEY) {
+        const r = await sendNotificationEmail({
+          subject: `[All Access KC] Daily post preview — ${topic}`,
+          html: buildSuccessEmailHtml({
+            topic,
+            topicIndex,
+            totalTopics: topics.length,
+            postText,
+            imageKeywords,
+            imageUrl,
+          }),
+        });
+        emailSent = r.sent;
+        emailError = r.error;
+        console.log(`[auto-post] dry-run email: ${r.sent ? "sent (id=" + r.id + ")" : "FAILED — " + r.error}`);
+      }
       return {
         ok: true,
         dryRun: true,
@@ -314,6 +343,8 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
         postText,
         imageKeywords,
         imageUrl,
+        emailSent,
+        emailError,
         anthropicUsage: usage,
       };
     }

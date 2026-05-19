@@ -60,6 +60,96 @@ OUTPUT FORMAT:
 Line 1-N: The post text
 Last line (separate): IMAGE_KEYWORDS: word1, word2, word3`;
 
+// ─── Email helpers (Resend HTTP API, no SDK required) ────────────────
+// Sends transactional email via Resend. Free tier covers 3,000 emails/month
+// — more than enough for daily + occasional failure alerts.
+//
+// Required env: RESEND_API_KEY
+// Optional env: NOTIFY_EMAIL  (recipient; default: info@allaccesskc.com)
+//               EMAIL_FROM    (sender; default: All Access KC <noreply@allaccesskc.com>)
+// Domain must be verified on Resend (DNS SPF + DKIM records).
+export async function sendNotificationEmail(opts: {
+  subject: string;
+  html: string;
+  to?: string;
+}): Promise<{ sent: boolean; error?: string; id?: string }> {
+  if (!process.env.RESEND_API_KEY) {
+    return { sent: false, error: "RESEND_API_KEY not set" };
+  }
+  const to = opts.to || process.env.NOTIFY_EMAIL || "info@allaccesskc.com";
+  const from = process.env.EMAIL_FROM || "All Access KC <noreply@allaccesskc.com>";
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ from, to: [to], subject: opts.subject, html: opts.html }),
+    });
+    if (!r.ok) {
+      const body = await r.text();
+      console.warn(`[auto-post] Resend ${r.status}: ${body}`);
+      return { sent: false, error: `Resend ${r.status}: ${body}` };
+    }
+    const j = (await r.json()) as { id?: string };
+    return { sent: true, id: j.id };
+  } catch (err: any) {
+    console.warn(`[auto-post] Resend exception: ${err?.message || err}`);
+    return { sent: false, error: err?.message || String(err) };
+  }
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function buildSuccessEmailHtml(d: {
+  topic: string;
+  topicIndex: number;
+  totalTopics: number;
+  postText: string;
+  imageKeywords: string;
+  imageUrl: string;
+}): string {
+  const ts = new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/Chicago" });
+  return `<!doctype html><html><body style="margin:0;background:#f7f1e3;font-family:Georgia,'Times New Roman',serif;color:#1a1d2a;">
+<div style="max-width:600px;margin:0 auto;padding:32px 24px;background:#f7f1e3;">
+  <div style="font-size:0.7rem;letter-spacing:4px;color:#8b6914;text-transform:uppercase;font-weight:600;margin-bottom:8px;">ALL ACCESS KC · DAILY POST</div>
+  <div style="font-size:0.82rem;color:#646774;margin-bottom:24px;">${escapeHtml(ts)} · topic ${d.topicIndex + 1} of ${d.totalTopics}</div>
+  <h1 style="font-size:1.4rem;font-weight:600;color:#1a1d2a;margin:0 0 20px 0;line-height:1.3;">${escapeHtml(d.topic)}</h1>
+  <div style="background:#fbf6e8;border-left:3px solid #8b6914;padding:18px 22px;margin-bottom:24px;font-size:0.98rem;line-height:1.65;color:#3d4053;white-space:pre-wrap;">${escapeHtml(d.postText)}</div>
+  <div style="font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:#8b6914;font-weight:600;margin-bottom:8px;">SELECTED IMAGE</div>
+  <div style="font-size:0.85rem;color:#646774;margin-bottom:10px;font-style:italic;">query: ${escapeHtml(d.imageKeywords)}</div>
+  <a href="${d.imageUrl}" target="_blank"><img src="${d.imageUrl}" alt="" style="max-width:100%;height:auto;border:1px solid #d4cdb8;margin-bottom:12px;"></a>
+  <div style="font-size:0.78rem;color:#646774;word-break:break-all;margin-bottom:24px;"><a href="${d.imageUrl}" target="_blank" style="color:#8b6914;">${escapeHtml(d.imageUrl)}</a></div>
+  <div style="border-top:1px solid #d4cdb8;padding-top:18px;font-size:0.78rem;color:#646774;line-height:1.5;">
+    Auto-post is in manual mode (FB_POSTING_ENABLED is not "true"). Copy the text + image above and post manually to the AllAccessKC Facebook page. To enable auto-posting, set FB_POSTING_ENABLED=true in Vercel env vars after verifying the Page Access Token has the pages_manage_posts scope.
+  </div>
+</div></body></html>`;
+}
+
+function buildFailureEmailHtml(d: { step: string; error: string; topicIndex?: number; topic?: string }): string {
+  const ts = new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/Chicago" });
+  return `<!doctype html><html><body style="margin:0;background:#fae8e8;font-family:Georgia,'Times New Roman',serif;color:#1a1d2a;">
+<div style="max-width:600px;margin:0 auto;padding:32px 24px;background:#fff;">
+  <div style="font-size:0.7rem;letter-spacing:4px;color:#c44848;text-transform:uppercase;font-weight:600;margin-bottom:8px;">⚠ ALL ACCESS KC · AUTO-POST FAILURE</div>
+  <div style="font-size:0.82rem;color:#646774;margin-bottom:24px;">${escapeHtml(ts)}</div>
+  <h1 style="font-size:1.2rem;font-weight:600;color:#c44848;margin:0 0 16px 0;">Pipeline failed at step "${escapeHtml(d.step)}"</h1>
+  ${d.topic ? `<div style="font-size:0.92rem;color:#3d4053;margin-bottom:16px;">Topic that would have run: <i>${escapeHtml(d.topic)}</i></div>` : ""}
+  <div style="font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;color:#646774;font-weight:600;margin-bottom:8px;">ERROR</div>
+  <pre style="background:#fae8e8;border-left:3px solid #c44848;padding:16px 20px;font-family:'Courier New',monospace;font-size:0.85rem;white-space:pre-wrap;word-break:break-word;color:#1a1d2a;margin-bottom:20px;">${escapeHtml(d.error)}</pre>
+  <div style="border-top:1px solid #d4cdb8;padding-top:18px;font-size:0.82rem;color:#646774;line-height:1.55;">
+    No post was generated for today. Check Vercel function logs for the full stack trace at <a href="https://vercel.com/limen-helix/allaccesskc/logs" target="_blank" style="color:#8b6914;">vercel.com/limen-helix/allaccesskc/logs</a>. Most common causes: Anthropic credit balance exhausted, Facebook token expired (60-day user tokens), Unsplash rate limited, network outage. The next scheduled run is tomorrow at 15:00 UTC.
+  </div>
+</div></body></html>`;
+}
+
 // ─── Public types ─────────────────────────────────────────────────────
 export interface PostResult {
   ok: boolean;
@@ -73,6 +163,7 @@ export interface PostResult {
   fbPostId?: string | null;
   fbResponse?: any;
   emailSent?: boolean;
+  emailError?: string;
   manualModeNote?: string;
   anthropicUsage?: { input_tokens?: number; output_tokens?: number };
   error?: string;
@@ -249,6 +340,31 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
       console.log("[auto-post] ----- POST TEXT -----");
       console.log(postText);
       console.log("[auto-post] ====================================================");
+
+      // Send the daily post to info@allaccesskc.com (or NOTIFY_EMAIL) if
+      // Resend is configured. Failure to send is logged but does not fail
+      // the run — content is also returned in the response + Vercel logs.
+      let emailSent = false;
+      let emailError: string | undefined;
+      if (process.env.RESEND_API_KEY) {
+        const r = await sendNotificationEmail({
+          subject: `[All Access KC] Daily post — ${topic}`,
+          html: buildSuccessEmailHtml({
+            topic,
+            topicIndex,
+            totalTopics: topics.length,
+            postText,
+            imageKeywords,
+            imageUrl,
+          }),
+        });
+        emailSent = r.sent;
+        emailError = r.error;
+        console.log(`[auto-post] email: ${r.sent ? "sent (id=" + r.id + ")" : "FAILED — " + r.error}`);
+      } else {
+        console.log("[auto-post] email: skipped (RESEND_API_KEY not set)");
+      }
+
       return {
         ok: true,
         dryRun: false,
@@ -259,12 +375,13 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
         imageKeywords,
         imageUrl,
         fbPostId: null,
-        emailSent: false,
-        // emailSent: future hook. If RESEND_API_KEY (or similar) is added
-        // later, send the post content to info@allaccesskc.com and flip
-        // this to true. For now: log + return.
+        emailSent,
+        emailError,
+        // emailSent: when true, the post content was emailed via Resend to
+        // NOTIFY_EMAIL (or info@allaccesskc.com by default). When false,
+        // check that RESEND_API_KEY is set and the sender domain is verified.
         manualModeNote:
-          "FB_POSTING_ENABLED is not 'true' — generated content above is for manual posting. Copy postText + imageUrl from this response or from Vercel function logs.",
+          "FB_POSTING_ENABLED is not 'true' — generated content above is for manual posting. Copy postText + imageUrl from this response, your email inbox, or Vercel function logs.",
         anthropicUsage: usage,
       };
     }
@@ -321,6 +438,21 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
   } catch (err: any) {
     const errStr = err?.message || String(err);
     console.error(`[auto-post] failure at step "${step}": ${errStr}`);
+
+    // Failure-alert email — only for production runs (cron-triggered), not
+    // dry-run testing. Skips silently if RESEND_API_KEY isn't set or the
+    // send itself fails. We never want failure-email failure to compound.
+    if (!opts.dryRun && process.env.RESEND_API_KEY) {
+      try {
+        await sendNotificationEmail({
+          subject: `[All Access KC] Auto-post FAILED at step "${step}"`,
+          html: buildFailureEmailHtml({ step, error: errStr }),
+        });
+      } catch (_emailErr) {
+        // Already in failure path; don't compound.
+      }
+    }
+
     return {
       ok: false,
       dryRun: opts.dryRun,

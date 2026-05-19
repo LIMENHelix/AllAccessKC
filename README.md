@@ -60,6 +60,9 @@ Open any of the three HTML files directly in a browser — no server required.
 | `KILL_SWITCH` | no | Set to `true` to short-circuit the whole pipeline (no Anthropic call, no Unsplash call, no FB post). Default: off. |
 | `DRY_RUN` | no | Set to `true` to make the production endpoint also dry-run (runs Anthropic + Unsplash, returns preview, never touches FB). Default: off. |
 | `FB_POSTING_ENABLED` | no | **Must be exactly `"true"` to actually publish to Facebook.** Anything else (unset, `"false"`, empty) puts the pipeline in **manual mode**: generates the post + image, logs everything to Vercel function logs, returns the content in the response body, and skips the FB POST. Use this to run the cron daily for content generation while you handle posting manually. |
+| `RESEND_API_KEY` | no | Resend API key (resend.com → API keys). When set, the cron emails the daily post content to the operator on success and emails an alert on failure. When unset, falls back to log-only. |
+| `NOTIFY_EMAIL` | no | Recipient address for daily-post + failure-alert emails. Default: `info@allaccesskc.com`. |
+| `EMAIL_FROM` | no | Sender for Resend emails. Default: `All Access KC <noreply@allaccesskc.com>`. Domain must be verified on Resend (SPF + DKIM DNS records). |
 
 ### Testing before going live
 

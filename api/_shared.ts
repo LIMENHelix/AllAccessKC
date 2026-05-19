@@ -129,34 +129,65 @@ export async function runPost(opts: { dryRun: boolean }): Promise<PostResult> {
     // ── Unsplash image selection ────────────────────────────────────
     step = "unsplash";
     if (!process.env.UNSPLASH_ACCESS_KEY) throw new Error("UNSPLASH_ACCESS_KEY not set");
-    const u = new URL("https://api.unsplash.com/search/photos");
-    u.searchParams.set("query", imageKeywords);
-    u.searchParams.set("per_page", String(UNSPLASH_PER_PAGE));
-    u.searchParams.set("orientation", "landscape");
-    u.searchParams.set("content_filter", "high");
-    const uRes = await fetch(u.toString(), {
-      headers: {
-        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-        "Accept-Version": "v1",
-      },
-    });
-    if (!uRes.ok) {
-      throw new Error(`Unsplash ${uRes.status}: ${await uRes.text()}`);
+
+    // Anthropic sometimes returns multi-phrase keywords (e.g. "Kansas City
+    // skyline, free admission, hidden gem") that don't match any single
+    // Unsplash photo. Fall back through progressively simpler queries until
+    // we find results. Final fallback "Kansas City" is guaranteed to have
+    // photos (Unsplash has thousands of KC images), so the function only
+    // errors at this step if Unsplash itself is down.
+    const queryCandidates: string[] = [];
+    queryCandidates.push(imageKeywords);                                  // try full keywords first
+    const parts = imageKeywords.split(",").map(s => s.trim()).filter(Boolean);
+    if (parts.length > 1) {
+      queryCandidates.push(parts[0]);                                     // try first phrase only
+      const firstWordOnly = parts[0].split(/\s+/)[0];
+      if (firstWordOnly && firstWordOnly !== parts[0]) {
+        queryCandidates.push(firstWordOnly);                              // try first word only
+      }
     }
-    const uJson = (await uRes.json()) as {
-      results: Array<{
-        id: string;
-        urls: { regular: string };
-        user?: { name?: string };
-        links?: { html?: string; download_location?: string };
-      }>;
+    queryCandidates.push("Kansas City");                                  // guaranteed fallback
+
+    type UnsplashHit = {
+      id: string;
+      urls: { regular: string };
+      user?: { name?: string };
+      links?: { html?: string; download_location?: string };
     };
-    if (!uJson.results || uJson.results.length === 0) {
-      throw new Error(`Unsplash returned 0 results for "${imageKeywords}"`);
+    let pick: UnsplashHit | null = null;
+    let usedQuery = "";
+    for (const candidate of queryCandidates) {
+      const u = new URL("https://api.unsplash.com/search/photos");
+      u.searchParams.set("query", candidate);
+      u.searchParams.set("per_page", String(UNSPLASH_PER_PAGE));
+      u.searchParams.set("orientation", "landscape");
+      u.searchParams.set("content_filter", "high");
+      const uRes = await fetch(u.toString(), {
+        headers: {
+          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+          "Accept-Version": "v1",
+        },
+      });
+      if (!uRes.ok) {
+        // Hard fail (auth, rate limit, server error) — don't try fallbacks
+        throw new Error(`Unsplash ${uRes.status}: ${await uRes.text()}`);
+      }
+      const uJson = (await uRes.json()) as { results: UnsplashHit[] };
+      if (uJson.results && uJson.results.length > 0) {
+        pick = uJson.results[Math.floor(Math.random() * uJson.results.length)];
+        usedQuery = candidate;
+        if (candidate !== imageKeywords) {
+          console.log(`[auto-post] Unsplash: "${imageKeywords}" returned 0, fell back to "${candidate}"`);
+        }
+        break;
+      }
+      console.log(`[auto-post] Unsplash: 0 results for "${candidate}", trying fallback...`);
     }
-    const pick = uJson.results[Math.floor(Math.random() * uJson.results.length)];
+    if (!pick) {
+      throw new Error(`Unsplash returned 0 results for all queries (tried: ${queryCandidates.join(" | ")})`);
+    }
     const imageUrl = pick.urls.regular;
-    console.log(`[auto-post] image: ${imageUrl} (id=${pick.id})`);
+    console.log(`[auto-post] image: ${imageUrl} (id=${pick.id}, query="${usedQuery}")`);
 
     // ── Unsplash download tracking (REQUIRED by API guidelines) ─────
     // Per Unsplash API Guidelines, any download or use of a photo must

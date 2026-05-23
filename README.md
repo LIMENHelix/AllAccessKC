@@ -35,11 +35,11 @@ Open any of the three HTML files directly in a browser — no server required.
 
 ## Auto-post (daily Facebook teaser)
 
-`/api/auto-post.ts` is a Vercel serverless function that fires **every day at 15:00 UTC** (10 AM CDT / 9 AM CST) per the cron in `vercel.json`. It rotates through `api/topics.json` (currently 75 prompts → each topic repeats every ~2.5 months), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, and posts to the AllAccessKC Facebook page.
+`/api/auto-post.ts` is a Vercel serverless function that fires **twice daily** — at **14:00 UTC (9 AM CDT)** and **22:00 UTC (5 PM CDT)** — per the cron in `vercel.json`. It rotates through `api/topics.json` (currently 75 prompts → each topic repeats every ~37 days at 2x cadence), generates a curiosity-gap teaser via Anthropic, picks a matching Unsplash image, emails the content to `info@allaccesskc.com`, and optionally posts to the AllAccessKC Facebook page (when `FB_POSTING_ENABLED=true`).
 
-**Topic rotation is stateless** — derived from day-of-epoch against a fixed anchor (`2026-05-17`) — so no database or KV is required. Each daily run produces a deterministic topic index, so reruns on the same day pick the same topic (useful for testing). Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
+**Topic rotation is stateless** — derived from day-of-epoch against a fixed anchor (`2026-05-17`), split into morning/evening slots by UTC hour (<18 = morning, ≥18 = evening). The morning and evening posts each day get DIFFERENT topics (sequential indices in the rotation), so the two daily posts never repeat content within a 24-hour window. No database or KV is required. Audit log lives in Vercel function logs (~30-day retention). To add persistent audit logs later, see the "Phase 2 audit log" marker in `api/_shared.ts`.
 
-**Cycle length:** with N topics in `topics.json`, the same topic returns every N days. 75 topics ≈ once every 2.5 months. The Anthropic prompt includes an `ANTI-REPETITION` instruction so re-visits of the same topic shift angle/opening/phrasing. For true content-level anti-repetition (avoid actual phrase reuse), you'd need to persist past outputs and feed them into future prompts — a Vercel KV add-on, not currently wired.
+**Cycle length:** with N topics in `topics.json` and 2 posts/day, the same topic returns every N/2 days. 75 topics ≈ once every 37 days (~5.4 weeks). The Anthropic prompt includes an `ANTI-REPETITION` instruction so re-visits of the same topic shift angle/opening/phrasing. For true content-level anti-repetition (avoid actual phrase reuse), you'd need to persist past outputs and feed them into future prompts — a Vercel KV add-on, not currently wired.
 
 ### Endpoints
 
@@ -72,14 +72,15 @@ After deploying and setting env vars, hit `https://allaccesskc.com/api/auto-post
 
 Set `KILL_SWITCH=true` in the Vercel dashboard env vars. Takes effect immediately on next invocation, no redeploy needed. Set back to anything else to resume.
 
-### Cost (daily cadence)
+### Cost (2x daily cadence)
 
-- Anthropic: ~1 message/day × ~$0.01 = ~$4/year
-- Unsplash: free (50 requests/hour limit; we use 1/day)
+- Anthropic: ~2 messages/day × ~$0.003 = ~$2.20/year
+- Unsplash: free (50 requests/hour limit; we use 2/day)
+- Resend: free tier (3,000 emails/month covers 730/year + headroom)
 - Facebook Graph: free
 - Vercel cron + serverless: free tier covers this volume
 
-Total: under $5/year.
+Total: ~$2–5/year.
 
 ### Editing the rotation
 

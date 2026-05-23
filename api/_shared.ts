@@ -5,9 +5,12 @@
 // Files in /api whose name starts with _ are treated as non-routes by Vercel.
 //
 // Architecture: stateless rotation.
-//   topicIndex = floor((now - ANCHOR) / 1 day) mod topics.length
-// Daily cadence: one post per day, cycling through topics.json. With N topics,
-// each topic repeats every N days. Expand topics.json to lengthen the cycle.
+//   totalSlots = daysSinceAnchor * 2 + slotInDay  (slotInDay: 0=morning, 1=evening)
+//   topicIndex = totalSlots mod topics.length
+// 2x daily cadence: cron fires at 14:00 UTC (9 AM CDT) and 22:00 UTC (5 PM CDT).
+// Morning slot = utcHour < 18; evening slot = utcHour >= 18.
+// With N topics and 2 posts/day, each topic repeats every N/2 days.
+// 75 topics -> ~37.5 days (~5.4 weeks) before any topic returns.
 // No filesystem writes (Vercel serverless filesystem is read-only outside /tmp).
 // Audit log lives in Vercel function logs (~30 day retention).
 // If long-term persistence is desired later: bolt on @vercel/kv at the
@@ -188,12 +191,19 @@ export async function runPost(opts: {
       throw new Error("topics.json is empty or malformed");
     }
 
-    // ── Stateless rotation ──────────────────────────────────────────
+    // ── Stateless rotation (2x daily) ───────────────────────────────
     step = "pick_topic";
-    const daysSince = Math.floor((Date.now() - ROTATION_EPOCH) / DAY_MS);
-    const topicIndex = ((daysSince % topics.length) + topics.length) % topics.length;
+    const now = new Date();
+    const daysSince = Math.floor((now.getTime() - ROTATION_EPOCH) / DAY_MS);
+    // Slot detection by UTC hour: split day at 18 UTC (1 PM CDT).
+    // Morning cron at 14 UTC -> slotInDay 0. Evening cron at 22 UTC -> slotInDay 1.
+    // Any manual invocation also picks the right slot based on time-of-day.
+    const slotInDay = now.getUTCHours() < 18 ? 0 : 1;
+    const totalSlots = daysSince * 2 + slotInDay;
+    const topicIndex = ((totalSlots % topics.length) + topics.length) % topics.length;
     const topic = topics[topicIndex];
-    console.log(`[auto-post] day ${daysSince} -> topic ${topicIndex}/${topics.length}: ${topic}`);
+    const slotLabel = slotInDay === 0 ? "morning" : "evening";
+    console.log(`[auto-post] day ${daysSince} ${slotLabel} -> topic ${topicIndex}/${topics.length}: ${topic}`);
 
     // ── Anthropic content generation ────────────────────────────────
     step = "anthropic";

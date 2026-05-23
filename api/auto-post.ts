@@ -1,9 +1,12 @@
 // /api/auto-post.ts
 //
-// Production endpoint — invoked by Vercel cron every day at 15:00 UTC
-// (= 10 AM CDT / 9 AM CST) per the schedule in vercel.json. Vercel cron
-// automatically attaches `Authorization: Bearer ${CRON_SECRET}` when
-// CRON_SECRET is set as an env var in the project. We verify that header here.
+// Production endpoint — invoked by Vercel cron TWICE daily at 14:00 UTC
+// (9 AM CDT) and 22:00 UTC (5 PM CDT) per the schedule in vercel.json.
+// Vercel cron automatically attaches `Authorization: Bearer ${CRON_SECRET}`
+// when CRON_SECRET is set as an env var in the project. We verify that
+// header here. Each invocation generates a different topic (morning slot
+// uses even rotation indices, evening uses odd) so the two daily posts
+// don't repeat content.
 //
 // To pause posting without redeploying, set KILL_SWITCH=true in env vars.
 

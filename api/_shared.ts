@@ -55,13 +55,16 @@ STRUCTURE (120-150 words):
 
 VOICE: Direct, warm, like texting a friend. No corporate buzzwords. No hashtags. Max one emoji.
 
-FORBIDDEN: Naming specific restaurants/bars. Words: FIFA, World Cup, Mundial, Copa, official.
+FORBIDDEN: Naming specific restaurants/bars in the post text. Words: FIFA, World Cup, Mundial, Copa, official.
+
+REAL PLACES ONLY: When the topic refers to a specific spot (BBQ joint, bar, neighborhood, restaurant, park, building, fountain), it must be an actual current Kansas City place. Do not invent fictional venues. If you genuinely do not know a real place that fits the topic, write a more general post that doesn't reference a specific venue, and say so in the OPERATOR_ANSWER line.
 
 ANTI-REPETITION: Each time you write about a topic, approach it from a different angle. Vary the opening (question, story, observation, contradiction). Don't reuse the same metaphors or phrases.
 
-OUTPUT FORMAT:
-Line 1-N: The post text
-Last line (separate): IMAGE_KEYWORDS: word1, word2, word3`;
+OUTPUT FORMAT (three sections, each on its own block):
+Lines 1-N: The post text (the teaser — NEVER name the specific place)
+Then (separate line): IMAGE_KEYWORDS: word1, word2, word3
+Then (separate line): OPERATOR_ANSWER: [The actual KC place this post is teasing — exact name, neighborhood/area, and 1 short sentence on why locals would recommend it. This is for the site operator to verify the tease references a real place. Never put this in the post text. If the topic isn't about a single specific venue, say so here and describe what general thing the post is about.]`;
 
 // ─── Email helpers (Resend HTTP API, no SDK required) ────────────────
 // Sends transactional email via Resend. Free tier covers 3,000 emails/month
@@ -119,6 +122,7 @@ function buildSuccessEmailHtml(d: {
   postText: string;
   imageKeywords: string;
   imageUrl: string;
+  operatorAnswer?: string;
 }): string {
   const ts = new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/Chicago" });
   return `<!doctype html><html><body style="margin:0;background:#f7f1e3;font-family:Georgia,'Times New Roman',serif;color:#1a1d2a;">
@@ -126,7 +130,10 @@ function buildSuccessEmailHtml(d: {
   <div style="font-size:0.7rem;letter-spacing:4px;color:#8b6914;text-transform:uppercase;font-weight:600;margin-bottom:8px;">ALL ACCESS KC · DAILY POST</div>
   <div style="font-size:0.82rem;color:#646774;margin-bottom:24px;">${escapeHtml(ts)} · topic ${d.topicIndex + 1} of ${d.totalTopics}</div>
   <h1 style="font-size:1.4rem;font-weight:600;color:#1a1d2a;margin:0 0 20px 0;line-height:1.3;">${escapeHtml(d.topic)}</h1>
-  <div style="background:#fbf6e8;border-left:3px solid #8b6914;padding:18px 22px;margin-bottom:24px;font-size:0.98rem;line-height:1.65;color:#3d4053;white-space:pre-wrap;">${escapeHtml(d.postText)}</div>
+  <div style="background:#fbf6e8;border-left:3px solid #8b6914;padding:18px 22px;margin-bottom:18px;font-size:0.98rem;line-height:1.65;color:#3d4053;white-space:pre-wrap;">${escapeHtml(d.postText)}</div>
+  ${d.operatorAnswer ? `
+  <div style="font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:#c44848;font-weight:600;margin:24px 0 8px 0;">OPERATOR-ONLY ANSWER &mdash; do NOT post</div>
+  <div style="background:#fae8e8;border-left:3px solid #c44848;padding:14px 18px;margin-bottom:24px;font-size:0.92rem;line-height:1.55;color:#1a1d2a;">${escapeHtml(d.operatorAnswer)}</div>` : ""}
   <div style="font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:#8b6914;font-weight:600;margin-bottom:8px;">SELECTED IMAGE</div>
   <div style="font-size:0.85rem;color:#646774;margin-bottom:10px;font-style:italic;">query: ${escapeHtml(d.imageKeywords)}</div>
   <a href="${d.imageUrl}" target="_blank"><img src="${d.imageUrl}" alt="" style="max-width:100%;height:auto;border:1px solid #d4cdb8;margin-bottom:12px;"></a>
@@ -167,6 +174,7 @@ export interface PostResult {
   fbResponse?: any;
   emailSent?: boolean;
   emailError?: string;
+  operatorAnswer?: string;
   manualModeNote?: string;
   anthropicUsage?: { input_tokens?: number; output_tokens?: number };
   error?: string;
@@ -230,8 +238,9 @@ export async function runPost(opts: {
 
     // ── Parse: post text + final IMAGE_KEYWORDS line ────────────────
     step = "parse";
-    const { postText, imageKeywords } = parseOutput(text);
+    const { postText, imageKeywords, operatorAnswer } = parseOutput(text);
     console.log(`[auto-post] keywords: ${imageKeywords}`);
+    console.log(`[auto-post] operator answer: ${operatorAnswer}`);
     if (!postText) throw new Error("Parsed post text is empty");
 
     // ── Unsplash image selection ────────────────────────────────────
@@ -338,6 +347,7 @@ export async function runPost(opts: {
             postText,
             imageKeywords,
             imageUrl,
+            operatorAnswer,
           }),
         });
         emailSent = r.sent;
@@ -353,6 +363,7 @@ export async function runPost(opts: {
         postText,
         imageKeywords,
         imageUrl,
+        operatorAnswer,
         emailSent,
         emailError,
         anthropicUsage: usage,
@@ -397,6 +408,7 @@ export async function runPost(opts: {
             postText,
             imageKeywords,
             imageUrl,
+            operatorAnswer,
           }),
         });
         emailSent = r.sent;
@@ -415,6 +427,7 @@ export async function runPost(opts: {
         postText,
         imageKeywords,
         imageUrl,
+        operatorAnswer,
         fbPostId: null,
         emailSent,
         emailError,
@@ -472,6 +485,7 @@ export async function runPost(opts: {
       postText,
       imageKeywords,
       imageUrl,
+      operatorAnswer,
       fbPostId,
       fbResponse: fbJson,
       anthropicUsage: usage,
@@ -505,25 +519,47 @@ export async function runPost(opts: {
 }
 
 // ─── Output parsing ───────────────────────────────────────────────────
-function parseOutput(raw: string): { postText: string; imageKeywords: string } {
+function parseOutput(raw: string): {
+  postText: string;
+  imageKeywords: string;
+  operatorAnswer: string;
+} {
   const lines = raw.trim().split(/\r?\n/);
-  // Scan from the end for the IMAGE_KEYWORDS line (model may add trailing
-  // blank lines or extra whitespace).
   let kwLineIdx = -1;
+  let answerLineIdx = -1;
   let imageKeywords = "Kansas City"; // safe fallback
+  let operatorAnswer = "(model did not include OPERATOR_ANSWER line — verify manually)";
+
+  // Scan from the end; both meta lines should be near the bottom.
   for (let i = lines.length - 1; i >= 0; i--) {
-    const m = lines[i].trim().match(/^IMAGE_KEYWORDS:\s*(.+)$/i);
-    if (m) {
-      kwLineIdx = i;
-      imageKeywords = m[1].trim();
-      break;
+    const trimmed = lines[i].trim();
+    if (answerLineIdx === -1) {
+      const am = trimmed.match(/^OPERATOR[_\s]*ANSWER:\s*(.+)$/i);
+      if (am) {
+        answerLineIdx = i;
+        operatorAnswer = am[1].trim();
+        continue;
+      }
     }
+    if (kwLineIdx === -1) {
+      const km = trimmed.match(/^IMAGE[_\s]*KEYWORDS:\s*(.+)$/i);
+      if (km) {
+        kwLineIdx = i;
+        imageKeywords = km[1].trim();
+        continue;
+      }
+    }
+    if (kwLineIdx !== -1 && answerLineIdx !== -1) break;
   }
-  const postText =
-    kwLineIdx >= 0
-      ? lines.slice(0, kwLineIdx).join("\n").trim()
-      : raw.trim();
-  return { postText, imageKeywords };
+
+  // Post text = everything BEFORE the earliest meta line (so neither
+  // IMAGE_KEYWORDS nor OPERATOR_ANSWER leaks into the FB post).
+  let cutAt = lines.length;
+  if (kwLineIdx >= 0) cutAt = Math.min(cutAt, kwLineIdx);
+  if (answerLineIdx >= 0) cutAt = Math.min(cutAt, answerLineIdx);
+
+  const postText = lines.slice(0, cutAt).join("\n").trim();
+  return { postText, imageKeywords, operatorAnswer };
 }
 
 function serializeErr(err: any): any {

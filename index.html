@@ -189,16 +189,18 @@
     object-fit:cover;object-position:center 25%;
     z-index:0;
   }
-  /* Darkening overlay — keeps hero text readable up top, then long gradual fade.
-     0–55%: dark enough for text contrast.
-     55–100%: image still visible but progressively fades into cream. */
+  /* Darkening overlay — keeps hero text readable everywhere. Previously the
+     top 25% was only 0.52-0.58 opaque, which meant the bright sky/sunset
+     part of the skyline photo competed with the headline text. Now starts
+     at 0.78 and stays heavy through the long text block, then fades to
+     cream only at the very bottom. */
   .skyline::before{
     content:'';position:absolute;inset:0;z-index:1;
     background:linear-gradient(180deg,
-      rgba(26,29,42,0.52) 0%,
-      rgba(26,29,42,0.58) 25%,
-      rgba(26,29,42,0.66) 55%,
-      rgba(26,29,42,0.78) 85%,
+      rgba(26,29,42,0.78) 0%,
+      rgba(26,29,42,0.82) 25%,
+      rgba(26,29,42,0.86) 55%,
+      rgba(26,29,42,0.92) 85%,
       var(--bg) 100%);
   }
   /* All direct children of .skyline (except the img) sit above the overlay */
@@ -223,19 +225,19 @@
     margin-bottom:18px;
   }
   .skyline-text h1{
-    color:#f7f1e3;
-    text-shadow:0 3px 22px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+    color:#fdf7e8;
+    text-shadow:0 2px 4px rgba(0,0,0,0.85), 0 4px 24px rgba(0,0,0,0.75);
     margin-bottom:24px;
   }
-  .skyline-text h1 .em{color:#f9d080}
+  .skyline-text h1 .em{color:#fbd57a}
   .skyline-text .dek{
-    color:#f7f1e3;
-    text-shadow:0 2px 14px rgba(0,0,0,0.6);
+    color:#fdf7e8;
+    text-shadow:0 2px 4px rgba(0,0,0,0.8), 0 2px 14px rgba(0,0,0,0.65);
     margin:0 auto;
     max-width:600px;
     font-size:1.1rem;
     font-style:italic;
-    opacity:0.92;
+    opacity:1;
   }
   /* Rule inside skyline — a subtle gold line on the dark image */
   .skyline .rule{
@@ -248,13 +250,20 @@
     padding:0 28px;
   }
   .skyline .intro p{
-    color:#f7f1e3;
-    text-shadow:0 2px 12px rgba(0,0,0,0.55);
+    color:#fdf7e8;
+    text-shadow:0 1px 3px rgba(0,0,0,0.85), 0 2px 12px rgba(0,0,0,0.65);
     font-size:1.05rem;line-height:1.65;margin-bottom:18px;
   }
-  /* What-you-get list over the image */
+  /* What-you-get list over the image - dense block with the most
+     critical sales content. Wrap in a translucent dark panel so the
+     6 list items always read cleanly regardless of what part of the
+     skyline photo is underneath. */
   .skyline .what{
-    max-width:680px;margin:72px auto 0 auto;padding:0 28px;
+    max-width:680px;margin:72px auto 0 auto;padding:24px 28px;
+    background:rgba(14,16,24,0.62);
+    border:1px solid rgba(240,192,96,0.22);
+    -webkit-backdrop-filter:blur(4px);
+    backdrop-filter:blur(4px);
   }
   .skyline .what-label{
     margin-bottom:18px;
@@ -263,13 +272,15 @@
     text-align:left;list-style:none;padding:0;margin:0;
   }
   .skyline .what ul li{
-    color:#f7f1e3;
-    text-shadow:0 1px 10px rgba(0,0,0,0.55);
-    padding:10px 0;
-    border-bottom:1px solid rgba(240,192,96,0.18);
+    color:#fdf7e8;
+    text-shadow:0 1px 3px rgba(0,0,0,0.75);
+    padding:12px 0;
+    border-bottom:1px solid rgba(240,192,96,0.22);
+    line-height:1.55;
   }
+  .skyline .what ul li b{color:#fbd57a;font-weight:600}
   .skyline .what ul li:last-child{border-bottom:none}
-  .skyline .what ul li .num{color:#f9d080}
+  .skyline .what ul li .num{color:#fbd57a;font-weight:600}
 
   /* Flag strip + offer block — sit over the image at the bottom of the hero */
   .skyline .flag-line{

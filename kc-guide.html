@@ -1330,54 +1330,6 @@
   .spot-signup b{
     letter-spacing:0.5px;
   }
-
-  /* Freebies section — collapsible sub-categories (Coffee, Sit-down, etc.) */
-  .cat-perks-sub{
-    margin:14px 0 0 0;
-    border:1px solid rgba(217,164,74,0.22);
-    background:rgba(20,22,30,0.45);
-  }
-  .cat-perks-sub > summary{
-    list-style:none;
-    cursor:pointer;
-    padding:13px 14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:0.95rem;
-    color:#f0d28a;
-    font-weight:600;
-    transition:background 0.15s;
-  }
-  .cat-perks-sub > summary::-webkit-details-marker{display:none}
-  .cat-perks-sub > summary::marker{display:none;content:""}
-  .cat-perks-sub > summary:hover{background:rgba(217,164,74,0.10)}
-  .cat-perks-sub[open] > summary{border-bottom:1px solid rgba(217,164,74,0.22)}
-  .cat-perks-sub-title{flex:1;line-height:1.3}
-  .cat-perks-sub-meta{
-    font-size:0.7rem;
-    color:#fbf6e8;
-    letter-spacing:1.2px;
-    text-transform:uppercase;
-    background:rgba(217,164,74,0.18);
-    border:1px solid rgba(217,164,74,0.35);
-    padding:3px 8px;
-    font-weight:500;
-    white-space:nowrap;
-  }
-  .cat-perks-sub-chev{
-    color:#f0c060;
-    font-size:0.85rem;
-    transition:transform 0.2s;
-  }
-  .cat-perks-sub[open] .cat-perks-sub-chev{transform:rotate(180deg)}
-  .cat-perks-sub > .spots-list{
-    padding:14px;
-  }
-  @media (max-width:520px){
-    .cat-perks-sub-meta{font-size:0.62rem;padding:2px 6px}
-    .cat-perks-sub > summary{flex-wrap:wrap}
-  }
   .cat.cat-perks[open] > summary{
     background:
       linear-gradient(180deg, rgba(20,22,30,0.55) 0%, rgba(20,22,30,0.80) 100%),
@@ -2209,12 +2161,10 @@
               Sign up for each chain's rewards program <b>before your trip</b>. Most welcome rewards email instantly. Each signup is 30 seconds — email + name. Arrive in Kansas City with <b>~$300+ in stackable rewards across 64 chains</b>. A handful are pure freebies on signup (Dutch Bros free drink, Texas Roadhouse welcome gift); most are <b>"free X with $1-15 purchase"</b> — meaning every meal you'd order anyway triggers a free side, app, drink, or extra entrée. <b>If anyone in your group has a birthday during the trip, add another $53+ in pure-freebie birthday perks</b> below. <i>Verify current offer at signup; chains can change rewards anytime.</i>
             </p>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">☕ Coffee — locations everywhere in KC metro</span><span class="cat-perks-sub-meta">3 chains · ~$15</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">☕ Coffee — locations everywhere in KC metro</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Dutch Bros</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">Northland · Overland Park · Olathe · KC MO</span>
                 <div class="spot-desc">Free medium drink (~$5) on Dutch Bros Rewards signup. Multiple KC metro locations — sign up before your first morning out and you'll pass one no matter where you're staying.</div>
                 <a href="https://www.dutchbros.com/rewards" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Dutch Bros Rewards via the Dutch Bros app ↗</a>
@@ -2233,12 +2183,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🍴 Sit-down chains — multiple KC metro locations</span><span class="cat-perks-sub-meta">18 chains · ~$135</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🍴 Sit-down chains — multiple KC metro locations</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">54th Street Grill &amp; Bar</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">7 metro locations</span>
                 <div class="spot-desc">Free Gringo Dip &amp; Chips (~$8) immediately after Five Four Rewards signup. Solid sports bar — TVs on every wall, good for matches you're not at the stadium for. Locations: Olathe (14750 S Harrison St), Zona Rosa/North KC (7200 NW 86th Terrace), North of the River (303 NE Englewood Rd), Liberty/North KC (9251 NE Barry Rd), Independence (18700 E 38th Terrace S), Blue Springs (1307 SW State Rte 7), Lee's Summit (815 SE 3rd St). Whichever side of town you're on, there's one nearby.</div>
                 <a href="https://54thstreetrestaurants.com/rewards/" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Five Four Rewards via the 54th Street app · 54thstreetrestaurants.com ↗</a>
@@ -2347,12 +2295,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🌮 Mexican &amp; Tex-Mex — welcome perks</span><span class="cat-perks-sub-meta">3 chains · ~$19</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🌮 Mexican &amp; Tex-Mex — welcome perks</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Chipotle</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">Many KC metro</span>
                 <div class="spot-desc">Free chips &amp; guac (~$5) with any $5+ purchase for Chipotle Rewards members. <b>Stack with the birthday perk below</b> if applicable. KC metro has many locations across the entire area.</div>
                 <a href="https://www.chipotle.com/rewards" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Chipotle Rewards via the Chipotle app ↗</a>
@@ -2371,12 +2317,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🍔 Fast food &amp; quick-service — drive-thru/grab-and-go</span><span class="cat-perks-sub-meta">18 chains · ~$80</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🍔 Fast food &amp; quick-service — drive-thru/grab-and-go</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">McDonald's</div>
-            </details>
                 <span class="spot-tag must">Welcome — $1 min</span><span class="spot-tag">Everywhere in KC metro</span>
                 <div class="spot-desc">Free Quarter Pounder (~$5) with $1+ minimum purchase for MyMcDonald's Rewards members. <b>Highest welcome-to-min-purchase ratio on this entire list.</b> Buy a coffee or hash brown, get a free Quarter Pounder.</div>
                 <a href="https://www.mcdonalds.com/us/en-us/mymcdonalds.html" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> MyMcDonald's Rewards via the McDonald's app ↗</a>
@@ -2485,12 +2429,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🥪 Subs &amp; sandwiches — welcome rewards</span><span class="cat-perks-sub-meta">3 chains · ~$18</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🥪 Subs &amp; sandwiches — welcome rewards</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Jimmy John's</div>
-            </details>
                 <span class="spot-tag must">Welcome — after $5+ order</span><span class="spot-tag">30+ KC metro</span>
                 <div class="spot-desc">Free sandwich (~$7) after your first $5+ order for Freaky Fast Rewards members. Buy a small + drink to trigger, then redeem the free sandwich next visit. <b>30+ KC metro locations</b> — easily the densest sub-chain footprint in KC.</div>
                 <a href="https://www.jimmyjohns.com/rewards" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Freaky Fast Rewards via the Jimmy John's app ↗</a>
@@ -2509,12 +2451,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🍩 Sweet treats — doughnuts, pretzels, ice cream, smoothies</span><span class="cat-perks-sub-meta">9 chains · ~$36</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🍩 Sweet treats — doughnuts, pretzels, ice cream, smoothies</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Krispy Kreme</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">Independence · Mission · Lee's Summit</span>
                 <div class="spot-desc">Free doughnut (~$2) with any purchase for Krispy Kreme Rewards members. Pair with a coffee for a $3-4 breakfast.</div>
                 <a href="https://www.krispykreme.com/rewards" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Krispy Kreme Rewards via the Krispy Kreme app ↗</a>
@@ -2569,12 +2509,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🍳 Breakfast &amp; bagels — welcome rewards</span><span class="cat-perks-sub-meta">2 chains · ~$11</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🍳 Breakfast &amp; bagels — welcome rewards</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Einstein Bros. Bagels</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">KC metro — handful</span>
                 <div class="spot-desc">Free bagel and shmear (~$4) with any purchase for Einstein Rewards members. Pair with their coffee for a $4-5 grab-and-go breakfast.</div>
                 <a href="https://www.einsteinbros.com/rewards" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Einstein Rewards via einsteinbros.com ↗</a>
@@ -2587,12 +2525,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">📍 Specific-location chains (one or two KC metro spots)</span><span class="cat-perks-sub-meta">2 chains · ~$18</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">📍 Specific-location chains (one or two KC metro spots)</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">LongHorn Steakhouse</div>
-            </details>
                 <span class="spot-tag must">Welcome reward</span><span class="spot-tag">Overland Park only</span>
                 <div class="spot-desc">Free appetizer with adult entrée purchase (~$8-12) after LongHorn eClub signup. Reasonable steakhouse for a casual night out. Overland Park is the only KC metro location, so plan a south-suburbs trip around it.</div>
                 <a href="https://www.longhornsteakhouse.com/eclub" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> LongHorn Steakhouse eClub via longhornsteakhouse.com ↗</a>
@@ -2605,12 +2541,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🎂 Birthday-only perks — only if someone in your group has a birthday during your trip</span><span class="cat-perks-sub-meta">5 chains · ~$43</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🎂 Birthday-only perks — only if someone in your group has a birthday during your trip</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Red Robin</div>
-            </details>
                 <span class="spot-tag must">Birthday month</span><span class="spot-tag">Overland Park · Olathe · Legends · Independence · Liberty</span>
                 <div class="spot-desc">Free fire-grilled burger (~$13) during your <b>entire birth month</b> for Red Robin Royalty members. If your birth month covers any day of your trip, this is the highest-value birthday perk on the list. Multiple KC metro locations — Overland Park is the most central if you're south-side.</div>
                 <a href="https://www.redrobin.com/royalty" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> Red Robin Royalty Program via the Red Robin app ↗</a>
@@ -2641,12 +2575,10 @@
               </div>
             </div>
 
-            <details class="cat-perks-sub">
-              <summary><span class="cat-perks-sub-title">🍺 Local brewery — recurring BOGO (different perk model)</span><span class="cat-perks-sub-meta">1 chain · ~$8/mo</span><span class="cat-perks-sub-chev">▾</span></summary>
-              <div class="spots-list">
+            <h4 style="color:var(--cream);font-weight:600;font-size:0.95rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(217,164,74,0.25)">🍺 Local brewery — recurring BOGO (different perk model)</h4>
+            <div class="spots-list">
               <div class="spot">
                 <div class="spot-name">Martin City Brewing Company</div>
-            </details>
                 <span class="spot-tag must">Monthly BOGO</span><span class="spot-tag">Martin City (south KC MO)</span>
                 <div class="spot-desc">Buy-One-Get-One drink offer every month for members of the <b>5-Star 365 Loyalty Program</b> (~$8 value per use). <b>This is different from the other perks on this list</b> — it's recurring monthly, not a one-time welcome reward, so on a longer trip you could potentially redeem it more than once. Real KC craft brewery + brewpub in the Martin City neighborhood (south KCMO, near the OP border). Strong pick for visitors who want local KC beer, not chain drinks.</div>
                 <a href="https://www.martincitybrewingcompany.com/loyalty" target="_blank" rel="noopener" class="spot-signup"><b>Sign up:</b> 5-Star 365 Loyalty Program via martincitybrewingcompany.com or the Martin City Brewing app ↗</a>

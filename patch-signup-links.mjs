@@ -29,6 +29,8 @@ const URLS = {
   "Golden Corral":                                 "https://www.goldencorral.com/eclub-signup",
   "Bob Evans":                                     "https://www.bobevans.com/eclub",
   "Noodles & Company":                             "https://www.noodles.com/rewards",
+  "Buca di Beppo":                                 "https://www.bucadibeppo.com/email-signup",
+  "Buca di Beppo (birthday addition)":             "https://www.bucadibeppo.com/email-signup",
   "Chipotle":                                      "https://www.chipotle.com/rewards",
   "On the Border":                                 "https://www.ontheborder.com/club-cantina",
   "Abuelo's Mexican Restaurant":                   "https://www.abuelos.com/rewards",

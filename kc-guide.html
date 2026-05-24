@@ -1248,6 +1248,45 @@
   .cat.cat-eat > summary{
     border-left:3px solid #8b6914;
   }
+
+  /* Freebies / chain rewards — hero photo banner background */
+  .cat.cat-perks > summary{
+    background:
+      linear-gradient(180deg, rgba(20,22,30,0.62) 0%, rgba(20,22,30,0.86) 100%),
+      url('kc-freebies-bg.jpg') center 32% / cover no-repeat;
+    border-left:3px solid #d9a44a;
+    min-height:108px;
+    padding:18px 16px;
+  }
+  .cat.cat-perks[open] > summary{
+    background:
+      linear-gradient(180deg, rgba(20,22,30,0.55) 0%, rgba(20,22,30,0.80) 100%),
+      url('kc-freebies-bg.jpg') center 32% / cover no-repeat;
+    border-bottom:1px solid rgba(217,164,74,0.30);
+  }
+  .cat.cat-perks > summary:hover{
+    background:
+      linear-gradient(180deg, rgba(20,22,30,0.50) 0%, rgba(20,22,30,0.78) 100%),
+      url('kc-freebies-bg.jpg') center 32% / cover no-repeat;
+  }
+  .cat.cat-perks > summary .cat-name{
+    color:#f0d28a;
+    text-shadow:0 1px 3px rgba(0,0,0,0.7);
+    font-weight:600;
+  }
+  .cat.cat-perks > summary .cat-count{
+    color:#fbf6e8;
+    text-shadow:0 1px 2px rgba(0,0,0,0.6);
+    background:rgba(217,164,74,0.25);
+    border-color:rgba(240,210,138,0.4);
+  }
+  .cat.cat-perks > summary .cat-icon{
+    text-shadow:0 1px 3px rgba(0,0,0,0.6);
+  }
+  .cat.cat-perks > summary .cat-chev{
+    color:#fbf6e8;
+    text-shadow:0 1px 2px rgba(0,0,0,0.6);
+  }
   .cat.cat-hidden > summary{
     border-left:3px solid #2d6373;
     background:linear-gradient(90deg, rgba(45,99,115,0.07), var(--bg-soft) 35%);
@@ -5897,7 +5936,7 @@
   // Image filenames retain their original short names; the dict key is the new tab name.
   var TAB_BACKGROUNDS = {
     events:       'kc-schedule-bg.jpg',
-    eat:          { url: 'kc-freebies-bg.jpg', position: 'center 30%' },
+    eat:          'kc-eat-bg.jpg',
     drink:        'kc-drink-bg.jpg',
     watch:        { url: 'kc-watch-bg.jpg', position: 'center 28%' },
     gameday:      'kc-matchday-bg.jpg',

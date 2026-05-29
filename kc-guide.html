@@ -906,26 +906,34 @@
     color:#ffffff;
   }
   .master-body .heads-up b{color:#fff3a8}
-  /* Closed category panels are see-through (~50% cream) so the page-bg
-     image shows through; opening lifts to ~97% cream for crisp content. */
+  /* Closed/at-rest panels: nearly transparent so the page-bg image
+     dominates. Landing on a panel (hover) OR opening it solidifies
+     it to ~97% cream so content reads crisp. */
   .master-body .cat{
-    background:rgba(251,246,232,0.50);
-    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    background:rgba(251,246,232,0.12);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
     border-color:rgba(217,164,74,0.5);
+    transition:background 0.2s ease, backdrop-filter 0.2s ease;
   }
+  .master-body .cat:hover,
   .master-body .cat[open]{
     background:rgba(251,246,232,0.97);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
   .master-body .cat > summary{
     background:transparent;
-    /* Faint white halo keeps the closed-panel title legible over any
-       part of the photo behind it (dark areas, bright skies). */
-    text-shadow:0 1px 2px rgba(255,255,255,0.55);
+    /* Layered halo (white + dark) keeps the closed-panel title legible
+       whether the photo behind is bright OR dark. Cleared once hovered
+       or opened — the solid cream takes over. */
+    text-shadow:0 1px 2px rgba(255,255,255,0.55), 0 1px 3px rgba(0,0,0,0.5);
+    transition:text-shadow 0.2s ease, background 0.2s ease;
+  }
+  .master-body .cat:hover > summary,
+  .master-body .cat[open] > summary{
+    text-shadow:none;
   }
   .master-body .cat[open] > summary{
     background:rgba(217,164,74,0.10);
-    text-shadow:none;
   }
   .master-body .cat .spot{
     background:rgba(251,246,232,0.92);

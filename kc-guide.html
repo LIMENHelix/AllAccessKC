@@ -992,30 +992,47 @@
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
 
-  /* ── UNIVERSAL: every <details> panel ───────────────────────────────
-     Closed = transparent (page-bg image dominates).
-     Open   = solid cream (content reads).
-     Uses !important to win against every per-class rule above
-     (.master-collapse summary at 0.78 cream, .cat.cat-perks photo
-     banner, .cat-perks-sub at 0.94 dark, .master-body .cat, etc.).
-     One rule covers every collapsible the user can see in the guide. */
+  /* ── UNIVERSAL: every <details> panel — Heartland pattern ─────────
+     Reference: file:///C:/Users/Chris/Desktop/heartland-mens-health.html
+     Closed at rest : fully transparent, NO blur, faint white border.
+                      Title text white with layered dark text-shadow halo
+                      so it pops against any photo region.
+     Closed on hover: grey 0.65 overlay so the title sits on a uniform
+                      tone before you commit to opening it.
+     Open           : solid cream surface, no blur. Content reads as
+                      a clean card.
+     !important on every property so we win against every per-class
+     rule above (.master-collapse 0.78 cream, .cat.cat-perks photo
+     banner, .cat-perks-sub 0.94 dark, .master-body .cat, etc.). */
   details:not([open]){
-    background:rgba(251,246,232,0.12) !important;
-    -webkit-backdrop-filter:blur(6px) !important;
-    backdrop-filter:blur(6px) !important;
-    transition:background 0.2s ease, backdrop-filter 0.2s ease !important;
+    background:transparent !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    border-color:rgba(255,255,255,0.45) !important;
+    box-shadow:none !important;
+    transition:background 0.15s ease !important;
+  }
+  details:not([open]):hover{
+    background:rgba(80,80,80,0.65) !important;
   }
   details[open]{
     background:rgba(251,246,232,0.97) !important;
-    -webkit-backdrop-filter:blur(18px) !important;
-    backdrop-filter:blur(18px) !important;
-    transition:background 0.2s ease, backdrop-filter 0.2s ease !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    transition:background 0.15s ease !important;
   }
   details:not([open]) > summary{
     background:transparent !important;
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
-    text-shadow:0 1px 2px rgba(255,255,255,0.6), 0 1px 4px rgba(0,0,0,0.55) !important;
+  }
+  /* Force white text + sharp dark halo on EVERY descendant of a
+     closed summary (label, sub, chev, etc.) so nothing gets lost
+     against the photo behind. */
+  details:not([open]) > summary,
+  details:not([open]) > summary *{
+    color:#ffffff !important;
+    text-shadow:0 1px 2px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.65) !important;
   }
   details[open] > summary{
     background:rgba(217,164,74,0.10) !important;

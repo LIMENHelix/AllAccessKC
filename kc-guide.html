@@ -997,6 +997,50 @@
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
 
+  /* ── Unified see-through panel pattern (every tab) ─────────────
+     Every content-panel container across the guide behaves the same:
+     - At rest: ~12% cream + soft 6px blur so the page-bg image
+       dominates. Layered text-shadow keeps the inner text readable
+       whether the photo behind is bright or dark.
+     - Landing on a panel (hover) OR opening a collapsible one
+       ([open] on <details>): snaps to ~97% cream + 18px blur so the
+       content reads as a clean card.
+     Alert callouts (.heads-up, .mday-note, .mday-warn,
+     .parking-rules, .intl-visa-callout) are intentionally excluded
+     so warnings stay solid and attention-grabbing. */
+  .master-body .cat,
+  .master-body .zone,
+  .master-body .tier,
+  .master-body .budget-notes,
+  .master-body .timeline,
+  .master-body .parking,
+  .master-body .rules-col,
+  .master-body .price-item,
+  .master-body .country,
+  .master-body .ttp,
+  .master-body .kbyg{
+    background:rgba(251,246,232,0.12);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    text-shadow:0 1px 2px rgba(255,255,255,0.55), 0 1px 3px rgba(0,0,0,0.5);
+    transition:background 0.2s ease, backdrop-filter 0.2s ease, text-shadow 0.2s ease;
+  }
+  .master-body .cat:hover,
+  .master-body .cat[open],
+  .master-body .zone:hover,
+  .master-body .tier:hover,
+  .master-body .budget-notes:hover,
+  .master-body .timeline:hover,
+  .master-body .parking:hover,
+  .master-body .rules-col:hover,
+  .master-body .price-item:hover,
+  .master-body .country:hover,
+  .master-body .ttp:hover,
+  .master-body .kbyg:hover{
+    background:rgba(251,246,232,0.97);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+    text-shadow:none;
+  }
+
   /* Page background layer — fills viewport, sits behind all content.
      Image is only set when a tab requests one (via JS). */
   .page-bg{

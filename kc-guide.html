@@ -1039,6 +1039,33 @@
     text-shadow:none !important;
   }
 
+  /* .help (Need help — reservations) keeps its green branding when opened.
+     The universal cream override above would put the panel's white-on-green
+     text onto a near-cream surface — illegible. Restore the green when open,
+     and keep the closed summary's white text + halo (no override needed). */
+  .help[open]{
+    background:rgba(62,138,82,0.95) !important;
+    -webkit-backdrop-filter:blur(14px) !important;
+    backdrop-filter:blur(14px) !important;
+  }
+  .help[open] > summary{
+    background:transparent !important;
+  }
+  .help[open] > summary,
+  .help[open] > summary *,
+  .help[open] h3,
+  .help[open] p,
+  .help[open] .help-label,
+  .help[open] .help-chev{
+    color:#ffffff !important;
+    text-shadow:none !important;
+  }
+  .help[open] p{color:#f7f1e3 !important}
+  .help[open] .help-label,
+  .help[open] .help-chev,
+  .help[open] a{color:#fff3a8 !important}
+  .help[open] a:hover{color:#ffffff !important}
+
   /* Page background layer — fills viewport, sits behind all content.
      Image is only set when a tab requests one (via JS). */
   .page-bg{

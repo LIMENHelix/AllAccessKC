@@ -1066,6 +1066,77 @@
   .help[open] a{color:#fff3a8 !important}
   .help[open] a:hover{color:#ffffff !important}
 
+  /* ── COLOR HARMONIZATION (keeps transparency, fixes contrast) ─────
+     The universal transparency rule above introduced three readability
+     problems. This block fixes them without rolling back transparency.
+
+     (1) Closed-summary text had TWO stacked shadows (sharp inner +
+         soft glow). On a busy page that reads as "many shadows" piled
+         everywhere. Drop to a single moderate shadow — still legible
+         on photo, much calmer visually.
+
+     (2) Opened panels are now near-solid cream (rgba(251,246,232,0.97)).
+         Their original content was authored for dark/photo surfaces,
+         so light text now sits on cream = "cream on white". Force all
+         descendant text inside opened panels to dark ink. Exclusions:
+         .help (green panel, fixed above) and the freebies family
+         (.cat-perks / .cat-perks-sub) which has its own dark theme.
+
+     (3) Freebies section's inside is a fully-tuned DARK theme with
+         dark spot cards on a dark .cat-body overlay. Forcing the
+         wrapper to cream when opened breaks every nested contrast
+         assumption. Restore the wrappers' dark surface when open,
+         keep their summary backgrounds transparent. */
+
+  /* (1) Single moderate halo on every closed summary (was double). */
+  details:not([open]) > summary,
+  details:not([open]) > summary *{
+    text-shadow:0 1px 3px rgba(0,0,0,0.85) !important;
+  }
+
+  /* (3) Freebies wrappers stay dark when opened so the inner dark
+         spot cards + light text inside still read correctly. */
+  .cat-perks[open]{
+    background:rgba(18,20,28,0.96) !important;
+  }
+  .cat-perks-sub[open]{
+    background:rgba(20,22,30,0.95) !important;
+  }
+  .cat-perks[open] > summary,
+  .cat-perks-sub[open] > summary{
+    background:transparent !important;
+  }
+
+  /* (2) All OTHER opened panels become cream cards — force every
+         descendant to dark ink so nothing reads as cream-on-white.
+         The :not() chain skips the green .help and the dark freebies
+         wrappers (each handled above with their own color schemes). */
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub){
+    color:#1a1d2a !important;
+  }
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) > summary,
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) > summary *{
+    color:#1a1d2a !important;
+    text-shadow:none !important;
+  }
+  /* Bold/emphasized text inside opened panels also goes dark + slightly
+     bolder so headings retain hierarchy without relying on gold-on-cream. */
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) b,
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) strong,
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h2,
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h3,
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h4{
+    color:#0f1219 !important;
+  }
+  /* Links inside opened cream panels: warm gold-deep for accessible
+     contrast on cream (was various pale tones designed for dark bg). */
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) a{
+    color:#8b6914 !important;
+  }
+  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) a:hover{
+    color:#5c4609 !important;
+  }
+
   /* Page background layer — fills viewport, sits behind all content.
      Image is only set when a tab requests one (via JS). */
   .page-bg{

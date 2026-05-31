@@ -1067,35 +1067,22 @@
   .help[open] a:hover{color:#ffffff !important}
 
   /* ── COLOR HARMONIZATION (keeps transparency, fixes contrast) ─────
-     The universal transparency rule above introduced three readability
-     problems. This block fixes them without rolling back transparency.
+     Opened panels now show near-solid cream from the transparency
+     rule above. The original content was authored for dark/photo
+     surfaces, so light text now sits on cream = unreadable.
 
-     (1) Closed-summary text had TWO stacked shadows (sharp inner +
-         soft glow). On a busy page that reads as "many shadows" piled
-         everywhere. Drop to a single moderate shadow — still legible
-         on photo, much calmer visually.
+     Strategy: BROAD low-specificity rule forces dark ink on every
+     descendant of any opened panel. Then per-panel-class exceptions
+     (.help, .cat-perks family) win on class-count specificity for
+     panels that need their own color scheme. */
 
-     (2) Opened panels are now near-solid cream (rgba(251,246,232,0.97)).
-         Their original content was authored for dark/photo surfaces,
-         so light text now sits on cream = "cream on white". Force all
-         descendant text inside opened panels to dark ink. Exclusions:
-         .help (green panel, fixed above) and the freebies family
-         (.cat-perks / .cat-perks-sub) which has its own dark theme.
-
-     (3) Freebies section's inside is a fully-tuned DARK theme with
-         dark spot cards on a dark .cat-body overlay. Forcing the
-         wrapper to cream when opened breaks every nested contrast
-         assumption. Restore the wrappers' dark surface when open,
-         keep their summary backgrounds transparent. */
-
-  /* (1) Single moderate halo on every closed summary (was double). */
+  /* (a) Closed-summary single moderate shadow (was double-stacked). */
   details:not([open]) > summary,
   details:not([open]) > summary *{
     text-shadow:0 1px 3px rgba(0,0,0,0.85) !important;
   }
 
-  /* (3) Freebies wrappers stay dark when opened so the inner dark
-         spot cards + light text inside still read correctly. */
+  /* (b) Freebies wrappers keep dark surface when opened. */
   .cat-perks[open]{
     background:rgba(18,20,28,0.96) !important;
   }
@@ -1107,34 +1094,74 @@
     background:transparent !important;
   }
 
-  /* (2) All OTHER opened panels become cream cards — force every
-         descendant to dark ink so nothing reads as cream-on-white.
-         The :not() chain skips the green .help and the dark freebies
-         wrappers (each handled above with their own color schemes). */
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub){
-    color:#1a1d2a !important;
-  }
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) > summary,
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) > summary *{
+  /* (c) BROAD — every text element anywhere inside any opened panel
+         is dark ink. Specificity intentionally LOW (0,0,1,2) so the
+         per-class exceptions below win on a single-class boost.
+         The `*` catches body content, nested closed summaries, inline
+         tags — everything that was previously only inheriting (and
+         losing to child color rules). */
+  details[open],
+  details[open] *{
     color:#1a1d2a !important;
     text-shadow:none !important;
   }
-  /* Bold/emphasized text inside opened panels also goes dark + slightly
-     bolder so headings retain hierarchy without relying on gold-on-cream. */
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) b,
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) strong,
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h2,
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h3,
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) h4{
+  details[open] h2,
+  details[open] h3,
+  details[open] h4{
     color:#0f1219 !important;
   }
-  /* Links inside opened cream panels: warm gold-deep for accessible
-     contrast on cream (was various pale tones designed for dark bg). */
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) a{
+  details[open] a{
     color:#8b6914 !important;
   }
-  details[open]:not(.help):not(.cat-perks):not(.cat-perks-sub) a:hover{
+  details[open] a:hover{
     color:#5c4609 !important;
+  }
+
+  /* (d) EXCEPTION — .help green panel keeps white/cream/yellow.
+         `details.help[open] *` = 0,0,2,2, beats broad 0,0,1,2. */
+  details.help[open],
+  details.help[open] *{
+    color:#ffffff !important;
+  }
+  details.help[open] p{color:#f7f1e3 !important}
+  details.help[open] .help-label,
+  details.help[open] .help-chev,
+  details.help[open] a{color:#fff3a8 !important}
+  details.help[open] a:hover{color:#ffffff !important}
+
+  /* (e) EXCEPTION — freebies family keeps light text on dark theme.
+         `details.cat-perks[open] *` = 0,0,2,2, beats broad 0,0,1,2.
+         When .cat-perks is nested inside an open .master-collapse,
+         the broad rule cascades to cat-perks descendants via the
+         master-collapse match — these exceptions win it back. */
+  details.cat-perks[open],
+  details.cat-perks[open] *,
+  details.cat-perks-sub[open],
+  details.cat-perks-sub[open] *{
+    color:#fbf6e8 !important;
+    text-shadow:none !important;
+  }
+  details.cat-perks[open] .spot-name,
+  details.cat-perks-sub[open] .spot-name{
+    color:#f0d28a !important;
+  }
+  details.cat-perks[open] .spot-tag,
+  details.cat-perks-sub[open] .spot-tag,
+  details.cat-perks[open] .cat-perks-sub-meta,
+  details.cat-perks-sub[open] .cat-perks-sub-meta{
+    color:#f0c060 !important;
+  }
+  details.cat-perks[open] .spot-tag.must,
+  details.cat-perks-sub[open] .spot-tag.must{
+    color:#fff3a8 !important;
+  }
+  details.cat-perks[open] a,
+  details.cat-perks-sub[open] a{
+    color:#f0c060 !important;
+  }
+  details.cat-perks[open] a:hover,
+  details.cat-perks-sub[open] a:hover{
+    color:#fbf6e8 !important;
   }
 
   /* Page background layer — fills viewport, sits behind all content.

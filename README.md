@@ -86,3 +86,29 @@ Total: ~$2–5/year.
 
 Edit `api/topics.json` — array of strings, one prompt per topic. Order matters; the function picks `topics[daysSinceEpoch mod topics.length]` each day. Adding/removing an entry shifts every future rotation by one notch.
 
+## Community chat — "The KC Table"
+
+A free public, human-to-human chat board on `index.html` (separate from the AI concierge at `/api/chat`). Every visitor is auto-assigned a Kansas-City-flavored nickname — e.g. **Westport Wally**, **Burnt End Benny**, **Plaza Pearl** — stored in their browser `localStorage` (a 🎲 button rerolls it). Messages are posted under that alias; there are no accounts or logins.
+
+`/api/community.ts`:
+
+| Method | Behavior |
+|---|---|
+| `GET /api/community` | Returns the last ~60 messages: `{ ok, live, messages:[{id,alias,text,ts}] }` |
+| `POST /api/community` | Body `{ alias, text }` → appends a message. Sanitizes text + alias, light profanity mask, per-IP rate limit (~1 msg / 1.5s, 40/hr). |
+
+**Storage:** a single Postgres table `kc_table` (Neon, via `@vercel/postgres` — a serverless HTTP driver, no connection pool to exhaust), trimmed to the most recent ~200 messages. The table is created automatically on first use. The page polls every 6s once the section scrolls into view.
+
+**Graceful degradation:** if no database is connected, the endpoint stays up — reads return an empty feed and the UI shows "opening soon," posts return a friendly "warming up" message. Nothing hard-errors.
+
+### Setup (one-time, in the Vercel dashboard)
+
+1. Project → **Storage → Create Database → Postgres** (Neon). Accept the defaults; the free tier is plenty.
+2. Connect it to this project. Vercel injects `POSTGRES_URL` (and friends) automatically — **no manual env vars to copy.**
+3. Redeploy. The `kc_table` table is created on the first chat request.
+
+| Name | Required | Notes |
+|---|---|---|
+| `POSTGRES_URL` | yes (for chat) | Injected automatically when you attach a Vercel Postgres/Neon store. Don't set by hand. |
+| `KILL_SWITCH` | no | Already used by auto-post; also disables new chat posts when set (reads still work). |
+

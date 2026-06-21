@@ -192,6 +192,14 @@ export async function runPost(opts: {
 }): Promise<PostResult> {
   let step = "init";
   try {
+    // COST PAUSE (2026-06-20): Anthropic spend paused per operator request.
+    // Set AUTOPOST_ENABLED back to true to resume the daily generator.
+    const AUTOPOST_ENABLED = false;
+    if (!AUTOPOST_ENABLED) {
+      console.log("[auto-post] PAUSED (AUTOPOST_ENABLED=false) — skipping Anthropic call");
+      return { ok: true, dryRun: opts.dryRun, step: "paused" };
+    }
+
     // ── Load topics (bundled at build time) ─────────────────────────
     step = "load_topics";
     const topics = topicsData as string[];

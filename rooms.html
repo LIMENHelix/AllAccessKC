@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KC Chat Rooms — Real People, Real Kansas City, Talking Now | All Access KC</title>
+<meta name="description" content="Live Kansas City chat rooms — no signup, just jump in. Get an auto-assigned KC nickname and talk Chiefs, Royals, soccer, food, nightlife and tailgating with real people across the metro right now.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  /* Page-local flourishes layered on top of the shared kc.css system */
+  .rooms-hero h1{
+    font-size:clamp(2.5rem,7vw,4.8rem);
+    line-height:0.98;
+    text-shadow:0 2px 30px rgba(0,0,0,0.55);
+  }
+  .rooms-hero .eyebrow{color:#fff;opacity:0.9}
+  .rooms-hero .lede{color:#f3ecdd}
+  .neon-rule{
+    height:5px;width:100%;
+    background:linear-gradient(90deg,#e31837 0%,#f9d080 38%,#1d8bd1 72%,#2f6b41 100%);
+    border-radius:3px;margin:6px 0 0;
+  }
+  /* Jump-to-a-room chip menu */
+  .room-jump{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    margin:8px 0 0;
+  }
+  .room-jump a{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--serif,Fraunces,Georgia,serif);
+    font-size:0.92rem;font-weight:600;text-decoration:none;
+    padding:9px 15px;border-radius:999px;
+    background:#fff;color:var(--ink-mid,#3a3a44);
+    border:1px solid var(--rule,#e6e1d4);
+    box-shadow:0 1px 4px rgba(0,0,0,0.05);
+    transition:transform .15s ease,border-color .15s ease,color .15s ease;
+  }
+  .room-jump a:hover{transform:translateY(-2px);border-color:var(--gold,#caa14a);color:var(--gold-deep,#8a6a16)}
+  .room-jump a .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  /* Etiquette callout */
+  .house-rules{
+    display:flex;gap:16px;align-items:flex-start;
+    max-width:760px;margin:0 auto;
+    padding:20px 22px;border-radius:14px;
+    background:#fff7e6;border:1px solid #f0dca6;
+  }
+  .house-rules .badge{
+    font-family:var(--serif,Fraunces,Georgia,serif);
+    font-size:1.5rem;line-height:1;flex:0 0 auto;
+  }
+  .house-rules p{margin:0;color:var(--ink-mid,#3a3a44);font-size:0.95rem;line-height:1.55}
+  .house-rules strong{color:var(--ink,#1a1d2a)}
+  /* Room card with the embedded room */
+  .room-block{position:relative;scroll-margin-top:90px}
+  .room-block .room-head{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;
+    margin-bottom:14px;
+  }
+  .room-block .room-head h2{margin:0;font-size:clamp(1.5rem,4vw,2.1rem)}
+  .room-block .room-head .room-tag{
+    font-family:var(--serif,Fraunces,Georgia,serif);
+    font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;color:#fff;
+  }
+  .room-block .room-desc{color:var(--ink-mid,#3a3a44);margin:0 0 16px;font-size:1.02rem}
+  .room-block .kc-room{margin-top:4px}
+  .back-top{
+    display:inline-block;margin-top:12px;
+    font-size:0.82rem;text-decoration:none;color:var(--ink-faint,#8a8676);
+  }
+  .back-top:hover{color:var(--gold,#caa14a)}
+  .live-pip{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:#34c759;margin-right:6px;
+    box-shadow:0 0 0 0 rgba(52,199,89,0.6);
+    animation:pip 2s infinite;
+  }
+  @keyframes pip{
+    0%{box-shadow:0 0 0 0 rgba(52,199,89,0.5)}
+    70%{box-shadow:0 0 0 8px rgba(52,199,89,0)}
+    100%{box-shadow:0 0 0 0 rgba(52,199,89,0)}
+  }
+  @media(prefers-reduced-motion:reduce){.live-pip{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="kc-hero rooms-hero" style="--hero-img:url('/kc-skyline.jpg')">
+  <div class="wrap">
+    <p class="eyebrow">KC Chat Rooms · All Access KC</p>
+    <h1>The City Is Talking. Pull Up a Stool.</h1>
+    <p class="lede"><span class="live-pip" aria-hidden="true"></span>Real people, real Kansas City, talking right now. No signup, no profile to build — just jump in and you'll get an auto-assigned KC-style nickname on the way through the door.</p>
+    <div class="neon-rule" aria-hidden="true"></div>
+    <p style="margin-top:22px">
+      <a class="btn" href="#general">Walk into KC Talk</a>
+      <a class="btn-ghost" href="#jump" style="color:#fff;border-color:rgba(255,255,255,.6)">Pick a room</a>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- INTRO + HOUSE RULES -->
+  <section class="section reveal">
+    <p class="eyebrow center">How it works</p>
+    <h2 class="center">Eight rooms, one city, no forms</h2>
+    <p class="lede center">Every room below is a live, open board. You don't make an account — when you say something, you're handed a friendly Kansas-City-flavored nickname (think <em>Plaza Pigeon</em> or <em>Burnt-End Bandit</em>) and you're in. Scroll to a room and it wakes up automatically.</p>
+
+    <div class="house-rules reveal" style="margin-top:26px">
+      <span class="badge" aria-hidden="true">🤝</span>
+      <p><strong>House rules.</strong> These rooms are public and lightly moderated. Be kind and be respectful — it's a public board where anyone can read along. <strong>No doxxing</strong> and please <strong>don't share sensitive info</strong> (your address, phone, payment details, anything you'd regret a stranger seeing). Treat newcomers like guests in your hometown, because that's exactly what they are.</p>
+    </div>
+  </section>
+
+  <!-- JUMP MENU -->
+  <section class="section tight reveal" id="jump">
+    <p class="eyebrow center">Jump to a room</p>
+    <nav class="room-jump" aria-label="Jump to a chat room">
+      <a href="#general"><span class="dot" style="background:#e31837"></span>KC Talk</a>
+      <a href="#newcomers"><span class="dot" style="background:#f9b234"></span>New to KC</a>
+      <a href="#chiefs"><span class="dot" style="background:#e31837"></span>Chiefs Kingdom</a>
+      <a href="#royals"><span class="dot" style="background:#1d8bd1"></span>Crown Town</a>
+      <a href="#soccer"><span class="dot" style="background:#2f6b41"></span>The Cauldron</a>
+      <a href="#foodies"><span class="dot" style="background:#c8541d"></span>KC Foodies</a>
+      <a href="#nightlife"><span class="dot" style="background:#6a3fb5"></span>After Dark</a>
+      <a href="#tailgate"><span class="dot" style="background:#caa14a"></span>Tailgate Central</a>
+    </nav>
+  </section>
+
+  <div class="neon-rule" aria-hidden="true"></div>
+
+  <!-- ROOMS -->
+  <section class="section reveal">
+
+    <!-- general -->
+    <article class="card room-block" id="general" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>KC Talk</h2>
+        <span class="room-tag" style="background:#e31837">General</span>
+      </div>
+      <p class="room-desc">Anything and everything Kansas City — questions, hot takes, recommendations, and the daily small talk that makes a metro feel like a neighborhood.</p>
+      <div class="kc-room" data-channel="general"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- newcomers -->
+    <article class="card room-block" id="newcomers" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>New to KC</h2>
+        <span class="room-tag" style="background:#f9b234">Welcome wagon</span>
+      </div>
+      <p class="room-desc">Just moved here or only in town for the weekend? Ask anything — neighborhoods, where to start, what's worth your time. Locals love showing off the city.</p>
+      <div class="kc-room" data-channel="newcomers"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- chiefs -->
+    <article class="card room-block" id="chiefs" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>Chiefs Kingdom</h2>
+        <span class="room-tag" style="background:#e31837">Talk ball</span>
+      </div>
+      <p class="room-desc">Predictions, parking hacks, and the eternal burnt-ends debate. Red Friday is a state of mind — bring it here.</p>
+      <div class="kc-room" data-channel="chiefs"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- royals -->
+    <article class="card room-block" id="royals" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>Crown Town</h2>
+        <span class="room-tag" style="background:#1d8bd1">Royals talk</span>
+      </div>
+      <p class="room-desc">Box scores, the Kauffman fountains, and that one summer night the whole city wore blue. Royals fans, gather round.</p>
+      <div class="kc-room" data-channel="royals"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- soccer -->
+    <article class="card room-block" id="soccer" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>The Cauldron</h2>
+        <span class="room-tag" style="background:#2f6b41">Footy</span>
+      </div>
+      <p class="room-desc">Sporting KC, the KC Current, and the big summer of soccer the whole world is watching. Scarves up — talk it out here.</p>
+      <div class="kc-room" data-channel="soccer"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- foodies -->
+    <article class="card room-block" id="foodies" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>KC Foodies</h2>
+        <span class="room-tag" style="background:#c8541d">Eat well</span>
+      </div>
+      <p class="room-desc">What's good <em>right now</em> — new spots, secret menus, the best Z-Man, taco crawls and that pop-up everyone's whispering about.</p>
+      <div class="kc-room" data-channel="foodies"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- nightlife -->
+    <article class="card room-block" id="nightlife" style="margin-bottom:26px">
+      <div class="room-head">
+        <h2>After Dark</h2>
+        <span class="room-tag" style="background:#6a3fb5">Tonight</span>
+      </div>
+      <p class="room-desc">Bars, shows, and plans for <em>tonight</em>. Westport to the Crossroads to the jazz on 18th &amp; Vine — find out where the night's actually happening.</p>
+      <div class="kc-room" data-channel="nightlife"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+    <!-- tailgate -->
+    <article class="card room-block" id="tailgate" style="margin-bottom:0">
+      <div class="room-head">
+        <h2>Tailgate Central</h2>
+        <span class="room-tag" style="background:#caa14a">Lot life</span>
+      </div>
+      <p class="room-desc">Find your crew and swap spots. Who's grilling where, which lot, what time — the party starts in the parking lot, and so does this room.</p>
+      <div class="kc-room" data-channel="tailgate"></div>
+      <a class="back-top" href="#jump">↑ back to rooms</a>
+    </article>
+
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="band-dark reveal">
+    <div class="wrap section tight center">
+      <p class="eyebrow center">Looking for something more specific?</p>
+      <h2 class="center">Buy, sell, or meet people — try the boards</h2>
+      <p class="lede center" style="max-width:640px;margin:0 auto">Chat rooms are for hanging out. When you've got a couch to sell or a Saturday to fill with company, the boards are built for exactly that.</p>
+      <p style="margin-top:22px">
+        <a class="btn" href="/market">Browse the Marketplace →</a>
+        <a class="btn-ghost" href="/singles" style="color:#fff;border-color:rgba(255,255,255,.6)">Meet people on Singles →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER NOTE -->
+  <section class="section tight center reveal">
+    <p class="k-note" style="max-width:620px;margin:0 auto">All Access KC is an independent local community hub. Chat rooms are public and lightly moderated — please keep it kind, keep it clean, and keep your private details private. Part of the <a href="https://limenhelix.com">LIMEN Helix</a> family.</p>
+  </section>
+
+</main>
+
+<script src="/kc-nav.js" defer></script>
+<script src="/kc-chat.js" defer></script>
+</body>
+</html>

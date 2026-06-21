@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>KC Eats 2026 — The Real BBQ Status Board, New Restaurants &amp; Best of Kansas City | All Access KC</title>
+<meta name="description" content="The honest 2026 guide to eating in Kansas City: which BBQ joints are actually open (and which to skip), the new restaurants worth your night, plus the best brunch, coffee, cocktails, breweries and late-night spots. Verified by locals.">
+<link rel="canonical" href="https://allaccesskc.com/eat">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KC Eats 2026 — The Real BBQ Status Board &amp; Best of Kansas City">
+<meta property="og:description" content="Which KC BBQ is actually open, the new restaurants worth your night, and the best brunch, coffee, cocktails and late-night in Kansas City. Verified by locals.">
+<meta property="og:url" content="https://allaccesskc.com/eat">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KC Eats 2026 | All Access KC">
+<meta name="twitter:description" content="The real BBQ status board, new restaurants, and the best of Kansas City eating — verified for 2026.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  /* page-local accents only — everything else from kc.css */
+  .eat-hero{--hero-img:url('/kc-eat-bg.jpg');--accent:#b8881c}
+  .verify-strip{background:#fff0d6;border:1px solid var(--gold);border-left:6px solid var(--gold);
+    border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;color:var(--gold-deep);
+    box-shadow:var(--shadow)}
+  .verify-strip .vmark{font-family:var(--display);font-weight:900;font-size:1.5rem;line-height:1;flex:0 0 auto}
+  .verify-strip p{margin:0;font-size:0.95rem;color:var(--gold-deep)}
+  .verify-strip b{color:var(--ink)}
+
+  /* BBQ status board */
+  .board-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .joint{background:var(--bg-card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;
+    border-left:5px solid var(--green);transition:transform .18s,box-shadow .18s}
+  .joint:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .joint.skip{border-left-color:var(--red);background:var(--red-soft)}
+  .joint h3{font-size:1.18rem;margin-bottom:4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .joint .where{font-size:0.74rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .joint p{color:var(--ink-soft);font-size:0.92rem;margin-top:6px}
+  .joint .why{color:#b23b3b;font-weight:600}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-bottom:24px;font-size:0.84rem;color:var(--ink-mid)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:14px;height:14px;border-radius:3px;display:inline-block}
+  .legend i.go{background:var(--green)}
+  .legend i.no{background:var(--red)}
+
+  .cat-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .cat .k-list li b{color:var(--ink);font-weight:700}
+  .cat .k-list li .pl{color:var(--ink-faint);font-style:italic}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="kc-hero eat-hero">
+  <div class="inner">
+    <div class="eyebrow">All Access KC · Dining 2026</div>
+    <h1>Kansas City eats —<br>the <span class="accent">2026 truth</span>.</h1>
+    <p>Half the BBQ "best of" lists out there are sending you to places that closed. This one isn't. Here's what's actually open, what's new and worth your night, and what to skip — kept honest by people who eat here.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ VERIFY WARNING (prominent) ============ -->
+  <section class="section tight">
+    <div class="verify-strip reveal">
+      <span class="vmark">⏱</span>
+      <p><b>KC's scene moves fast — always verify hours before you go.</b> Joints sell out, kitchens close early, and pop-ups move. Call or check the spot's own page the day of. We update often, but a phone call beats a wasted drive.</p>
+    </div>
+  </section>
+
+  <!-- ============ THE BBQ STATUS BOARD (marquee) ============ -->
+  <section class="section" id="bbq">
+    <div class="center">
+      <div class="eyebrow">The Marquee Board</div>
+      <h2>The KC BBQ Status Board</h2>
+      <p class="lede">Kansas City is a barbecue town, and barbecue towns lose joints fast. This is the live status — go to the green ones, and don't waste a trip on the red.</p>
+    </div>
+
+    <div class="legend reveal">
+      <span><i class="go"></i> Open &amp; worth it</span>
+      <span><i class="no"></i> Don't make the trip</span>
+    </div>
+
+    <div class="board-grid reveal">
+      <div class="joint">
+        <h3>Joe's Kansas City <span class="tag hot">Iconic</span></h3>
+        <div class="where">Gas-station original · KCK</div>
+        <p>The legend that lives inside a working gas station in Kansas City, Kansas. Order the <b>Z-Man</b> — brisket, smoked provolone and onion rings on a kaiser. Worth every minute of the line.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Q39</h3>
+        <div class="where">Midtown · Overland Park · new in Lawrence, KS</div>
+        <p>Chef-driven competition barbecue that grew up. Now with a fresh Lawrence, Kansas location alongside the original Midtown and Overland Park spots.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Jack Stack</h3>
+        <div class="where">Multiple locations</div>
+        <p>The polished, sit-down KC institution. Burnt ends, lamb ribs and that crowd-pleasing menu across several metro locations.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Slap's BBQ <span class="tag hot">Go early</span></h3>
+        <div class="where">Strawberry Hill · KCK</div>
+        <p>Award-darling brisket and ribs on Strawberry Hill. <b>Go EARLY</b> — they smoke a finite amount and regularly sell out before the afternoon's done.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Char Bar</h3>
+        <div class="where">Westport</div>
+        <p>Smoked meats plus a big patio and full bar in Westport. <b>It IS open</b> — ignore the stale "closed" listings still floating around online.</p>
+      </div>
+
+      <div class="joint">
+        <h3>LC's Bar-B-Q</h3>
+        <div class="where">5800 Blue Pkwy · Closed Sundays</div>
+        <p>A no-frills east-side smoke shack beloved for heavy-handed portions and serious bark. <b>Closed Sundays</b> — plan around it.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Buck Tui BBQ <span class="tag new">Different</span></h3>
+        <div class="where">Overland Park · Closed Sundays</div>
+        <p>Thai-meets-Kansas-City barbecue and one of the most exciting things happening in local smoke. <b>Closed Sundays.</b></p>
+      </div>
+
+      <div class="joint">
+        <h3>Arthur Bryant's</h3>
+        <div class="where">Original: 1727 Brooklyn Ave</div>
+        <p>The most famous name in KC 'cue. Go to the <b>ORIGINAL on Brooklyn Avenue</b> — the satellite locations have closed, so don't get routed to a ghost address.</p>
+      </div>
+
+      <div class="joint">
+        <h3>Gates Bar-B-Q</h3>
+        <div class="where">Main · Cleaver · Brooklyn — all open</div>
+        <p>"Hi, may I help you?" — the classic Gates greeting and that unmistakable sauce. The Main, Cleaver and Brooklyn locations are all open.</p>
+      </div>
+    </div>
+
+    <h3 style="text-align:center;margin:38px 0 6px;color:var(--red)">Don't make the trip</h3>
+    <p class="center k-note" style="margin-bottom:18px">These show up on old lists. They'll waste your evening. Skip them.</p>
+    <div class="board-grid reveal">
+      <div class="joint skip">
+        <h3>Harp Barbecue <span class="tag gone">No location</span></h3>
+        <div class="where">Overland Park spot closed May 2026</div>
+        <p class="why">No current storefront. The Overland Park location closed in May 2026 — there's nowhere to walk in right now.</p>
+      </div>
+      <div class="joint skip">
+        <h3>Night Goat <span class="tag gone">Pop-up only</span></h3>
+        <div class="where">Check Fox &amp; Pearl</div>
+        <p class="why">Pop-up only — no walk-in storefront. Catch it when it appears at Fox &amp; Pearl; don't drive to a fixed address.</p>
+      </div>
+      <div class="joint skip">
+        <h3>Danny Edwards Blvd BBQ <span class="tag gone">Closed</span></h3>
+        <div class="where">Permanently closed</div>
+        <p class="why">Closed. Still lingers on older roundups — it isn't coming back at its old spot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW & BUZZING ============ -->
+  <section class="section" id="new">
+    <div class="center">
+      <div class="eyebrow">Worth Your Night</div>
+      <h2>New &amp; buzzing</h2>
+      <p class="lede">The 2026 openings KC is actually talking about — from a championship steakhouse to a 20-seat izakaya pulling national attention.</p>
+    </div>
+
+    <div class="grid g3 reveal">
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>1587 Prime</h3>
+        <p>Patrick Mahomes &amp; Travis Kelce's downtown steakhouse inside the Loews Hotel. The big-occasion room of the moment.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Palm Tree Club</h3>
+        <p>A rooftop coastal sushi-and-steak scene in the Power &amp; Light District. Dress up, head upstairs.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Anjin</h3>
+        <p>A 20-seat Crossroads izakaya and a national <b>Best New Restaurant</b> finalist. Tiny, precise, hard to get into — and worth it.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Car No. 551</h3>
+        <p>BBQ &amp; deli served inside a restored 1947 streetcar in the River Market. As KC as a concept gets.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Plaza Provisions</h3>
+        <p>The new Plaza food hall — Lula's Southern, Messenger Coffee and J. Rieger all under one roof. Easy group pick.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Nour's</h3>
+        <p>Modern Lebanese cooking in the Westport area. Bright, shareable, a welcome change of pace.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Cru Bistro</h3>
+        <p>French bistro comforts in Brookside. Steak frites, wine, the neighborhood-date-night sweet spot.</p>
+      </div>
+      <div class="card accent">
+        <span class="tag new">New</span>
+        <h3>Zero Zero</h3>
+        <p>Handmade pasta on the Westside. Small, focused, and exactly the kind of place locals keep quiet about.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECENTLY CLOSED (honesty) ============ -->
+  <section class="section" id="closed">
+    <div class="center">
+      <div class="eyebrow">Honesty Section</div>
+      <h2>Recently closed</h2>
+      <p class="lede">Other guides keep sending you here. They're gone — don't carry them over from an old list.</p>
+    </div>
+    <div class="card reveal" style="background:var(--red-soft);border-color:#e8c9c9">
+      <p style="font-size:1.02rem;color:var(--ink-mid);line-height:1.9">
+        <span class="tag gone">Closed</span> <b>Corvino</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Seasons 52</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Brio</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Chuy's</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Bar K</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>D'Bronx</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Boru</b> &nbsp;·&nbsp;
+        <span class="tag gone">Closed</span> <b>Mo' Bettahs</b> <span class="k-note">(all locations)</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ BY CATEGORY ============ -->
+  <section class="section" id="category">
+    <div class="center">
+      <div class="eyebrow">Beyond Barbecue</div>
+      <h2>By category</h2>
+      <p class="lede">KC eats way past brisket. Where locals actually go for the rest of it.</p>
+    </div>
+
+    <div class="cat-grid reveal">
+      <div class="card cat">
+        <h3>Fine dining</h3>
+        <ul class="k-list">
+          <li><b>The Town Company</b> <span class="pl">— downtown · KC's most-decorated kitchen</span></li>
+          <li><b>Anjin</b> <span class="pl">— Crossroads</span></li>
+          <li><b>Affäre</b> <span class="pl">— Crossroads · modern German tasting</span></li>
+          <li><b>The Antler Room</b> <span class="pl">— Midtown</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Brunch</h3>
+        <ul class="k-list">
+          <li><b>Room 39</b> <span class="pl">— Midtown</span></li>
+          <li><b>HomeGrown</b> <span class="pl">— Brookside + suburbs</span></li>
+          <li><b>McLain's Bakery</b> <span class="pl">— Waldo</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Coffee</h3>
+        <ul class="k-list">
+          <li><b>The Roasterie</b> <span class="pl">— Brookside HQ</span></li>
+          <li><b>Messenger Coffee</b> <span class="pl">— Crossroads · 3-story cafe/roastery</span></li>
+          <li><b>Oddly Correct</b> <span class="pl">— Midtown</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Cocktail bars</h3>
+        <ul class="k-list">
+          <li><b>Swordfish Tom's</b> <span class="pl">— Crossroads speakeasy</span></li>
+          <li><b>P.S.</b> <span class="pl">— downtown · under Hotel Phillips</span></li>
+          <li><b>The Hey! Hey! Club</b> <span class="pl">— East Bottoms · J. Rieger</span></li>
+          <li><b>Drastic Measures</b> <span class="pl">— Shawnee · multi-award</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Breweries</h3>
+        <ul class="k-list">
+          <li><b>Boulevard</b> <span class="pl">— the KC flagship · Westside/Crossroads</span></li>
+          <li><b>BKS Artisan Ales</b> <span class="pl">— Waldo</span></li>
+          <li><b>KC Bier Co.</b> <span class="pl">— Waldo German biergarten</span></li>
+          <li><b>Alma Mader</b> <span class="pl">— SW Blvd</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Dessert &amp; ice cream</h3>
+        <ul class="k-list">
+          <li><b>Betty Rae's</b> <span class="pl">— River Market + Waldo</span></li>
+          <li><b>Sylas &amp; Maddy's</b> <span class="pl">— Brookside frozen custard</span></li>
+          <li><b>The Golden Scoop</b> <span class="pl">— Overland Park · a nonprofit</span></li>
+        </ul>
+      </div>
+
+      <div class="card cat">
+        <h3>Late night</h3>
+        <ul class="k-list">
+          <li><b>Town Topic</b> <span class="pl">— downtown · 24/7 diner</span></li>
+          <li><b>Tay's Burger Shack</b> <span class="pl">— North KC</span></li>
+          <li><b>Muni</b> <span class="pl">— River Market · Thai-Mexican</span></li>
+          <li><b>Nighthawk</b> <span class="pl">— downtown</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="center k-note" style="margin-top:22px">Spots and hours change constantly in KC — <b>always verify before you go.</b></p>
+  </section>
+
+  <!-- ============ FOODIES CHAT ROOM ============ -->
+  <section class="section" id="foodies">
+    <div class="center">
+      <div class="eyebrow">Community</div>
+      <h2>KC Foodies — what's good right now</h2>
+      <p class="lede">Just back from a sell-out at Slap's? Found a new pop-up? Drop it here. This room is locals and visitors trading real-time tips.</p>
+    </div>
+    <div class="kc-room" data-channel="foodies"></div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="section" id="more">
+    <div class="band-dark reveal">
+      <div class="eyebrow">Keep going</div>
+      <h2 style="margin-bottom:14px">Eat your way deeper into KC</h2>
+      <div class="grid g2" style="margin-top:6px">
+        <div>
+          <h3 style="font-size:1.25rem;margin-bottom:6px">The East Side &amp; the BBQ heritage</h3>
+          <p style="margin-bottom:14px">Gates, Bryant's, LC's — the soul of Kansas City barbecue lives on the East Side. The story behind the smoke.</p>
+          <a class="btn" href="/eastside">East Side &amp; BBQ heritage →</a>
+        </div>
+        <div>
+          <h3 style="font-size:1.25rem;margin-bottom:6px">The full local's guide</h3>
+          <p style="margin-bottom:14px">Neighborhoods, itineraries, transit, parking and game-day tips — everything else you need for a great KC trip.</p>
+          <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" href="/kc-guide">The full KC guide →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="/kc-nav.js" defer></script>
+<script src="/kc-chat.js" defer></script>
+</body>
+</html>

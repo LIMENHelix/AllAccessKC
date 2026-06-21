@@ -565,6 +565,26 @@
 <body>
 <main>
 
+  <!-- ⚽ Big-summer announcement bar — date-aware, auto-hides after Jul 11 -->
+  <a id="summerBar" href="/summer" style="display:none;text-decoration:none">
+    <div style="background:linear-gradient(90deg,#1a1d2a,#3a0a12);color:#f9d080;text-align:center;padding:11px 16px;font-family:Georgia,serif;font-size:0.95rem;letter-spacing:0.2px">
+      ⚽ <b style="color:#fff">Soccer's biggest summer is in Kansas City right now</b> — <span id="summerBarDays"></span>match schedule, where to watch &amp; stay <span style="color:#fff">→</span>
+    </div>
+  </a>
+  <script>
+  (function(){
+    var bar=document.getElementById('summerBar'); if(!bar) return;
+    if(new Date() < new Date('2026-07-12T00:00:00')){
+      bar.style.display='block';
+      var dates=['2026-06-16','2026-06-20','2026-06-25','2026-06-27','2026-07-03','2026-07-11'];
+      var t=new Date(); t.setHours(0,0,0,0); var nx=null;
+      for(var i=0;i<dates.length;i++){ var d=new Date(dates[i]+'T00:00:00'); if(d>=t){nx=d;break;} }
+      var el=document.getElementById('summerBarDays');
+      if(nx&&el){ var dd=Math.round((nx-t)/86400000); el.textContent = dd===0 ? 'a match TODAY · ' : (dd+' days to the next match · '); }
+    }
+  })();
+  </script>
+
   <!-- Skyline mega-hero with text overlay — image covers most of the page -->
   <div class="skyline">
     <img src="kc-skyline.jpg" alt="Kansas City skyline at golden hour">
@@ -802,6 +822,7 @@
       <a class="chip" href="/freebies">🎁 Free Stuff</a>
       <a class="chip" href="/map">🗺️ KC Map</a>
       <a class="chip" href="/weekend">📋 Perfect Weekend</a>
+      <a class="chip" href="/summer">⚽ The Big Summer</a>
       <a class="chip" href="/chiefs">🏈 Chiefs</a>
       <a class="chip" href="/royals">⚾ Royals</a>
       <a class="chip" href="/soccer">⚽ Soccer &amp; the summer</a>

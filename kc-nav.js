@@ -12,6 +12,7 @@
       { href: "/chiefs", label: "Chiefs Corner" },
       { href: "/royals", label: "Royals Corner" },
       { href: "/soccer", label: "Soccer & The Summer" },
+      { href: "/summer", label: "The Big Summer (live)" },
       { href: "/tailgate", label: "Tailgate & Parties" },
     ]},
     { label: "Neighborhoods", menu: [

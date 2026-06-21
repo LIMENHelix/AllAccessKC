@@ -6019,12 +6019,19 @@
   // later by restoring the localStorage check if ever needed.
   (function gate(){ /* free access — gate intentionally disabled */ })();
 
-  // ── Countdown ─────────────────────────────────────────────
-  var WC_KICKOFF = new Date('2026-06-11T19:00:00-05:00');
+  // ── Countdown — date-aware, to the next KC match at Arrowhead ──
   (function tick(){
-    var now = new Date();
-    var days = Math.max(0, Math.ceil((WC_KICKOFF - now) / (1000*60*60*24)));
-    document.getElementById('daysLeft').textContent = days;
+    var KC_DATES = ['2026-06-16','2026-06-20','2026-06-25','2026-06-27','2026-07-03','2026-07-11'];
+    var numEl = document.getElementById('daysLeft');
+    if (!numEl) return;
+    var lblEl = numEl.parentNode ? numEl.parentNode.querySelector('.lbl') : null;
+    var today = new Date(); today.setHours(0,0,0,0);
+    var next = null;
+    for (var i=0;i<KC_DATES.length;i++){ var d=new Date(KC_DATES[i]+'T00:00:00'); if (d>=today){ next=d; break; } }
+    if (!next){ numEl.textContent='✓'; if(lblEl) lblEl.textContent='KC matches complete'; return; }
+    var days = Math.round((next - today)/(1000*60*60*24));
+    if (days===0){ numEl.textContent='Today'; if(lblEl) lblEl.textContent='KC match day!'; }
+    else { numEl.textContent=days; if(lblEl) lblEl.textContent='days to the next KC match'; }
   })();
 
   // ── Schedule data ─────────────────────────────────────────
@@ -6216,11 +6223,14 @@
 
   function renderMatch(m){
     var isKC = KC_MATCH_IDS.indexOf(m.id) >= 0;
-    var classes = 'match' + (isKC ? ' kc' : '') + (m.ko ? ' knockout' : '');
-    var html = '<div class="' + classes + '" data-id="' + m.id + '" data-ko="' + !!m.ko + '" data-kc="' + isKC + '">';
+    var _today = new Date(); _today.setHours(0,0,0,0);
+    var _md = new Date('2026-' + m.d + 'T00:00:00');
+    var isPast = _md < _today;
+    var classes = 'match' + (isKC ? ' kc' : '') + (m.ko ? ' knockout' : '') + (isPast ? ' past' : '');
+    var html = '<div class="' + classes + '" data-id="' + m.id + '" data-ko="' + !!m.ko + '" data-kc="' + isKC + '"' + (isPast ? ' style="opacity:.5"' : '') + '>';
     html += '<div class="match-top">';
     html += '<span class="match-stage"><b>' + escapeHtml(m.s) + '</b></span>';
-    html += '<span class="match-time">' + escapeHtml(m.t) + '</span>';
+    html += '<span class="match-time">' + (isPast ? 'FINAL' : escapeHtml(m.t)) + '</span>';
     html += '</div>';
     html += '<div class="match-teams">';
     if (m.a && m.b) {

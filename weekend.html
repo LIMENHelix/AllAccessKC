@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Perfect Kansas City Weekend — A 3-Day Itinerary | All Access KC</title>
+  <meta name="description" content="A printable, hour-by-hour Kansas City weekend itinerary: Friday-night BBQ and Crossroads cocktails, a Saturday of museums, the Plaza fountains and a ballgame, and a Sunday of jazz at 18th &amp; Vine — all stitched together by KC's free streetcar.">
+  <link rel="stylesheet" href="/kc.css">
+  <style>
+    /* ---- weekend timeline (screen) ---- */
+    .day{position:relative;margin-bottom:34px}
+    .day-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--gold);
+      padding-bottom:10px;margin-bottom:22px}
+    .day-head h2{font-size:clamp(1.7rem,4.5vw,2.6rem);margin:0}
+    .day-head .when{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:1rem}
+    .block{display:grid;grid-template-columns:84px 1fr;gap:18px;align-items:start;
+      padding:18px 0;border-top:1px solid var(--rule)}
+    .block:first-of-type{border-top:none}
+    .time{font-family:var(--display);font-weight:900;font-size:1.15rem;color:var(--gold-deep);
+      line-height:1.1;padding-top:2px}
+    .time small{display:block;font-family:var(--serif);font-weight:400;font-style:italic;
+      font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);margin-top:3px}
+    .slot h3{font-size:1.25rem;margin-bottom:5px}
+    .slot p{color:var(--ink-mid);font-size:0.96rem;margin-bottom:7px}
+    .slot p:last-child{margin-bottom:0}
+    .pick{font-weight:700;color:var(--ink)}
+    .verify{display:inline-block;font-size:0.74rem;font-style:italic;color:var(--ink-faint)}
+    .streetcar{display:flex;align-items:center;gap:10px;background:var(--green-soft);
+      border:1px dashed #2f6b41;border-radius:10px;padding:9px 14px;margin:6px 0 0;
+      font-size:0.86rem;color:#2f6b41;line-height:1.45}
+    .streetcar b{color:#1f4d2e}
+    .alt{font-size:0.88rem;color:var(--ink-soft);font-style:italic}
+
+    /* ---- print: tidy 1–2 page plan ---- */
+    @media print{
+      @page{margin:14mm}
+      .kc-nav,.kc-foot,.noprint{display:none!important}
+      html,body{background:#fff!important;color:#000!important;font-size:11.5pt}
+      .kc-hero{min-height:auto!important;background:none!important;color:#000!important;
+        padding:0;display:block;border-bottom:2px solid #000;margin-bottom:10mm}
+      .kc-hero .inner{padding:0!important;color:#000!important}
+      .kc-hero h1{color:#000!important;text-shadow:none!important;font-size:24pt!important;line-height:1.05}
+      .kc-hero .accent{color:#000!important}
+      .kc-hero p{color:#000!important;text-shadow:none!important;font-size:11pt;max-width:none}
+      .kc-hero .eyebrow{color:#000!important}
+      .section{padding:0 0 6mm 0!important}
+      .band-dark{background:none!important;color:#000!important;box-shadow:none!important;
+        border:1px solid #000;border-radius:0;padding:6mm}
+      .band-dark h2,.band-dark h3,.band-dark p,.band-dark .eyebrow{color:#000!important}
+      .card,.day{box-shadow:none!important}
+      .card{border:1px solid #999!important;background:#fff!important;transform:none!important}
+      .streetcar{background:#fff!important;border:1px solid #000!important;color:#000!important}
+      .streetcar b{color:#000!important}
+      .time{color:#000!important}
+      .day{break-inside:avoid;page-break-inside:avoid;margin-bottom:8mm}
+      .block{break-inside:avoid;page-break-inside:avoid;padding:6pt 0}
+      .day-head{border-bottom:1.5pt solid #000}
+      .eyebrow{color:#000!important}
+      a{color:#000!important;text-decoration:none}
+      .reveal{opacity:1!important;transform:none!important}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HERO ============ -->
+  <header class="kc-hero" style="--hero-img:url('/kc-plans-bg.jpg');--accent:#8b6914">
+    <div class="inner">
+      <div class="eyebrow">The 3-Day Itinerary · Kansas City</div>
+      <h1>The perfect<br><span class="accent">Kansas City weekend</span></h1>
+      <p>Two nights, three days, one free streetcar tying it all together — barbecue, fountains, museums, jazz and a ballgame under the lights. Here's exactly how to do it.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ INTRO + PRINT ============ -->
+    <section class="section tight">
+      <div class="wrap narrow center reveal">
+        <div class="eyebrow">How to use this page</div>
+        <h2>An hour-by-hour plan you can take with you</h2>
+        <p class="lede">We built this so you can stop researching and start enjoying. Hit print, fold it in your pocket, and follow the times — or just steal the route and freelance the rest.</p>
+        <p style="color:var(--ink-mid);margin-bottom:20px">The whole weekend is stitched together by KC's <b>free streetcar</b> — fare-free, no ticket, no app — running Riverfront → River Market → Power &amp; Light → Crossroads → Union Station &amp; Crown Center → Country Club Plaza → UMKC. Park the car, ride the line. <span class="verify">Verify hours before you go.</span></p>
+        <p class="noprint">
+          <button class="btn" onclick="window.print()">🖨 Print this itinerary</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ GETTING AROUND ============ -->
+    <section class="section tight">
+      <div class="wrap reveal">
+        <div class="band-dark">
+          <div class="eyebrow">Getting around</div>
+          <h2 style="font-size:clamp(1.6rem,4vw,2.3rem)">The free streetcar + rideshare beat parking</h2>
+          <p style="max-width:680px;margin-top:14px">Don't fight for a garage spot. The streetcar is fare-free and connects almost everything on this list — Riverfront, River Market, Power &amp; Light, Crossroads, Union Station/Crown Center, the Country Club Plaza and UMKC. For anything off the line (18th &amp; Vine, the stadiums, Waldo, Brookside), grab a rideshare. <b>KCI airport</b> is roughly 25–35 minutes from downtown. <span style="color:#f9d080;font-style:italic">Verify hours and routes before you go.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ITINERARY ============ -->
+    <section class="section" style="padding-top:14px">
+      <div class="wrap">
+
+        <!-- ===== FRIDAY ===== -->
+        <div class="day reveal">
+          <div class="day-head">
+            <h2>Friday</h2>
+            <span class="when">Arrive · eat · ease into the night</span>
+          </div>
+
+          <div class="block">
+            <div class="time">5:00p<small>Evening</small></div>
+            <div class="slot">
+              <h3>Check in &amp; drop the bags</h3>
+              <p>Get settled, then point yourself toward smoke. The first rule of a KC weekend: barbecue comes first.</p>
+              <div class="streetcar">🚋 <span><b>Free streetcar:</b> stay near a stop downtown or in the Crossroads and you'll barely touch your car all weekend.</span></div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">6:30p<small>Dinner</small></div>
+            <div class="slot">
+              <h3>Kansas City barbecue, the right way</h3>
+              <p><span class="pick">Joe's Kansas City</span> for the legendary Z-Man, <span class="pick">Q39 in Midtown</span> for a sit-down spread, or <span class="pick">Slap's BBQ in KCK</span> for burnt ends worth the trip.</p>
+              <p class="alt">Heads up: Slap's sells out — go early or you'll go hungry. <span class="verify">Verify hours before you go.</span></p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">8:30p<small>Drinks</small></div>
+            <div class="slot">
+              <h3>A nightcap in the Crossroads or Westport</h3>
+              <p>Slip into <span class="pick">Swordfish Tom's</span>, a tucked-away Crossroads speakeasy, for a proper cocktail — or post up in <span class="pick">Westport</span> if you want the louder, livelier end of the night.</p>
+              <p class="alt">First Friday of the month? Catch the <span class="pick">First Fridays art walk</span> in the Crossroads — galleries open late, music in the streets. (First Friday only.) <span class="verify">Verify hours before you go.</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SATURDAY ===== -->
+        <div class="day reveal">
+          <div class="day-head">
+            <h2>Saturday</h2>
+            <span class="when">The full KC sampler — market, Plaza, museum, ballgame</span>
+          </div>
+
+          <div class="block">
+            <div class="time">9:00a<small>Morning</small></div>
+            <div class="slot">
+              <h3>Coffee &amp; a real breakfast</h3>
+              <p>Caffeine up at <span class="pick">Messenger Coffee</span> in the Crossroads or <span class="pick">The Roasterie</span> in Brookside, then sit down for breakfast at <span class="pick">Room 39</span> or <span class="pick">HomeGrown</span>.</p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">10:30a<small>Late morning</small></div>
+            <div class="slot">
+              <h3>The City Market in the River Market</h3>
+              <p>Wander the open-air stalls at <span class="pick">the City Market</span> — produce, makers, snacks and people-watching in one of KC's oldest gathering spots.</p>
+              <div class="streetcar">🚋 <span><b>Free streetcar:</b> hop on at the River Market and ride straight toward the Plaza end of the line.</span></div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">12:30p<small>Lunch</small></div>
+            <div class="slot">
+              <h3>The Country Club Plaza</h3>
+              <p>Ride down to the <span class="pick">Country Club Plaza</span> for lunch, then stroll the Spanish-inspired architecture and the famous fountains. It's KC at its most photogenic.</p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">2:30p<small>Afternoon</small></div>
+            <div class="slot">
+              <h3>Pick your museum</h3>
+              <p><span class="pick">The Nelson-Atkins Museum of Art</span> — free admission, with the giant Shuttlecocks on the lawn. (Closed Tue &amp; Wed, so Saturday is perfect.)</p>
+              <p class="alt">Prefer skyline views? The <span class="pick">National WWI Museum &amp; Memorial</span> ($18; the grounds and tower views are free) sits high above downtown. <span class="verify">Verify hours before you go.</span></p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">7:00p<small>Evening</small></div>
+            <div class="slot">
+              <h3>Take in a game</h3>
+              <p><span class="pick">Royals</span> at Kauffman Stadium — "The K" — with its iconic outfield fountains. Or <span class="pick">Sporting KC</span> at Sporting Park.</p>
+              <p>Or catch a <span class="pick">KC Current match at CPKC Stadium</span> on the riverfront — the world's first stadium built for a women's pro team. The free streetcar's Riverfront stop is about a 5-minute walk away.</p>
+              <p class="verify">Verify schedules &amp; hours before you go.</p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">11:00p<small>Late night</small></div>
+            <div class="slot">
+              <h3>One more bite</h3>
+              <p>Cap the night at <span class="pick">Town Topic</span>, the 24/7 downtown diner — griddle burgers and a milkshake, no matter the hour.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SUNDAY ===== -->
+        <div class="day reveal">
+          <div class="day-head">
+            <h2>Sunday</h2>
+            <span class="when">Slow brunch · jazz history · BBQ for the road</span>
+          </div>
+
+          <div class="block">
+            <div class="time">10:00a<small>Brunch</small></div>
+            <div class="slot">
+              <h3>A relaxed brunch</h3>
+              <p>Sleep in, then ease into the day at <span class="pick">McLain's</span> in Waldo or <span class="pick">HomeGrown</span>.</p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">12:00p<small>Afternoon</small></div>
+            <div class="slot">
+              <h3>18th &amp; Vine jazz district</h3>
+              <p>Dig into the heart of KC's cultural history at the <span class="pick">Negro Leagues Baseball Museum</span> and the <span class="pick">American Jazz Museum</span>, side by side in the historic 18th &amp; Vine district.</p>
+              <p class="alt">Want the full story of this neighborhood? <a href="/eastside">Read our East Side &amp; 18th &amp; Vine guide →</a></p>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="time">2:30p<small>Before you go</small></div>
+            <div class="slot">
+              <h3>One last barbecue for the road</h3>
+              <p>You can't leave without one more plate. <span class="pick">Arthur Bryant's</span> original on Brooklyn Ave, or <span class="pick">Gates Bar-B-Q</span> — either sends you off the right way.</p>
+              <p class="verify">Verify hours before you go.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ BIG SUMMER NOTE ============ -->
+    <section class="section tight">
+      <div class="wrap reveal">
+        <div class="band-dark">
+          <div class="eyebrow">If you're here for the big summer</div>
+          <h2 style="font-size:clamp(1.6rem,4vw,2.3rem)">Six huge matches hit Arrowhead this summer</h2>
+          <p style="max-width:680px;margin-top:14px">Between <b>June 16 and July 11, 2026</b>, six big summer matches land at Arrowhead — including a quarterfinal on <b>July 11</b>. If your weekend overlaps, expect a packed, electric city. <b>Book everything early</b> — rooms, food, the works — and lean on transit and rideshare instead of driving. <span style="color:#f9d080;font-style:italic">Verify dates &amp; details before you go.</span></p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+            <a class="btn" href="/soccer">The summer soccer guide</a>
+            <a class="btn btn-ghost" href="/events" style="color:#f7f1e3;border-color:rgba(255,255,255,.4)">All KC events</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUICK PICKS / CTAs ============ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="center reveal" style="max-width:640px;margin:0 auto 26px">
+          <div class="eyebrow">Make it yours</div>
+          <h2>Build your own version</h2>
+          <p class="lede">Swap any stop for one you like better. These guides go deeper on every piece of the weekend.</p>
+        </div>
+        <div class="grid g3 reveal">
+          <a class="card accent" href="/eat" style="--accent:#8b6914">
+            <div class="k-sport">Eat</div>
+            <h3>Where to eat in KC</h3>
+            <p>The barbecue legends, the brunch spots, the late-night bites — sorted by neighborhood.</p>
+          </a>
+          <a class="card accent" href="/map" style="--accent:#2f8a8a">
+            <div class="k-sport">Map</div>
+            <h3>The KC map</h3>
+            <p>See where everything sits — including the free streetcar line that connects it all.</p>
+          </a>
+          <a class="card accent" href="/neighborhoods" style="--accent:#004687">
+            <div class="k-sport">Explore</div>
+            <h3>KC neighborhoods</h3>
+            <p>Crossroads, Westport, River Market, the Plaza, Waldo, Brookside and beyond.</p>
+          </a>
+          <a class="card accent" href="/soccer" style="--accent:#6f263d">
+            <div class="k-sport">Summer</div>
+            <h3>Big summer soccer</h3>
+            <p>The matches coming to Arrowhead, and how to do a match day right.</p>
+          </a>
+          <a class="card accent" href="/eastside" style="--accent:#b8881c">
+            <div class="k-sport">History</div>
+            <h3>East Side &amp; 18th &amp; Vine</h3>
+            <p>Jazz, the Negro Leagues, and the roots of KC barbecue — with respect.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CLOSER ============ -->
+    <section class="section tight">
+      <div class="wrap narrow center reveal">
+        <p class="verify" style="font-size:0.86rem">All Access KC is an independent local guide. Places change — always verify hours, schedules and prices before you go.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/kc-nav.js" defer></script>
+</body>
+</html>

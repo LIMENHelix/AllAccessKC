@@ -46,6 +46,23 @@
   .cat-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
   .cat .k-list li b{color:var(--ink);font-weight:700}
   .cat .k-list li .pl{color:var(--ink-faint);font-style:italic}
+
+  /* Reserve-a-table gadget */
+  .resv{background:var(--bg-card);border:1px solid var(--rule);border-left:5px solid var(--gold);
+    border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+  .resv h2{font-size:1.4rem;margin:0 0 4px}
+  .resv .sub{color:var(--ink-soft);font-size:0.92rem;margin:0 0 14px}
+  .resv-form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+  .resv-field{display:flex;flex-direction:column;gap:4px;flex:1 1 150px;min-width:120px}
+  .resv-field.wide{flex:2 1 220px}
+  .resv-field label{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .resv-field input,.resv-field select{padding:11px 12px;border-radius:9px;border:1px solid var(--rule);
+    background:var(--bg-soft);color:var(--ink);font-family:var(--serif);font-size:0.95rem;width:100%}
+  .resv-go{flex:1 1 160px}
+  .resv-go button{width:100%;padding:12px 16px;border:0;border-radius:9px;background:var(--gold);color:#fff;
+    font-family:var(--display);font-weight:700;font-size:1rem;cursor:pointer;transition:background .15s}
+  .resv-go button:hover{background:var(--gold-bright,#b8881c)}
+  .resv .note{margin:12px 0 0;font-size:0.8rem;color:var(--ink-faint)}
 </style>
 </head>
 <body>
@@ -68,6 +85,76 @@
       <p><b>KC's scene moves fast — always verify hours before you go.</b> Joints sell out, kitchens close early, and pop-ups move. Call or check the spot's own page the day of. We update often, but a phone call beats a wasted drive.</p>
     </div>
   </section>
+
+  <!-- ============ RESERVE A TABLE (gadget) ============ -->
+  <section class="section tight" id="reserve">
+    <div class="resv reveal">
+      <div class="eyebrow">Make your own reservation</div>
+      <h2>Reserve a table</h2>
+      <p class="sub">Pick a night and party size — we'll open live availability for Kansas City restaurants on OpenTable. Name a specific spot, or leave it blank to browse what's open.</p>
+      <div class="resv-form">
+        <div class="resv-field wide">
+          <label for="rv-name">Restaurant (optional)</label>
+          <input type="text" id="rv-name" placeholder="e.g. Q39, or leave blank" autocomplete="off">
+        </div>
+        <div class="resv-field">
+          <label for="rv-date">Date</label>
+          <input type="date" id="rv-date">
+        </div>
+        <div class="resv-field">
+          <label for="rv-time">Time</label>
+          <select id="rv-time">
+            <option value="17:00">5:00 PM</option>
+            <option value="17:30">5:30 PM</option>
+            <option value="18:00">6:00 PM</option>
+            <option value="18:30">6:30 PM</option>
+            <option value="19:00" selected>7:00 PM</option>
+            <option value="19:30">7:30 PM</option>
+            <option value="20:00">8:00 PM</option>
+            <option value="20:30">8:30 PM</option>
+            <option value="21:00">9:00 PM</option>
+          </select>
+        </div>
+        <div class="resv-field">
+          <label for="rv-size">Party</label>
+          <select id="rv-size">
+            <option value="1">1 guest</option>
+            <option value="2" selected>2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6">6 guests</option>
+            <option value="8">8 guests</option>
+            <option value="10">10+ guests</option>
+          </select>
+        </div>
+        <div class="resv-go">
+          <button type="button" id="rv-go">Find a table →</button>
+        </div>
+      </div>
+      <p class="note">Opens OpenTable in a new tab with your date, time and party size pre-filled. Free — no account needed to browse.</p>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var d=document.getElementById('rv-date'); if(!d) return;
+    // default to today (local)
+    var t=new Date(), pad=function(n){return (n<10?'0':'')+n;};
+    d.value=t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());
+    d.min=d.value;
+    document.getElementById('rv-go').addEventListener('click',function(){
+      var name=(document.getElementById('rv-name').value||'').trim();
+      var date=d.value, time=document.getElementById('rv-time').value, size=document.getElementById('rv-size').value;
+      var term=(name?name+' ':'')+'Kansas City';
+      var url='https://www.opentable.com/s?'+
+        'term='+encodeURIComponent(term)+
+        '&covers='+encodeURIComponent(size)+
+        '&dateTime='+encodeURIComponent(date+'T'+time)+
+        '&latitude=39.0997&longitude=-94.5786';
+      window.open(url,'_blank','noopener');
+    });
+  })();
+  </script>
 
   <!-- ============ THE BBQ STATUS BOARD (marquee) ============ -->
   <section class="section" id="bbq">

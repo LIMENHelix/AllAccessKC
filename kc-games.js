@@ -43,6 +43,48 @@
       })
       .catch(function(){ card.innerHTML='<div class="kcg-note">Live schedule unavailable right now — check the team\'s site or ESPN.</div>'; });
   }
-  function go(){var els=document.querySelectorAll('.kc-games');for(var i=0;i<els.length;i++)init(els[i]);}
+  /* ── World Cup match line: live score/kickoff for a specific match at Arrowhead ──
+     Usage: <div class="kc-match" data-date="20260625" data-fallback="Netherlands vs. Tunisia"></div>
+     Pulls ESPN's FIFA World Cup scoreboard for the date, finds the match at Arrowhead,
+     and shows kickoff (pre), live score (in), or final (post). Never breaks the card. */
+  function ckCT(iso){
+    try{return new Intl.DateTimeFormat([],{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'}).format(new Date(iso));}
+    catch(e){return '';}
+  }
+  function initMatch(host){
+    var date=host.getAttribute('data-date'); if(!date) return;
+    var fb=host.getAttribute('data-fallback')||'';
+    host.innerHTML='<span class="kcm-load">Checking the score…</span>';
+    fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates='+date)
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){
+        var evs=(d&&d.events)||[], ev=null;
+        for(var i=0;i<evs.length;i++){
+          var v=evs[i].competitions&&evs[i].competitions[0]&&evs[i].competitions[0].venue;
+          if(v&&/arrowhead/i.test(v.fullName||'')){ ev=evs[i]; break; }
+        }
+        if(!ev){ host.innerHTML = fb?('<span class="kcm-pre">'+esc(fb)+'</span>'):''; if(!fb) host.remove(); return; }
+        var c=ev.competitions[0], st=(c.status&&c.status.type)||{}, state=st.state, comps=c.competitors||[];
+        var home=comps.filter(function(x){return x.homeAway==='home';})[0]||comps[0]||{};
+        var away=comps.filter(function(x){return x.homeAway==='away';})[0]||comps[1]||{};
+        function nm(x){return esc((x.team&&(x.team.shortDisplayName||x.team.displayName))||'TBD');}
+        function sc(x){var s=scoreVal(x.score);return s==null?'':esc(s);}
+        var line;
+        if(state==='post'){
+          line='<span class="kcm-tag">'+esc(st.shortDetail||'Final')+'</span>'+nm(home)+' <b>'+sc(home)+'</b>–<b>'+sc(away)+'</b> '+nm(away);
+        } else if(state==='in'){
+          line='<span class="kcm-tag live">● LIVE</span>'+nm(home)+' <b>'+sc(home)+'</b>–<b>'+sc(away)+'</b> '+nm(away)+(st.shortDetail?(' · '+esc(st.shortDetail)):'');
+        } else {
+          line='<span class="kcm-tag">Kickoff</span>'+nm(home)+' vs '+nm(away)+(ev.date?(' · '+esc(ckCT(ev.date))+' CT'):'');
+        }
+        host.innerHTML='<span class="kcm">'+line+'</span>';
+      })
+      .catch(function(){ host.innerHTML = fb?('<span class="kcm-pre">'+esc(fb)+'</span>'):''; if(!fb) host.remove(); });
+  }
+
+  function go(){
+    var els=document.querySelectorAll('.kc-games');for(var i=0;i<els.length;i++)init(els[i]);
+    var ms=document.querySelectorAll('.kc-match');for(var j=0;j<ms.length;j++)initMatch(ms[j]);
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
 })();

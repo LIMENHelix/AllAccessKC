@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KC Game-Day Toolkit — Countdown, Weather, Parking vs Rideshare &amp; Where to Watch | All Access KC</title>
+<meta name="description" content="Your live Kansas City game-day command center: a countdown to the next big match at Arrowhead, the game-time weather forecast, a parking-vs-rideshare cost calculator, and where to watch without a ticket.">
+<link rel="canonical" href="https://allaccesskc.com/gameday">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KC Game-Day Toolkit — Countdown, Weather, Parking & Where to Watch">
+<meta property="og:description" content="Live countdown to the next big match at Arrowhead, game-time weather, a parking-vs-rideshare calculator, and where to watch. A local's game-day command center.">
+<meta property="og:url" content="https://allaccesskc.com/gameday">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KC Game-Day Toolkit | All Access KC">
+<meta name="twitter:description" content="Countdown, weather, parking-vs-rideshare calculator and where to watch — your KC game-day command center.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  .gd-hero{--hero-img:url('/kc-matchday-bg.jpg');--accent:#e31837}
+  .gd-count{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 4px}
+  .gd-unit{background:var(--bg-card);border:1px solid var(--rule);border-radius:12px;padding:12px 4px;min-width:74px;text-align:center;box-shadow:var(--shadow)}
+  .gd-unit b{display:block;font-family:var(--display);font-weight:900;font-size:2rem;color:var(--ink);line-height:1}
+  .gd-unit span{font-size:0.64rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .gd-next{text-align:center;font-size:1.1rem;color:var(--ink-mid);margin-bottom:8px}
+  .gd-next b{color:var(--ink)}
+  .gd-wx{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:1.05rem;color:var(--ink-mid)}
+  .gd-wx .big{font-size:2.2rem}
+  /* calculator */
+  .calc{background:var(--bg-card);border:1px solid var(--rule);border-left:5px solid var(--gold);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+  .calc-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:16px}
+  .calc-f{flex:1 1 150px;min-width:130px;display:flex;flex-direction:column;gap:5px}
+  .calc-f label{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .calc-f input{padding:11px 12px;border-radius:9px;border:1px solid var(--rule);background:var(--bg-soft);color:var(--ink);font-family:var(--serif);font-size:0.95rem}
+  .calc-out{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  .opt{border:1px solid var(--rule);border-radius:12px;padding:14px 16px;background:var(--bg-soft)}
+  .opt.best{border-color:var(--green);background:var(--green-soft,#eaf6ea);border-left:5px solid var(--green)}
+  .opt h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:7px}
+  .opt .cost{font-family:var(--display);font-weight:900;font-size:1.7rem;color:var(--ink)}
+  .opt .per{font-size:0.8rem;color:var(--ink-soft)}
+  .opt .tagbest{font-size:0.58rem;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;background:var(--green);color:#fff;border-radius:999px;padding:2px 8px}
+</style>
+</head>
+<body>
+
+<header class="kc-hero gd-hero">
+  <div class="inner">
+    <div class="eyebrow">All Access KC · Game-Day Command Center</div>
+    <h1>KC <span class="accent">game-day</span> toolkit</h1>
+    <p>Everything you need before kickoff — a live countdown to the next big match, the game-time forecast, the real cost of parking versus a rideshare, and where to watch if you don't have a ticket.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- NEXT MATCH + COUNTDOWN -->
+  <section class="section tight center" id="next">
+    <div class="eyebrow">Next at Arrowhead</div>
+    <div class="gd-next" id="gd-next">Loading the next match…</div>
+    <div class="gd-count" id="gd-count"></div>
+    <div class="kc-match" data-date="" id="gd-live" data-fallback="" style="margin-top:6px"></div>
+    <p style="margin-top:10px"><a class="btn" href="/summer">Full match board &amp; live scores</a></p>
+  </section>
+
+  <!-- GAME-DAY WEATHER -->
+  <section class="section tight">
+    <div class="center"><div class="eyebrow">Game-day forecast</div><h2>Weather at the stadium</h2></div>
+    <div class="band-dark reveal" style="text-align:center">
+      <div class="gd-wx" id="gd-wx"><span>Checking the forecast…</span></div>
+      <p style="margin-top:10px;opacity:.85;font-size:0.9rem" id="gd-wx-tip"></p>
+    </div>
+  </section>
+
+  <!-- PARKING vs RIDESHARE CALCULATOR -->
+  <section class="section" id="getthere">
+    <div class="center"><div class="eyebrow">Get there</div><h2>Parking vs. rideshare</h2>
+      <p class="lede">Match-day parking at the complex is prepaid and pricey. Punch in your numbers and see the real cheapest way in for your group.</p></div>
+    <div class="calc reveal">
+      <div class="calc-row">
+        <div class="calc-f"><label for="c-people">People in your group</label><input type="number" id="c-people" value="4" min="1" max="20"></div>
+        <div class="calc-f"><label for="c-park">Prepaid parking ($)</label><input type="number" id="c-park" value="60" min="0" step="5"></div>
+        <div class="calc-f"><label for="c-ride">Rideshare, each way ($)</label><input type="number" id="c-ride" value="28" min="0" step="1"></div>
+      </div>
+      <div class="calc-out" id="c-out"></div>
+      <p style="margin:14px 0 0;font-size:0.82rem;color:var(--ink-faint)">Streetcar is <b>free</b> but doesn't reach Arrowhead — it's the move for downtown watch parties and CPKC Stadium (the Current). For Arrowhead it's drive-and-park or rideshare. Surge pricing pushes rideshare up after the final whistle; leaving a little early saves the most.</p>
+    </div>
+  </section>
+
+  <!-- WHERE TO WATCH -->
+  <section class="section reveal">
+    <div class="center"><div class="eyebrow">No ticket?</div><h2>Where to watch</h2></div>
+    <div class="grid g3">
+      <div class="card accent" style="--accent:#e31837">
+        <div class="k-sport">The heart of it</div>
+        <h3>Power &amp; Light District</h3>
+        <p>The open-air KC Live! block — big screens, fan zones and the loudest crowd downtown for every match. Go early on Saturdays.</p>
+        <div class="acts"><a class="act" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Power%20%26%20Light%20District%2C%20Kansas%20City">📍 Directions</a></div>
+      </div>
+      <div class="card">
+        <div class="k-sport">Make a day of it</div>
+        <h3>Eat, then watch</h3>
+        <p>Grab KC barbecue and a patio drink before kickoff. Build the night with our planner.</p>
+        <div class="acts"><a class="act" href="/plan">🎲 Plan my night</a> <a class="act" href="/eat">🍽 Where to eat</a></div>
+      </div>
+      <div class="card">
+        <div class="k-sport">Tailgate</div>
+        <h3>Do the lot right</h3>
+        <p>If you've got a ticket, the parking-lot scene is half the fun. Here's how locals tailgate.</p>
+        <div class="acts"><a class="act" href="/tailgate">🏈 Tailgate guide</a></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* Game-day countdown + weather, keyed to the next KC match. */
+(function(){
+  var MATCHES=[
+    ['2026-06-16','Argentina vs. Algeria'],['2026-06-20','Ecuador vs. Curaçao'],
+    ['2026-06-25','Netherlands vs. Tunisia'],['2026-06-27','Algeria vs. Austria'],
+    ['2026-07-03','Round of 32'],['2026-07-11','Quarterfinal']
+  ];
+  var today=new Date(); today.setHours(0,0,0,0);
+  var next=null;
+  for(var i=0;i<MATCHES.length;i++){ var d=new Date(MATCHES[i][0]+'T00:00:00'); if(d>=today){ next={date:MATCHES[i][0],name:MATCHES[i][1],dt:d}; break; } }
+
+  var nextEl=document.getElementById('gd-next'), countEl=document.getElementById('gd-count'), liveEl=document.getElementById('gd-live');
+  if(!next){
+    nextEl.innerHTML='The big summer at Arrowhead has wrapped — <a href="/soccer">relive it →</a>';
+    if(liveEl) liveEl.remove();
+  } else {
+    nextEl.innerHTML='<b>'+next.name+'</b> · Arrowhead';
+    // wire the live widget to this date (ESPN scoreboard) — picks up live score on match day
+    liveEl.setAttribute('data-date', next.date.replace(/-/g,''));
+    function tick(){
+      var n=new Date(), target=new Date(next.date+'T19:00:00'); // ~kickoff-ish for countdown
+      var ms=target-n;
+      if(ms<=0){ countEl.innerHTML='<div class="gd-unit"><b>•</b><span>It\'s match day</span></div>'; return; }
+      var s=Math.floor(ms/1000), dd=Math.floor(s/86400), hh=Math.floor((s%86400)/3600), mm=Math.floor((s%3600)/60), ss=s%60;
+      countEl.innerHTML=
+        '<div class="gd-unit"><b>'+dd+'</b><span>days</span></div>'+
+        '<div class="gd-unit"><b>'+hh+'</b><span>hrs</span></div>'+
+        '<div class="gd-unit"><b>'+mm+'</b><span>min</span></div>'+
+        '<div class="gd-unit"><b>'+ss+'</b><span>sec</span></div>';
+    }
+    tick(); setInterval(tick,1000);
+
+    // ---- weather for the match date at Arrowhead ----
+    var WX={0:['clear skies','☀️'],1:['mostly clear','🌤'],2:['partly cloudy','⛅'],3:['overcast','☁️'],45:['fog','🌫'],48:['fog','🌫'],51:['light drizzle','🌦'],53:['drizzle','🌦'],55:['drizzle','🌦'],61:['light rain','🌧'],63:['rain','🌧'],65:['heavy rain','🌧'],71:['snow','🌨'],73:['snow','🌨'],75:['heavy snow','❄️'],80:['showers','🌦'],81:['showers','🌧'],82:['downpours','⛈'],95:['thunderstorms','⛈'],96:['thunderstorms','⛈'],99:['thunderstorms','⛈']};
+    var wxEl=document.getElementById('gd-wx'), tipEl=document.getElementById('gd-wx-tip');
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=39.0489&longitude=-94.4839&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FChicago&start_date='+next.date+'&end_date='+next.date)
+      .then(function(r){return r.json();}).then(function(d){
+        var dy=d&&d.daily; if(!dy||!dy.time||!dy.time.length){ throw 0; }
+        var hi=Math.round(dy.temperature_2m_max[0]), lo=Math.round(dy.temperature_2m_min[0]), code=dy.weather_code[0], pop=dy.precipitation_probability_max[0];
+        var w=WX[code]||['',''];
+        wxEl.innerHTML='<span class="big">'+w[1]+'</span><span><b>'+hi+'°</b> / '+lo+'°F · '+w[0]+(pop!=null?(' · '+pop+'% rain'):'')+'</span>';
+        var tip;
+        if(pop>=50) tip='Pack a poncho — clear bags only, and umbrellas are usually a no. The roof at Arrowhead is open.';
+        else if(hi>=90) tip='Hot one — hydrate, hit the shade on the concourse, and wear light colors.';
+        else if(hi<=45) tip='Bundle up — open stadium, and it gets cold once the sun drops.';
+        else tip='Looking great for kickoff. Get there early for the walk-up scene.';
+        tipEl.textContent=tip;
+      }).catch(function(){ wxEl.innerHTML='<span>Forecast posts closer to match day — check back.</span>'; });
+  }
+
+  // ---- parking vs rideshare calculator ----
+  function money(n){ return '$'+(Math.round(n*100)/100).toFixed(2).replace(/\.00$/,''); }
+  function calc(){
+    var ppl=Math.max(1,+document.getElementById('c-people').value||1);
+    var park=Math.max(0,+document.getElementById('c-park').value||0);
+    var ride=Math.max(0,+document.getElementById('c-ride').value||0);
+    var rideTotal=ride*2; // round trip, one vehicle
+    var opts=[
+      {n:'🚗 Drive &amp; park',total:park,per:park/ppl},
+      {n:'🚙 Rideshare (round trip)',total:rideTotal,per:rideTotal/ppl}
+    ];
+    var best=Math.min(opts[0].total,opts[1].total);
+    document.getElementById('c-out').innerHTML=opts.map(function(o){
+      var isBest=o.total===best;
+      return '<div class="opt'+(isBest?' best':'')+'"><h4>'+o.n+(isBest?' <span class="tagbest">Cheapest</span>':'')+'</h4>'+
+        '<div class="cost">'+money(o.total)+'</div><div class="per">'+money(o.per)+' per person · '+ppl+' people</div></div>';
+    }).join('');
+  }
+  ['c-people','c-park','c-ride'].forEach(function(id){ var e=document.getElementById(id); if(e) e.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+<script src="/kc-games.js" defer></script>
+<script src="/kc-nav.js" defer></script>
+</body>
+</html>

@@ -10,6 +10,7 @@
     { href: "/weekend", label: "Weekend" },
     { label: "Tools", menu: [
       { href: "/plan", label: "🎲 Plan My Night" },
+      { href: "/gameday", label: "🏟 Game-Day Toolkit" },
     ]},
     { label: "Teams", menu: [
       { href: "/chiefs", label: "Chiefs Corner" },

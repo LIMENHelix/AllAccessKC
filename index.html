@@ -679,12 +679,35 @@
     .sn-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .sn-chip{font-size:0.74rem;letter-spacing:0.5px;background:#fff;border:1px solid var(--rule);border-radius:999px;padding:5px 11px;color:var(--ink-mid)}
     .sn-chip.done{opacity:0.42;text-decoration:line-through}
+    .kc-now{margin:0 auto 26px;max-width:660px;text-align:center;font-size:0.95rem;line-height:1.5;color:var(--ink-mid);
+      background:var(--bg-soft);border:1px solid var(--rule);border-radius:14px;padding:12px 20px;display:none}
+    .kc-now.show{display:block}
+    .kc-now b{color:var(--ink)}
   </style>
 
   <section class="kc2026">
     <div class="eyebrow">Updated for 2026 · what's actually true right now</div>
     <h2>Kansas City is having a moment.</h2>
     <p class="lede">New stadiums, a free streetcar that finally goes everywhere, a James-Beard-finalist food scene, and the biggest summer the city has ever hosted. Here's the part most guides haven't caught up to yet.</p>
+    <div id="kcNow" class="kc-now" aria-live="polite"></div>
+    <script>
+    (function(){
+      var el=document.getElementById('kcNow'); if(!el) return;
+      var WX={0:['clear','☀️'],1:['mostly clear','🌤'],2:['partly cloudy','⛅'],3:['overcast','☁️'],45:['foggy','🌫'],48:['foggy','🌫'],51:['light drizzle','🌦'],53:['drizzle','🌦'],55:['drizzle','🌦'],56:['freezing drizzle','🌧'],57:['freezing drizzle','🌧'],61:['light rain','🌧'],63:['rain','🌧'],65:['heavy rain','🌧'],66:['freezing rain','🌧'],67:['freezing rain','🌧'],71:['light snow','🌨'],73:['snow','🌨'],75:['heavy snow','❄️'],77:['snow','🌨'],80:['showers','🌦'],81:['showers','🌧'],82:['downpours','⛈'],85:['snow showers','🌨'],86:['snow showers','❄️'],95:['thunderstorms','⛈'],96:['thunderstorms','⛈'],99:['thunderstorms','⛈']};
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=39.0997&longitude=-94.5786&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
+        .then(function(r){return r.json();}).then(function(d){
+          var c=d&&d.current; if(!c) return;
+          var t=Math.round(c.temperature_2m), code=c.weather_code, w=WX[code]||['',''], wet=(code>=51);
+          var tip;
+          if(wet) tip='Good day to head indoors — the <a href="/freebies">Nelson-Atkins (free)</a>, <a href="/eastside">18th &amp; Vine jazz</a>, or low-and-slow <a href="/eat">BBQ</a>.';
+          else if(t>=88) tip='Hot one — chase shade: museum AC, the Plaza fountains, or a <a href="/eat">patio after sundown</a>.';
+          else if(t<=38) tip='Bundle up — <a href="/eat">BBQ</a>, jazz, and the WWI Museum are cozy picks.';
+          else tip='Gorgeous out — ride the <a href="/neighborhoods">free streetcar</a>, hit the Plaza, grab a patio.';
+          el.innerHTML='<b>KC right now:</b> '+t+'°F'+(w[0]?(', '+w[0]+' '+w[1]):'')+' · '+tip;
+          el.className='kc-now show';
+        }).catch(function(){});
+    })();
+    </script>
 
     <div class="k-street">
       <div class="ico">🚊</div>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan My Night in KC — Instant Kansas City Itinerary Builder | All Access KC</title>
+<meta name="description" content="Tell us your vibe, budget and neighborhood and we'll build you a Kansas City night out in seconds — where to eat, where to drink, and what to do. Free, shareable, made by locals.">
+<link rel="canonical" href="https://allaccesskc.com/plan">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plan My Night in KC — Instant Itinerary Builder">
+<meta property="og:description" content="Pick a vibe, budget and neighborhood — get a full Kansas City night out in seconds. Eat, drink, do. Free & shareable.">
+<meta property="og:url" content="https://allaccesskc.com/plan">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Plan My Night in KC | All Access KC">
+<meta name="twitter:description" content="Pick a vibe and budget, get a full KC night out in seconds. Free & shareable.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  .plan-hero{--hero-img:url('/kc-plans-bg.jpg');--accent:#b8881c}
+  .pf{background:var(--bg-card);border:1px solid var(--rule);border-left:5px solid var(--gold);
+    border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+  .pf-row{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px}
+  .pf-group{flex:1 1 200px;min-width:180px}
+  .pf-group > label{display:block;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:7px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{border:1px solid var(--rule);background:var(--bg-soft);color:var(--ink-mid);border-radius:999px;
+    padding:7px 14px;font-size:0.86rem;cursor:pointer;font-family:var(--serif);transition:all .15s;user-select:none}
+  .chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:600}
+  .pf-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .pf-actions button{padding:12px 20px;border:0;border-radius:9px;font-family:var(--display);font-weight:700;
+    font-size:1rem;cursor:pointer;transition:all .15s}
+  #pf-go{background:var(--gold);color:#fff}
+  #pf-go:hover{background:var(--gold-bright,#b8881c)}
+  .pf-ghost{background:transparent;border:1px solid var(--rule) !important;color:var(--ink-mid)}
+  .pf-ghost:hover{background:var(--bg-soft)}
+  #plan-out{margin-top:26px}
+  .stop{display:flex;gap:16px;align-items:flex-start;background:var(--bg-card);border:1px solid var(--rule);
+    border-left:5px solid var(--kga,var(--gold));border-radius:12px;padding:18px 20px;margin-bottom:14px}
+  .stop .num{font-family:var(--display);font-weight:900;font-size:1.6rem;color:var(--kga,var(--gold));line-height:1;flex:0 0 auto;width:30px}
+  .stop h3{font-size:1.25rem;margin:0 0 2px}
+  .stop .meta{font-size:0.74rem;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:6px}
+  .stop p{color:var(--ink-soft);font-size:0.93rem;margin:0 0 10px}
+  .stop .acts{margin-top:0}
+  .plan-share{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+  .plan-empty{color:var(--ink-faint);font-style:italic;text-align:center;padding:30px 0}
+</style>
+</head>
+<body>
+
+<header class="kc-hero plan-hero">
+  <div class="inner">
+    <div class="eyebrow">All Access KC · The Night Planner</div>
+    <h1>Plan my night <span class="accent">in Kansas City</span></h1>
+    <p>Pick your vibe, your budget and a part of town — we'll build you a full night out in seconds. Eat, drink, do. Hit shuffle till it's perfect, then share it with whoever you're dragging along.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section tight">
+    <div class="pf reveal">
+      <div class="pf-row">
+        <div class="pf-group">
+          <label>The vibe</label>
+          <div class="chips" id="g-vibe" data-single="1">
+            <span class="chip" data-v="lively" aria-pressed="true">Lively &amp; fun</span>
+            <span class="chip" data-v="chill" aria-pressed="false">Chill &amp; easy</span>
+            <span class="chip" data-v="romantic" aria-pressed="false">Date night</span>
+            <span class="chip" data-v="classic" aria-pressed="false">KC classics</span>
+            <span class="chip" data-v="foodie" aria-pressed="false">Foodie</span>
+          </div>
+        </div>
+        <div class="pf-group">
+          <label>Budget</label>
+          <div class="chips" id="g-budget" data-single="1">
+            <span class="chip" data-v="1" aria-pressed="false">$ Cheap</span>
+            <span class="chip" data-v="2" aria-pressed="true">$$ Mid</span>
+            <span class="chip" data-v="3" aria-pressed="false">$$$ Treat</span>
+            <span class="chip" data-v="any" aria-pressed="false">Any</span>
+          </div>
+        </div>
+        <div class="pf-group">
+          <label>Part of town</label>
+          <div class="chips" id="g-area" data-single="1">
+            <span class="chip" data-v="any" aria-pressed="true">Anywhere</span>
+            <span class="chip" data-v="Downtown" aria-pressed="false">Downtown</span>
+            <span class="chip" data-v="Crossroads" aria-pressed="false">Crossroads</span>
+            <span class="chip" data-v="Westport" aria-pressed="false">Westport</span>
+            <span class="chip" data-v="Plaza" aria-pressed="false">Plaza</span>
+            <span class="chip" data-v="River Market" aria-pressed="false">River Market</span>
+          </div>
+        </div>
+      </div>
+      <div class="pf-row" style="margin-bottom:8px">
+        <div class="pf-group" style="flex:1 1 100%">
+          <label>Build me a…</label>
+          <div class="chips" id="g-parts">
+            <span class="chip" data-v="eat" aria-pressed="true">🍽 Dinner</span>
+            <span class="chip" data-v="drink" aria-pressed="true">🍸 Drinks</span>
+            <span class="chip" data-v="do" aria-pressed="true">🎟 Something to do</span>
+          </div>
+        </div>
+      </div>
+      <div class="pf-actions">
+        <button id="pf-go" type="button">Build my night →</button>
+        <button id="pf-shuffle" class="pf-ghost" type="button">🎲 Shuffle</button>
+      </div>
+    </div>
+
+    <div id="plan-out" aria-live="polite"></div>
+  </section>
+
+  <section class="section center reveal">
+    <div class="eyebrow">Keep going</div>
+    <h2>More ways to do KC</h2>
+    <p class="lede">Got the plan? Lock in the details.</p>
+    <p>
+      <a class="btn" href="/eat">Reserve a table</a>
+      <a class="btn btn-ghost" href="/weekend" style="margin-left:10px">Perfect weekend</a>
+      <a class="btn btn-ghost" href="/events" style="margin-left:10px">What's on</a>
+    </p>
+  </section>
+</main>
+
+<script>
+/* Plan My Night — curated KC dataset + client-side itinerary generator.
+   Each spot: name, type(eat|drink|do), area, budget(1-3, 0=free/varies),
+   vibes[], blurb. No backend; share via URL params. */
+(function(){
+  var SPOTS = [
+    // ---- EAT ----
+    {n:"Joe's Kansas City Bar-B-Que",t:"eat",area:"KCK",b:2,v:["classic","lively"],d:"The legendary gas-station BBQ — get the Z-Man. Worth the line every time."},
+    {n:"Q39",t:"eat",area:"Midtown",b:2,v:["lively","classic","foodie"],d:"Modern KC barbecue done right — burnt ends and a proper bar. A reliable local pick."},
+    {n:"Char Bar",t:"eat",area:"Westport",b:2,v:["lively","chill"],d:"Smoked meats and one of the best patios in Westport. Easy, fun, always busy."},
+    {n:"1587 Prime",t:"eat",area:"Downtown",b:3,v:["romantic","foodie"],d:"Mahomes & Kelce's downtown steakhouse in the Loews — a proper special-occasion night."},
+    {n:"Anjin",t:"eat",area:"Crossroads",b:3,v:["foodie","romantic"],d:"A tiny 20-seat Crossroads izakaya and national best-new-restaurant finalist. Book ahead."},
+    {n:"Grünauer",t:"eat",area:"Crossroads",b:3,v:["romantic","classic"],d:"Old-world Austrian dining in the Crossroads — schnitzel, strudel and a warm room."},
+    {n:"Port Fonda",t:"eat",area:"Westport",b:2,v:["lively","foodie"],d:"Lively modern Mexican in Westport — mezcal, tacos, and a great late kitchen."},
+    {n:"Garozzo's",t:"eat",area:"Columbus Park",b:2,v:["classic","romantic"],d:"The original Columbus Park Italian institution. Chicken spiedini and red-sauce comfort."},
+    {n:"Town Topic",t:"eat",area:"Downtown",b:1,v:["chill","classic"],d:"24-hour griddle diner — sliders and shakes at any hour. A true KC cheap classic."},
+    {n:"Succotash",t:"eat",area:"River Market",b:2,v:["chill","foodie"],d:"Beloved River Market brunch-all-day spot. Bright, friendly and very KC."},
+    {n:"Westside Local",t:"eat",area:"Westside",b:2,v:["chill","foodie"],d:"Neighborhood gastropub on the Westside — seasonal plates, great patio, no fuss."},
+    // ---- DRINK ----
+    {n:"Power & Light District",t:"drink",area:"Downtown",b:2,v:["lively","classic"],d:"The open-air KC Live! block — bars, big screens and the loudest crowd downtown."},
+    {n:"Green Lady Lounge",t:"drink",area:"Crossroads",b:2,v:["romantic","chill"],d:"Red-lit basement jazz, live every night. The most romantic room in the city."},
+    {n:"Manifesto",t:"drink",area:"Crossroads",b:3,v:["romantic","foodie"],d:"Hidden speakeasy beneath the Rieger — reservations, candlelight, serious cocktails."},
+    {n:"Tom's Town Distilling",t:"drink",area:"Crossroads",b:2,v:["classic","foodie"],d:"Art-deco distillery tasting room — KC-made gin and bourbon, beautiful space."},
+    {n:"Boulevard Brewing Tours & Rec",t:"drink",area:"Westside",b:2,v:["lively","classic"],d:"KC's flagship brewery — rooftop beer hall with skyline views on the Westside."},
+    {n:"Up-Down KC",t:"drink",area:"Crossroads",b:1,v:["lively","chill"],d:"Arcade bar — classic games at a quarter, rooftop patio, cheap and a blast."},
+    {n:"Julep",t:"drink",area:"Westport",b:3,v:["classic","romantic"],d:"Award-winning bourbon bar in Westport. Juleps done properly, dressed-up crowd."},
+    {n:"The Ship",t:"drink",area:"West Bottoms",b:2,v:["chill","lively"],d:"West Bottoms dive with great cocktails and live music. Unpretentious and cool."},
+    {n:"SoT",t:"drink",area:"Crossroads",b:3,v:["foodie","romantic"],d:"Inventive, world-class cocktails in the Crossroads. For when the drink is the point."},
+    // ---- DO ----
+    {n:"Nelson-Atkins Museum of Art",t:"do",area:"Plaza",b:0,v:["chill","classic","romantic"],d:"World-class art museum — free admission, and the giant shuttlecocks on the lawn."},
+    {n:"Country Club Plaza stroll",t:"do",area:"Plaza",b:0,v:["romantic","classic","chill"],d:"Spanish-architecture shopping district — fountains, lights and an easy evening walk."},
+    {n:"First Fridays in the Crossroads",t:"do",area:"Crossroads",b:0,v:["lively","foodie"],d:"Monthly art crawl — galleries open, street food, music. The Crossroads at its best (1st Fri)."},
+    {n:"Ride the free KC Streetcar",t:"do",area:"Downtown",b:0,v:["chill","classic"],d:"Hop the free streetcar from River Market to the Plaza extension — the easy way to see downtown."},
+    {n:"National WWI Museum & Memorial",t:"do",area:"Downtown",b:2,v:["classic","chill"],d:"Top-rated museum with the best skyline view in the city from the tower."},
+    {n:"City Market / River Market",t:"do",area:"River Market",b:0,v:["chill","foodie","classic"],d:"Historic public market — produce, global food stalls and weekend buzz by the river."},
+    {n:"Union Station",t:"do",area:"Downtown",b:2,v:["classic","chill"],d:"Restored 1914 station — exhibits, planetarium and Science City. Grand and central."},
+    {n:"Boulevard rooftop + skyline sunset",t:"do",area:"Westside",b:2,v:["lively","romantic"],d:"Catch sunset over downtown from a Westside rooftop — the view locals show off."},
+    {n:"Catch a game",t:"do",area:"Downtown",b:3,v:["lively","classic"],d:"Chiefs, Royals, Sporting or the Current — KC is a sports town. Check what's on tonight."}
+  ];
+
+  // ---- chip selection wiring ----
+  function wire(groupId){
+    var g=document.getElementById(groupId), single=g.getAttribute('data-single')==='1';
+    g.addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c) return;
+      if(single){ g.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false');}); c.setAttribute('aria-pressed','true'); }
+      else { c.setAttribute('aria-pressed', c.getAttribute('aria-pressed')==='true'?'false':'true'); }
+    });
+  }
+  ['g-vibe','g-budget','g-area','g-parts'].forEach(wire);
+
+  function sel(groupId){ var c=document.querySelector('#'+groupId+' .chip[aria-pressed="true"]'); return c?c.getAttribute('data-v'):null; }
+  function selMany(groupId){ return Array.prototype.map.call(document.querySelectorAll('#'+groupId+' .chip[aria-pressed="true"]'),function(c){return c.getAttribute('data-v');}); }
+
+  function pick(type,vibe,budget,area,used){
+    var pool=SPOTS.filter(function(s){ return s.t===type && used.indexOf(s.n)<0; });
+    function score(s){
+      var sc=0;
+      if(s.v.indexOf(vibe)>=0) sc+=3;
+      if(area!=='any' && s.area===area) sc+=2;
+      if(budget!=='any' && s.b!==0){ var diff=Math.abs(s.b-(+budget)); sc+= diff===0?2:(diff===1?0:-2); }
+      return sc + Math.random()*1.5; // jitter so shuffle varies
+    }
+    pool.sort(function(a,b){return score(b)-score(a);});
+    return pool[0]||null;
+  }
+
+  var ACCENT={eat:"#b8881c",drink:"#6f3d8b",do:"#3b7fa8"};
+  var LABEL={eat:"Dinner",drink:"Drinks",do:"Do"};
+
+  function mapUrl(name){ return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(name+', Kansas City'); }
+
+  function build(opts){
+    var vibe=opts.vibe, budget=opts.budget, area=opts.area, parts=opts.parts;
+    var out=document.getElementById('plan-out');
+    if(!parts.length){ out.innerHTML='<div class="plan-empty">Pick at least one of dinner, drinks or something to do.</div>'; return; }
+    var used=[], stops=[];
+    ['eat','drink','do'].forEach(function(t){ if(parts.indexOf(t)>=0){ var s=pick(t,vibe,budget,area,used); if(s){ used.push(s.n); stops.push(s); } } });
+    if(!stops.length){ out.innerHTML='<div class="plan-empty">No matches — try widening the budget or area.</div>'; return; }
+    var html='<div class="eyebrow center">Your KC night</div><h2 class="center" style="margin-bottom:18px">Here\'s the plan</h2>';
+    stops.forEach(function(s,i){
+      html+='<div class="stop reveal in" style="--kga:'+ACCENT[s.t]+'">'+
+        '<div class="num">'+(i+1)+'</div>'+
+        '<div style="min-width:0"><div class="meta">'+LABEL[s.t]+' · '+s.area+(s.b?(' · '+'$'.repeat(s.b)):' · Free/varies')+'</div>'+
+        '<h3>'+s.n+'</h3><p>'+s.d+'</p>'+
+        '<div class="acts"><a class="act" target="_blank" rel="noopener" href="'+mapUrl(s.n)+'">📍 Directions &amp; hours</a>'+
+        (s.t==='eat'&&s.b>=2?(' <a class="act" target="_blank" rel="noopener" href="https://www.opentable.com/s?term='+encodeURIComponent(s.n+' Kansas City')+'">🍽 Reserve</a>'):'')+
+        '</div></div></div>';
+    });
+    var share=location.origin+location.pathname+'?v='+encodeURIComponent(vibe)+'&b='+encodeURIComponent(budget)+'&a='+encodeURIComponent(area)+'&p='+encodeURIComponent(parts.join(','));
+    html+='<div class="plan-share"><button class="btn" id="pf-again" type="button">🎲 Shuffle this plan</button>'+
+      '<button class="btn btn-ghost" id="pf-copy" type="button">🔗 Copy shareable link</button>'+
+      '<span id="pf-copied" style="color:var(--green);font-size:0.85rem"></span></div>';
+    out.innerHTML=html;
+    out.setAttribute('data-share',share);
+    document.getElementById('pf-again').addEventListener('click',run);
+    document.getElementById('pf-copy').addEventListener('click',function(){
+      var s=out.getAttribute('data-share');
+      if(navigator.clipboard){ navigator.clipboard.writeText(s).then(function(){copied();},function(){promptCopy(s);}); }
+      else promptCopy(s);
+    });
+    function copied(){ document.getElementById('pf-copied').textContent='Copied!'; setTimeout(function(){var e=document.getElementById('pf-copied'); if(e)e.textContent='';},2500); }
+    function promptCopy(s){ window.prompt('Copy this link:',s); }
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function run(){
+    build({ vibe:sel('g-vibe')||'lively', budget:sel('g-budget')||'any', area:sel('g-area')||'any', parts:selMany('g-parts') });
+  }
+  document.getElementById('pf-go').addEventListener('click',run);
+  document.getElementById('pf-shuffle').addEventListener('click',run);
+
+  // ---- hydrate from share link ----
+  (function(){
+    var q=new URLSearchParams(location.search);
+    if(!q.get('v')&&!q.get('p')) return;
+    function set(group,val){ var c=document.querySelector('#'+group+' .chip[data-v="'+val+'"]'); if(c){ document.querySelectorAll('#'+group+' .chip').forEach(function(x){x.setAttribute('aria-pressed','false');}); c.setAttribute('aria-pressed','true'); } }
+    if(q.get('v')) set('g-vibe',q.get('v'));
+    if(q.get('b')) set('g-budget',q.get('b'));
+    if(q.get('a')) set('g-area',q.get('a'));
+    if(q.get('p')){ var parts=q.get('p').split(','); document.querySelectorAll('#g-parts .chip').forEach(function(c){ c.setAttribute('aria-pressed', parts.indexOf(c.getAttribute('data-v'))>=0?'true':'false'); }); }
+    run();
+  })();
+})();
+</script>
+<script src="/kc-nav.js" defer></script>
+</body>
+</html>

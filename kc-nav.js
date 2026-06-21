@@ -8,6 +8,9 @@
     { href: "/eat", label: "Eat" },
     { href: "/freebies", label: "Free Stuff" },
     { href: "/weekend", label: "Weekend" },
+    { label: "Tools", menu: [
+      { href: "/plan", label: "🎲 Plan My Night" },
+    ]},
     { label: "Teams", menu: [
       { href: "/chiefs", label: "Chiefs Corner" },
       { href: "/royals", label: "Royals Corner" },

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Today's KC Deals — Happy Hours &amp; Daily Specials in Kansas City | All Access KC</title>
+<meta name="description" content="A daily-changing board of Kansas City deals: what's on special today, which happy hours are live right now, and the recurring specials locals plan their week around.">
+<link rel="canonical" href="https://allaccesskc.com/deals">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Today's KC Deals — Happy Hours & Daily Specials">
+<meta property="og:description" content="What's on special in Kansas City today, plus which happy hours are live right now. Updated to your local time.">
+<meta property="og:url" content="https://allaccesskc.com/deals">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Today's KC Deals | All Access KC">
+<meta name="twitter:description" content="Daily KC specials + live happy hours, updated to your local time.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  .deal-hero{--hero-img:url('/kc-drink-bg.jpg');--accent:#b8881c}
+  .deal-day{text-align:center;font-size:1rem;color:var(--ink-soft);margin-bottom:4px}
+  .deal-day b{color:var(--ink)}
+  .deal-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .deal{background:var(--bg-card);border:1px solid var(--rule);border-left:5px solid var(--gold);
+    border-radius:12px;padding:16px 18px}
+  .deal.live{border-left-color:var(--green)}
+  .deal .cat{font-size:0.7rem;letter-spacing:.9px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .deal h3{font-size:1.12rem;margin:3px 0 5px}
+  .deal .where{font-size:0.82rem;color:var(--ink-mid);font-weight:600;margin-bottom:6px}
+  .deal p{font-size:0.88rem;color:var(--ink-soft);margin:0 0 8px}
+  .deal .now{display:inline-flex;align-items:center;gap:6px;font-size:0.74rem;font-weight:700;color:var(--green);
+    text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+  .deal .now .dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;animation:dlpulse 1.6s infinite}
+  @keyframes dlpulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .deal-empty{grid-column:1/-1;text-align:center;color:var(--ink-faint);font-style:italic;padding:24px}
+  .sec-lead{text-align:center;margin-bottom:18px}
+</style>
+</head>
+<body>
+
+<header class="kc-hero deal-hero">
+  <div class="inner">
+    <div class="eyebrow">All Access KC · Today's Deals</div>
+    <h1>What's the <span class="accent">deal</span> today?</h1>
+    <p>The board changes with the day. Here's what's on special right now in Kansas City — the live happy hours, the day-of-week deals locals plan around, and the always-on freebies. Check back; it's different tomorrow.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HAPPY HOUR NOW -->
+  <section class="section tight">
+    <div class="deal-day" id="deal-clock"></div>
+    <div class="sec-lead"><div class="eyebrow">Live right now</div><h2>Happy hours on the clock</h2></div>
+    <div class="deal-grid" id="hh-grid"></div>
+  </section>
+
+  <!-- TODAY'S SPECIALS -->
+  <section class="section tight">
+    <div class="sec-lead"><div class="eyebrow" id="today-eyebrow">Today</div><h2>Today's specials</h2>
+      <p class="lede">Recurring deals locals look for on this day of the week.</p></div>
+    <div class="deal-grid" id="today-grid"></div>
+  </section>
+
+  <section class="section center reveal">
+    <div class="eyebrow">Always on</div>
+    <h2>Free stuff, every day</h2>
+    <p class="lede">Birthday freebies, chain perks and standing deals that don't need a calendar.</p>
+    <p><a class="btn" href="/freebies">The KC freebies board</a> <a class="btn btn-ghost" href="/open" style="margin-left:8px">🟢 Open right now</a></p>
+    <p style="margin-top:16px;opacity:.7;font-size:0.85rem">Deals are recurring patterns and can change any week — confirm with the venue before you go.</p>
+  </section>
+</main>
+
+<script>
+/* Today's KC Deals — day-of-week specials + live happy-hour detection (America/Chicago).
+   days: array of weekday indexes (0=Sun..6=Sat) the deal runs.
+   hh: optional [start,end] in 24h decimals for happy-hour "live now". */
+(function(){
+  var DEALS=[
+    // ---- Happy hours (run most weekdays) ----
+    {cat:"Happy hour",t:"Half-price apps & drink specials",where:"Power & Light District bars",days:[1,2,3,4,5],hh:[15,18.5],d:"Most P&L patios run weekday happy hour mid-afternoon — discounted drinks and shareable plates."},
+    {cat:"Happy hour",t:"$2 off craft pints",where:"Boulevard & local taprooms",days:[1,2,3,4,5],hh:[15,18],d:"Many KC taprooms drop pint prices on weekday afternoons. Best paired with a brewery patio."},
+    {cat:"Happy hour",t:"Oyster & cocktail specials",where:"Crossroads cocktail bars",days:[2,3,4,5],hh:[16,18],d:"Crossroads spots often run an early-evening raw-bar and cocktail deal before the dinner rush."},
+    {cat:"Late happy hour",t:"Reverse happy hour",where:"Westport & Plaza bars",days:[4,5,6],hh:[22,24],d:"Several spots run a late-night 'reverse' happy hour — deals kick back in before close."},
+    // ---- Day-of-week specials ----
+    {cat:"Sunday",t:"Sunday brunch deals",where:"River Market & Westside",days:[0],d:"Bottomless mimosas and brunch plates across the Westside, Crossroads and River Market."},
+    {cat:"Sunday",t:"Funday patio specials",where:"Westport patios",days:[0],d:"Lazy-Sunday drink specials on the big Westport and Brookside patios."},
+    {cat:"Monday",t:"Industry night",where:"Crossroads & Westport",days:[1],d:"Service-industry crowd night — discounted drinks and a relaxed scene where locals actually hang out."},
+    {cat:"Tuesday",t:"Taco Tuesday",where:"Westport, Crossroads & the Plaza",days:[2],d:"$2–$3 tacos and margarita deals citywide — Port Fonda and the Westport strip are easy picks."},
+    {cat:"Wednesday",t:"Wing & burger night",where:"Sports bars citywide",days:[3],d:"Half-price wings and burger-and-beer combos at neighborhood sports bars — great before a game."},
+    {cat:"Wednesday",t:"Half-price bottles of wine",where:"Crossroads bistros",days:[3],d:"Several sit-down spots discount wine bottles midweek — a sleeper date-night move."},
+    {cat:"Thursday",t:"Thirsty Thursday",where:"Power & Light + Westport",days:[4],d:"The unofficial start of the KC weekend — drink specials and live music ramp up."},
+    {cat:"Friday",t:"Fish fry & patio kickoff",where:"Brookside & Waldo",days:[5],d:"Neighborhood fish-fry specials and packed patios to start the weekend."},
+    {cat:"Saturday",t:"Game-day & watch-party deals",where:"Sports bars + P&L",days:[6],d:"Match-day food-and-drink buckets when KC's teams (or the big summer matches) are on."},
+    {cat:"Saturday",t:"Market-day breakfast deals",where:"City Market",days:[6],d:"Early breakfast and produce deals at the River Market — get there before the crowds."}
+  ];
+
+  function kcNow(){
+    var k=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Chicago'}));
+    return {day:k.getDay(), hour:k.getHours()+k.getMinutes()/60,
+      dayName:k.toLocaleString('en-US',{weekday:'long',timeZone:'America/Chicago'}),
+      label:k.toLocaleString('en-US',{weekday:'long',hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'})};
+  }
+  function fmtTime(h){ var hh=Math.floor(h)%24,mm=Math.round((h-Math.floor(h))*60),ap=hh>=12?'PM':'AM',h12=hh%12||12; return h12+(mm?(':'+(mm<10?'0':'')+mm):'')+ap; }
+  function mapUrl(q){ return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+', Kansas City'); }
+
+  var now=kcNow();
+  document.getElementById('deal-clock').innerHTML='Kansas City · <b>'+now.label+'</b>';
+  document.getElementById('today-eyebrow').textContent=now.dayName;
+
+  function card(dl, live){
+    return '<div class="deal'+(live?' live':'')+'">'+
+      (live?'<div class="now"><span class="dot"></span>On now · till '+fmtTime(dl.hh[1])+'</div>':'')+
+      '<div class="cat">'+dl.cat+'</div><h3>'+dl.t+'</h3><div class="where">'+dl.where+'</div><p>'+dl.d+'</p>'+
+      '<div class="acts"><a class="act" target="_blank" rel="noopener" href="'+mapUrl(dl.where)+'">📍 Find spots near you</a></div></div>';
+  }
+
+  // Happy hours live now
+  var hhLive=DEALS.filter(function(d){ return d.hh && d.days.indexOf(now.day)>=0 && now.hour>=d.hh[0] && now.hour<d.hh[1]; });
+  var hhGrid=document.getElementById('hh-grid');
+  if(hhLive.length){ hhGrid.innerHTML=hhLive.map(function(d){return card(d,true);}).join(''); }
+  else {
+    // show upcoming happy hours later today, else a friendly note
+    var later=DEALS.filter(function(d){ return d.hh && d.days.indexOf(now.day)>=0 && now.hour<d.hh[0]; })
+      .sort(function(a,b){return a.hh[0]-b.hh[0];});
+    if(later.length){ hhGrid.innerHTML='<div class="deal-empty">No happy hour live this minute — next up around '+fmtTime(later[0].hh[0])+'. Here\'s what\'s coming:</div>'+later.map(function(d){return card(d,false);}).join(''); }
+    else { hhGrid.innerHTML='<div class="deal-empty">No happy hours on the clock right now — check today\'s specials below, or the <a href="/freebies">always-on freebies</a>.</div>'; }
+  }
+
+  // Today's day-of-week specials (exclude pure happy-hour entries already shown live)
+  var today=DEALS.filter(function(d){ return d.days.indexOf(now.day)>=0 && !d.hh; });
+  var tGrid=document.getElementById('today-grid');
+  tGrid.innerHTML = today.length ? today.map(function(d){return card(d,false);}).join('') : '<div class="deal-empty">No standing specials logged for today — peek at the <a href="/freebies">freebies board</a>.</div>';
+})();
+</script>
+<script src="/kc-nav.js" defer></script>
+</body>
+</html>

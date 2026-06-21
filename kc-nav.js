@@ -10,6 +10,7 @@
     { href: "/weekend", label: "Weekend" },
     { label: "Tools", menu: [
       { href: "/open", label: "🟢 Open Right Now" },
+      { href: "/deals", label: "🏷 Today's Deals" },
       { href: "/plan", label: "🎲 Plan My Night" },
       { href: "/gameday", label: "🏟 Game-Day Toolkit" },
     ]},

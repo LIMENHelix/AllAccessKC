@@ -9,6 +9,7 @@
     { href: "/freebies", label: "Free Stuff" },
     { href: "/weekend", label: "Weekend" },
     { label: "Tools", menu: [
+      { href: "/open", label: "🟢 Open Right Now" },
       { href: "/plan", label: "🎲 Plan My Night" },
       { href: "/gameday", label: "🏟 Game-Day Toolkit" },
     ]},

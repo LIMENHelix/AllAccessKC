@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Right Now in KC — What's Open This Minute in Kansas City | All Access KC</title>
+<meta name="description" content="A live, time-aware board of Kansas City spots that are open right now — BBQ, bars, coffee and late-night — with 'closing soon' flags. Stop guessing and go.">
+<link rel="canonical" href="https://allaccesskc.com/open">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Open Right Now in KC — What's Open This Minute">
+<meta property="og:description" content="A live board of Kansas City spots open right now — BBQ, bars, coffee, late-night — with closing-soon flags.">
+<meta property="og:url" content="https://allaccesskc.com/open">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Open Right Now in KC | All Access KC">
+<meta name="twitter:description" content="What's open this minute in Kansas City — BBQ, bars, coffee, late-night.">
+<link rel="stylesheet" href="/kc.css">
+<style>
+  .open-hero{--hero-img:url('/kc-eat-bg.jpg');--accent:#2e9e5b}
+  .now-clock{text-align:center;font-size:1rem;color:var(--ink-soft);margin-bottom:6px}
+  .now-clock b{color:var(--ink)}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 24px}
+  .filt{border:1px solid var(--rule);background:var(--bg-soft);color:var(--ink-mid);border-radius:999px;
+    padding:8px 16px;font-size:0.88rem;cursor:pointer;font-family:var(--serif);transition:all .15s}
+  .filt[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+  .ob-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  .ob{background:var(--bg-card);border:1px solid var(--rule);border-left:5px solid var(--ink-faint);
+    border-radius:12px;padding:16px 18px;transition:transform .15s}
+  .ob.is-open{border-left-color:var(--green)}
+  .ob.is-soon{border-left-color:#e6a700}
+  .ob.is-closed{opacity:.55}
+  .ob h3{font-size:1.1rem;margin:0 0 3px}
+  .ob .where{font-size:0.72rem;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+  .ob .status{font-size:0.92rem;font-weight:700;margin:8px 0 4px;display:flex;align-items:center;gap:7px}
+  .ob.is-open .status{color:var(--green)}
+  .ob.is-soon .status{color:#b5860b}
+  .ob.is-closed .status{color:var(--ink-faint)}
+  .ob .dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:currentColor}
+  .ob.is-open .dot{animation:obpulse 1.6s infinite}
+  @keyframes obpulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .ob p{font-size:0.86rem;color:var(--ink-soft);margin:4px 0 8px}
+  .ob .acts{margin-top:6px}
+  .ob-empty{grid-column:1/-1;text-align:center;color:var(--ink-faint);font-style:italic;padding:30px}
+</style>
+</head>
+<body>
+
+<header class="kc-hero open-hero">
+  <div class="inner">
+    <div class="eyebrow">All Access KC · Open Right Now</div>
+    <h1>What's open <span class="accent">right now</span></h1>
+    <p>Hungry at an odd hour? This board sorts Kansas City favorites by what's actually open this minute — green means go, amber means closing soon. Stop guessing and grab your keys.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section tight">
+    <div class="now-clock" id="now-clock"></div>
+    <div class="filters" id="filters">
+      <span class="filt" data-c="all" aria-pressed="true">Everything</span>
+      <span class="filt" data-c="bbq" aria-pressed="false">🍖 BBQ</span>
+      <span class="filt" data-c="bar" aria-pressed="false">🍸 Bars</span>
+      <span class="filt" data-c="coffee" aria-pressed="false">☕ Coffee</span>
+      <span class="filt" data-c="late" aria-pressed="false">🌙 Late-night</span>
+    </div>
+    <div class="ob-grid" id="ob-grid"></div>
+    <p class="center" style="margin-top:22px;opacity:.7;font-size:0.85rem">Hours shown are <b>typical</b> and can change on holidays, game days, or when a BBQ joint sells out early — always call or check the spot's page before you drive. Updated live to your local time.</p>
+  </section>
+
+  <section class="section center reveal">
+    <div class="eyebrow">Keep going</div>
+    <h2>More KC, right now</h2>
+    <p><a class="btn" href="/eat">Full eat guide</a> <a class="btn btn-ghost" href="/plan" style="margin-left:8px">🎲 Plan my night</a> <a class="btn btn-ghost" href="/freebies" style="margin-left:8px">Free stuff</a></p>
+  </section>
+</main>
+
+<script>
+/* Open Right Now — typical hours, live status in America/Chicago.
+   hours: 7 entries (0=Sun..6=Sat), each [open,close] in 24h decimals, or null=closed.
+   close < open means it closes after midnight. */
+(function(){
+  var D=function(o,c){return [o,c];}, X=null;
+  var SPOTS=[
+    {n:"Joe's Kansas City Bar-B-Que",c:"bbq",area:"KCK",d:"Gas-station legend — the Z-Man.",
+      h:[[11,20],[11,20.5],[11,20.5],[11,20.5],[11,20.5],[11,21],[11,21]]},
+    {n:"Q39 Midtown",c:"bbq",area:"Midtown",d:"Modern KC barbecue + a full bar.",
+      h:[[11,20],[11,21],[11,21],[11,21],[11,21],[11,21],[11,21]]},
+    {n:"Jack Stack Barbecue",c:"bbq",area:"Freight House",d:"Polished sit-down BBQ classic.",
+      h:[[11,21],[11,21],[11,21],[11,21],[11,22],[11,22],[11,21]]},
+    {n:"Gates Bar-B-Q",c:"bbq",area:"Multiple",d:'"Hi, may I help you?" — KC institution.',
+      h:[[10,22],[10,22],[10,22],[10,22],[10,23],[10,23],[10,22]]},
+    {n:"Arthur Bryant's",c:"bbq",area:"18th & Vine",d:"The original burnt-end legend.",
+      h:[[11,21],[11,21],[11,21],[11,21],[11,21.5],[11,21.5],[11,20]]},
+    {n:"LC's Bar-B-Q",c:"bbq",area:"East KC",d:"Smoky hole-in-the-wall greatness.",
+      h:[X,[11,20],[11,20],[11,20],[11,20],[11,20],[11,20]]},
+    {n:"Char Bar",c:"bbq",area:"Westport",d:"Smoked meats + the best patio in Westport.",
+      h:[[11,23],[11,23],[11,23],[11,23],[11,24],[11,24],[11,23]]},
+    {n:"Power & Light District",c:"bar",area:"Downtown",d:"Open-air bar block, big screens.",
+      h:[[11,24],[11,24],[11,24],[11,25.5],[11,25.5],[11,25.5],[11,24]]},
+    {n:"Green Lady Lounge",c:"bar",area:"Crossroads",d:"Red-lit live jazz every night.",
+      h:[[16,25],[16,25],[16,25],[16,25],[16,27],[16,27],[16,25]]},
+    {n:"Up-Down KC",c:"bar",area:"Crossroads",d:"Arcade bar, quarters & rooftop.",
+      h:[[16,26],[16,26],[16,26],[16,26],[12,26],[12,26],[12,24]]},
+    {n:"The Ship",c:"bar",area:"West Bottoms",d:"Cocktails + live music dive.",
+      h:[X,X,[16,25],[16,25],[16,26],[12,26],[12,24]]},
+    {n:"Julep",c:"bar",area:"Westport",d:"Award-winning bourbon & juleps.",
+      h:[X,[16,25],[16,25],[16,25],[16,26],[16,26],X]},
+    {n:"Messenger Coffee Co.",c:"coffee",area:"Crossroads",d:"Three-floor roastery + bakery.",
+      h:[[7,18],[7,19],[7,19],[7,19],[7,19],[7,19],[7,18]]},
+    {n:"Thou Mayest",c:"coffee",area:"Crossroads",d:"Coffee by day, cocktails by night.",
+      h:[[8,18],[7,22],[7,22],[7,22],[7,24],[8,24],[8,18]]},
+    {n:"Monarch Coffee",c:"coffee",area:"Valentine",d:"Beautiful marble cafe, great lattes.",
+      h:[[7,17],[7,17],[7,17],[7,17],[7,17],[8,17],[8,16]]},
+    {n:"Town Topic",c:"late",area:"Downtown",d:"24-hour griddle — sliders any hour.",
+      h:[[0,24],[0,24],[0,24],[0,24],[0,24],[0,24],[0,24]]},
+    {n:"Westport late-night",c:"late",area:"Westport",d:"Bars + pizza till the early hours.",
+      h:[[18,27],[18,27],[18,27],[18,27],[18,27],[18,27],[18,27]]},
+    {n:"Char Bar patio (late)",c:"late",area:"Westport",d:"Kitchen + bar running late.",
+      h:[[21,23],[21,23],[21,23],[21,23],[21,24],[21,24],[21,23]]}
+  ];
+
+  function kcNow(){
+    // current time in America/Chicago
+    var s=new Date().toLocaleString('en-US',{timeZone:'America/Chicago'});
+    var k=new Date(s);
+    return {day:k.getDay(), hour:k.getHours()+k.getMinutes()/60, label:k.toLocaleString('en-US',{weekday:'long',hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'})};
+  }
+
+  // returns {open:bool, soon:bool, closesAt:number|null} — closesAt in 0-24 local hours
+  function status(spot, now){
+    var hr=now.hour, day=now.day;
+    // overnight spillover from yesterday (close > 24)
+    var yH=spot.h[(day+6)%7];
+    if(yH && yH[1]>24){ var yClose=yH[1]-24; if(hr<yClose) return {open:true, soon:(yClose-hr)<=1, closesAt:yClose}; }
+    // today
+    var todayH=spot.h[day];
+    if(todayH){
+      var o=todayH[0], c=todayH[1];
+      if(c>24){ if(hr>=o) return {open:true, soon:(c-hr)<=1, closesAt:c-24}; }
+      else if(hr>=o && hr<c){ return {open:true, soon:(c-hr)<=1, closesAt:c}; }
+    }
+    return {open:false, soon:false, closesAt:null};
+  }
+
+  function fmtTime(h){ // h in 24h decimal, may be >24
+    var hh=Math.floor(h)%24, mm=Math.round((h-Math.floor(h))*60);
+    var ap=hh>=12?'PM':'AM', h12=hh%12||12;
+    return h12+(mm?(':'+(mm<10?'0':'')+mm):'')+' '+ap;
+  }
+
+  var grid=document.getElementById('ob-grid'), clock=document.getElementById('now-clock');
+  var filter='all';
+
+  function render(){
+    var now=kcNow();
+    clock.innerHTML='Kansas City · <b>'+now.label+'</b>';
+    var list=SPOTS.map(function(s){ return {s:s, st:status(s,now)}; });
+    // sort: open first, then closing-soon, then by name; closed last
+    list.sort(function(a,b){
+      var ra=a.st.open?(a.st.soon?1:0):2, rb=b.st.open?(b.st.soon?1:0):2;
+      if(ra!==rb) return ra-rb;
+      return a.s.n.localeCompare(b.s.n);
+    });
+    var shown=list.filter(function(x){ return filter==='all'||x.s.c===filter; });
+    if(!shown.length){ grid.innerHTML='<div class="ob-empty">Nothing in this category right now — try Everything.</div>'; return; }
+    grid.innerHTML=shown.map(function(x){
+      var s=x.s, st=x.st, cls=st.open?(st.soon?'is-soon':'is-open'):'is-closed';
+      var statusTxt;
+      if(st.open && st.soon) statusTxt='<span class="dot"></span>Closing soon · '+fmtTime(st.closesAt);
+      else if(st.open) statusTxt='<span class="dot"></span>Open now'+(st.closesAt?(' · till '+fmtTime(st.closesAt)):'');
+      else statusTxt='<span class="dot"></span>Closed now';
+      return '<div class="ob '+cls+'"><div class="where">'+s.area+' · '+s.c.toUpperCase()+'</div>'+
+        '<h3>'+s.n+'</h3><div class="status">'+statusTxt+'</div><p>'+s.d+'</p>'+
+        '<div class="acts"><a class="act" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.n+', Kansas City')+'">📍 Directions &amp; hours</a></div></div>';
+    }).join('');
+  }
+
+  document.getElementById('filters').addEventListener('click',function(e){
+    var f=e.target.closest('.filt'); if(!f) return;
+    document.querySelectorAll('#filters .filt').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    f.setAttribute('aria-pressed','true'); filter=f.getAttribute('data-c'); render();
+  });
+  render(); setInterval(render,60000); // refresh each minute
+})();
+</script>
+<script src="/kc-nav.js" defer></script>
+</body>
+</html>

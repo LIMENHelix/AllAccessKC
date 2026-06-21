@@ -6,6 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>All Access KC — Guide unlocked</title>
 <meta name="description" content="Your All Access KC visitor guide is unlocked.">
+<meta name="robots" content="noindex, nofollow">
 <style>
   :root{
     --bg:#f7f1e3;
@@ -105,20 +106,32 @@
     background:var(--gold);border-color:var(--gold);color:var(--bg);
   }
 
+  /* Tip boxes sit over the dark skyline image: transparent by default with
+     light, shadowed text so they read against the photo; a translucent grey
+     panel fades in on hover for maximum readability. */
   .tip{
-    background:var(--bg-soft);
-    border:1px solid var(--rule);
+    background:transparent;
+    border:1px solid rgba(240,192,96,0.22);
     border-left:3px solid var(--gold);
     padding:16px 20px;margin-bottom:14px;text-align:left;
+    transition:background 0.18s, border-color 0.18s;
+  }
+  .tip:hover{
+    background:rgba(40,43,56,0.78);
+    border-color:rgba(240,192,96,0.4);
   }
   .tip-label{
-    font-size:0.6rem;letter-spacing:3px;color:var(--gold);
+    font-size:0.6rem;letter-spacing:3px;color:#f9d080;
     text-transform:uppercase;margin-bottom:6px;font-weight:600;
+    text-shadow:0 1px 8px rgba(0,0,0,0.55);
   }
-  .tip-body{font-size:0.95rem;color:var(--ink-mid);line-height:1.65}
-  .tip-body b{color:var(--ink);font-weight:600}
-  .tip-body a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(139,105,20,0.3);transition:all 0.15s}
-  .tip-body a:hover{color:var(--ink);border-color:var(--ink)}
+  .tip-body{
+    font-size:0.95rem;color:#f3eede;line-height:1.65;
+    text-shadow:0 1px 4px rgba(0,0,0,0.6);
+  }
+  .tip-body b{color:#ffffff;font-weight:600}
+  .tip-body a{color:#f9d080;text-decoration:none;border-bottom:1px solid rgba(240,192,96,0.4);transition:all 0.15s}
+  .tip-body a:hover{color:#ffffff;border-color:#ffffff}
 
   footer{
     margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);
@@ -352,9 +365,9 @@
     </div>
 
     <div class="tip">
-      <div class="tip-label" data-t="lostLabel">Lost the link</div>
+      <div class="tip-label" data-t="lostLabel">Bookmark it</div>
       <div class="tip-body" data-t="lostBody">
-        Search your email for the Stripe receipt — it has a link back to your unlocked guide. Or bookmark this page now.
+        The full guide is free and always lives at <a href="https://allaccesskc.com/kc-guide.html">allaccesskc.com/kc-guide.html</a> — bookmark it now and come back any time.
       </div>
     </div>
 
@@ -418,7 +431,7 @@
   // ── i18n ───────────────────────────────────────────────────
   // Per-page T dict. Keys match index.html where it makes sense.
   var T = {
-    en: { paymentReceived:"Payment received", youreIn1:"You're", youreIn2:"in", lede:"Your Kansas City visitor guide is unlocked. Bound to this device.", passLabel:"Guide unlocked · All Access KC", allAccess:"Full guide", paid:"$5 paid", passFoot:"This QR is your unlock receipt — verifies a real $5 purchase on this device. Don't share — code is device-bound.", openGuide:"Open the guide", resLabel:"How reservations work", resBody:'Each spot in the guide has a direct link to <b>its own reservation page</b> (OpenTable, Resy, the venue\'s site). Click, book, done. If a place is full or you hit a wall, email <a href="mailto:info@allaccesskc.com?subject=All%20Access%20KC%20%E2%80%94%20Booking%20help">info@allaccesskc.com</a> and we\'ll find you an alternative.', updatesLabel:"Updates", updatesBody:"The guide is live — new spots, party calendar, and late-breaking secrets land every Monday through the summer. Come back to this URL any time.", lostLabel:"Lost the link", lostBody:"Search your email for the Stripe receipt — it has a link back to your unlocked guide. Or bookmark this page now.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
+    en: { paymentReceived:"Payment received", youreIn1:"You're", youreIn2:"in", lede:"Your Kansas City visitor guide is unlocked. Bound to this device.", passLabel:"Guide unlocked · All Access KC", allAccess:"Full guide", paid:"$5 paid", passFoot:"This QR is your unlock receipt — verifies a real $5 purchase on this device. Don't share — code is device-bound.", openGuide:"Open the guide", resLabel:"How reservations work", resBody:'Each spot in the guide has a direct link to <b>its own reservation page</b> (OpenTable, Resy, the venue\'s site). Click, book, done. If a place is full or you hit a wall, email <a href="mailto:info@allaccesskc.com?subject=All%20Access%20KC%20%E2%80%94%20Booking%20help">info@allaccesskc.com</a> and we\'ll find you an alternative.', updatesLabel:"Updates", updatesBody:"The guide is live — new spots, party calendar, and late-breaking secrets land every Monday through the summer. Come back to this URL any time.", lostLabel:"Bookmark it", lostBody:'The full guide is free and always lives at <a href="https://allaccesskc.com/kc-guide.html">allaccesskc.com/kc-guide.html</a> — bookmark it now and come back any time.', footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
     es: { paymentReceived:"Pago recibido", youreIn1:"Ya estás", youreIn2:"dentro", lede:"Tu guía para visitantes de Kansas City está desbloqueada. Vinculada a este dispositivo durante todo el verano.", passLabel:"Guía desbloqueada · All Access KC", allAccess:"Guía completa", paid:"$5 pagado", passFoot:"Este QR es tu recibo de desbloqueo — verifica una compra real de $5 en este dispositivo. No lo compartas — el código está vinculado al dispositivo.", openGuide:"Abrir la guía", resLabel:"Cómo funcionan las reservas", resBody:'Cada lugar en la guía tiene un enlace directo a <b>su propia página de reservas</b> (OpenTable, Resy, sitio del local). Haz clic, reserva, listo. Si está lleno, escribe a <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> y te buscamos una alternativa.', updatesLabel:"Actualizaciones", updatesBody:"La guía está viva — nuevos lugares, calendario de fiestas, y secretos de último minuto cada lunes durante el verano. Vuelve a esta URL cuando quieras.", lostLabel:"Perdiste el enlace", lostBody:"Busca el recibo de Stripe en tu correo — tiene un enlace de vuelta a tu guía desbloqueada. O marca esta página ahora.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
     pt: { paymentReceived:"Pagamento recebido", youreIn1:"Você está", youreIn2:"dentro", lede:"Seu guia para visitantes de Kansas City está desbloqueado. Vinculado a este dispositivo durante todo o verão.", passLabel:"Guia desbloqueado · All Access KC", allAccess:"Guia completo", paid:"$5 pago", passFoot:"Este QR é seu recibo de desbloqueio — verifica uma compra real de $5 neste dispositivo. Não compartilhe — o código está vinculado ao dispositivo.", openGuide:"Abrir o guia", resLabel:"Como funcionam as reservas", resBody:'Cada lugar no guia tem um link direto para <b>sua própria página de reservas</b> (OpenTable, Resy, site do local). Clica, reserva, pronto. Se estiver lotado, escreva para <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> e encontramos uma alternativa.', updatesLabel:"Atualizações", updatesBody:"O guia está vivo — novos lugares, calendário de festas, e segredos de última hora toda segunda durante o verão. Volte para esta URL quando quiser.", lostLabel:"Perdeu o link", lostBody:"Procure o recibo do Stripe no seu email — tem um link de volta para o seu guia desbloqueado. Ou favorite esta página agora.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },
     fr: { paymentReceived:"Paiement reçu", youreIn1:"Vous êtes", youreIn2:"dedans", lede:"Votre guide pour visiteurs de Kansas City est débloqué. Lié à cet appareil pendant tout l'été.", passLabel:"Guide débloqué · All Access KC", allAccess:"Guide complet", paid:"$5 payé", passFoot:"Ce QR est votre reçu de déblocage — vérifie un vrai achat de $5 sur cet appareil. Ne partagez pas — le code est lié à l'appareil.", openGuide:"Ouvrir le guide", resLabel:"Comment fonctionnent les réservations", resBody:'Chaque lieu dans le guide a un lien direct vers <b>sa propre page de réservation</b> (OpenTable, Resy, site du lieu). Cliquez, réservez, fini. Si complet, écrivez à <a href="mailto:info@allaccesskc.com">info@allaccesskc.com</a> et on trouve une alternative.', updatesLabel:"Mises à jour", updatesBody:"Le guide est vivant — nouveaux lieux, calendrier des fêtes, et secrets de dernière minute chaque lundi pendant l'été. Revenez à cette URL quand vous voulez.", lostLabel:"Lien perdu", lostBody:"Cherchez le reçu Stripe dans votre email — il a un lien vers votre guide débloqué. Ou mettez cette page en favoris maintenant.", footer:"ALL ACCESS KC · INDEPENDENT KANSAS CITY VISITOR GUIDE", disclaimer:"Independent Kansas City visitor guide. Not affiliated with any sports league, federation, tournament organizer, or municipal government." },

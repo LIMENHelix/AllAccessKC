@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /kc-thanks
+
+Sitemap: https://allaccesskc.com/sitemap.xml

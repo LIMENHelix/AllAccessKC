@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>All Access KC — Your Guide</title>
+<title>Kansas City Visitor Guide — BBQ, Bars, Neighborhoods &amp; Itineraries | All Access KC</title>
+<meta name="description" content="The local's free guide to Kansas City: where to eat and drink, the best BBQ, neighborhoods, day-by-day itineraries, transit, parking, sports and game-day tips. Written by locals, updated weekly.">
+<link rel="canonical" href="https://allaccesskc.com/kc-guide">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kansas City Visitor Guide — BBQ, Bars, Neighborhoods &amp; Itineraries">
+<meta property="og:description" content="The local's free guide to Kansas City: food, BBQ, bars, neighborhoods, itineraries, transit, parking, and game-day tips. Written by locals, updated weekly.">
+<meta property="og:url" content="https://allaccesskc.com/kc-guide">
+<meta property="og:site_name" content="All Access KC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kansas City Visitor Guide | All Access KC">
+<meta name="twitter:description" content="The local's free guide to KC: food, BBQ, bars, neighborhoods, itineraries, transit, parking, and game-day tips.">
 <style>
   :root{
     /* Cream-editorial palette — matches index.html. Variable names kept as
@@ -3243,7 +3254,7 @@
       </summary>
       <div class="cat-body">
       <p class="cat-intro">
-        The "no one back home knows about this" tier. These are the spots that justify the $5.
+        The "no one back home knows about this" tier. The spots locals keep for themselves.
       </p>
       <div class="spots-list">
 
@@ -5990,19 +6001,11 @@
 
 <script>
   // ── Auth gate ─────────────────────────────────────────────
-  // For V1: localStorage 'kc_pass' must exist. Future: validate against Stripe.
-  // Anyone with a real pass token from kc-thanks.html lands here just fine.
-  (function gate(){
-    var pass = null;
-    try { pass = localStorage.getItem('kc_pass') || localStorage.getItem('kc_pass_local'); } catch(e){}
-    // Also accept ?preview=1 for previewing without payment
-    var preview = new URLSearchParams(window.location.search).get('preview') === '1';
-    if (!pass && !preview) {
-      document.getElementById('gate').classList.add('active');
-      document.getElementById('main').style.display = 'none';
-      return;
-    }
-  })();
+  // The guide is FREE (pivoted 2026-06-19) — no paywall, no token required.
+  // The #gate markup is left in place but never activated. Kept as a no-op so
+  // any old links / saved passes simply work, and the gate can be re-enabled
+  // later by restoring the localStorage check if ever needed.
+  (function gate(){ /* free access — gate intentionally disabled */ })();
 
   // ── Countdown ─────────────────────────────────────────────
   var WC_KICKOFF = new Date('2026-06-11T19:00:00-05:00');

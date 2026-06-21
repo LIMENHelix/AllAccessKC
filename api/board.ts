@@ -152,23 +152,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   let body: any = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { body = {}; } }
-
-  // ── TEMP one-time maintenance (guarded by SEED_TOKEN env; remove after seeding) ──
-  if (body && process.env.SEED_TOKEN && body.__admin === process.env.SEED_TOKEN && body.op === "reseed" && Array.isArray(body.rows)) {
-    try {
-      await ensureTable();
-      await sql`DELETE FROM kc_board`;
-      let t = Date.now();
-      for (const r of body.rows) {
-        await sql`INSERT INTO kc_board (board, channel, alias, body, payload, ts)
-                  VALUES (${String(r.board)}, ${String(r.channel)}, ${String(r.alias || "KC Local")}, ${String(r.text || "")}, ${JSON.stringify(r.payload || {})}::jsonb, ${t++})`;
-      }
-      return res.status(200).json({ ok: true, reseeded: body.rows.length });
-    } catch (e: any) {
-      return res.status(500).json({ ok: false, error: e?.message });
-    }
-  }
-
   const board = String(body?.board || "");
   const channel = String(body?.channel || "");
   if (!valid(board, channel)) return res.status(400).json({ ok: false, error: "Unknown board/channel" });

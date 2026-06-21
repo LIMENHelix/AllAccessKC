@@ -7,6 +7,7 @@
     { href: "/kc-guide", label: "Guide" },
     { href: "/eat", label: "Eat" },
     { href: "/freebies", label: "Free Stuff" },
+    { href: "/weekend", label: "Weekend" },
     { label: "Teams", menu: [
       { href: "/chiefs", label: "Chiefs Corner" },
       { href: "/royals", label: "Royals Corner" },
@@ -63,7 +64,7 @@
           '<p style="font-size:0.85rem;color:#9a9db0;margin-top:8px;line-height:1.6">The local’s free guide to Kansas City — food, teams, neighborhoods, and a community that actually lives here.</p>' +
         '</div>' +
         '<div class="cols">' +
-          '<div><h5>Explore</h5><ul><li><a href="/kc-guide">Full guide</a></li><li><a href="/eat">Eat</a></li><li><a href="/neighborhoods">Neighborhoods</a></li><li><a href="/events">Events</a></li></ul></div>' +
+          '<div><h5>Explore</h5><ul><li><a href="/kc-guide">Full guide</a></li><li><a href="/eat">Eat</a></li><li><a href="/weekend">Perfect weekend</a></li><li><a href="/map">KC map</a></li><li><a href="/neighborhoods">Neighborhoods</a></li><li><a href="/events">Events</a></li></ul></div>' +
           '<div><h5>Teams</h5><ul><li><a href="/chiefs">Chiefs</a></li><li><a href="/royals">Royals</a></li><li><a href="/soccer">Soccer</a></li><li><a href="/tailgate">Tailgate</a></li></ul></div>' +
           '<div><h5>Community</h5><ul><li><a href="/rooms">Chat rooms</a></li><li><a href="/market">Market</a></li><li><a href="/singles">Singles</a></li></ul></div>' +
         '</div>' +

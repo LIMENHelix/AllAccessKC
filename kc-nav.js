@@ -6,6 +6,7 @@
     { href: "/", label: "Home" },
     { href: "/kc-guide", label: "Guide" },
     { href: "/eat", label: "Eat" },
+    { href: "/freebies", label: "Free Stuff" },
     { label: "Teams", menu: [
       { href: "/chiefs", label: "Chiefs Corner" },
       { href: "/royals", label: "Royals Corner" },
@@ -15,6 +16,7 @@
     { label: "Neighborhoods", menu: [
       { href: "/neighborhoods", label: "All Neighborhoods" },
       { href: "/eastside", label: "East Side & Troost" },
+      { href: "/map", label: "Interactive KC Map" },
     ]},
     { label: "Community", menu: [
       { href: "/rooms", label: "Chat Rooms" },

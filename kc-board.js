@@ -38,7 +38,8 @@
           +'<input name="area" maxlength="40" placeholder="Area / cross-streets">'
         +'</div>'
         +'<textarea name="body" maxlength="1000" placeholder="Details — condition, pickup times, sizes…"></textarea>'
-        +'<div class="row"><input name="contact" maxlength="80" placeholder="How buyers reach you (email/phone/IG)"></div>';
+        +'<div class="row"><input name="contact" maxlength="80" placeholder="How buyers reach you (email/phone/IG)"></div>'
+        +'<div class="row"><input name="image" maxlength="300" placeholder="Photo URL (optional) — paste a link to an image"></div>';
 
     host.innerHTML=
       '<div class="kc-form"><h3>'+(isSingles?'Post to KC Singles':'Post a listing')+'</h3>'
@@ -71,8 +72,9 @@
       bits.push(esc(p.alias));bits.push(when(p.ts));
       var contact=pl.contact?'<div class="contact">📬 '+esc(pl.contact)+'</div>':'';
       var body=p.text?'<div class="body">'+esc(p.text)+'</div>':'';
+      var img=(pl.image&&/^https?:\/\//i.test(pl.image))?'<img class="kc-post-img" src="'+esc(pl.image)+'" alt="" loading="lazy" onerror="this.remove()">':'';
       var d=document.createElement('div');d.className='kc-post';
-      d.innerHTML=head+'<div class="meta">'+bits.join(' · ')+'</div>'+body+contact;
+      d.innerHTML=img+head+'<div class="meta">'+bits.join(' · ')+'</div>'+body+contact;
       return d;
     }
     function load(){
@@ -91,7 +93,7 @@
       var channel=fd.channel||active;
       if(!fd.title&&!fd.body){msg.style.color='#c44848';msg.textContent='Add a title or some details first.';return;}
       var payload={title:fd.title,area:fd.area,contact:fd.contact};
-      if(isSingles){payload.age=fd.age;}else{payload.price=fd.price;}
+      if(isSingles){payload.age=fd.age;}else{payload.price=fd.price;if(fd.image&&/^https?:\/\//i.test(fd.image))payload.image=fd.image;}
       var btn=form.querySelector('button');btn.disabled=true;msg.style.color='';msg.textContent='Posting…';
       fetch('/api/board',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({board:board,channel:channel,alias:getAlias(),text:fd.body||'',payload:payload})})
         .then(function(r){return r.json();}).then(function(d){

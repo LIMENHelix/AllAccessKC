@@ -25,7 +25,7 @@ const KEEP_PER = 500;   // rows retained per (board, channel)
 const RETURN = 80;
 const MAX_TEXT = 1000;
 const MAX_ALIAS = 28;
-const MAX_FIELD = 120;  // per payload string field
+const MAX_FIELD = 300;  // per payload string field (room for image URLs)
 
 // Allow-list so the endpoint can't be turned into an open key-value store.
 const BOARDS: Record<string, string[]> = {

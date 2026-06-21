@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive KC Map · Stadiums, BBQ, Attractions · All Access KC</title>
+<meta name="description" content="Every Kansas City essential on one interactive map — Arrowhead, Kauffman, CPKC &amp; Sporting stadiums, the best BBQ joints, museums, neighborhoods, and the airport. Tap a pin for details. Free, no app needed.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://allaccesskc.com/map.html">
+<link rel="stylesheet" href="/kc.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  /* ---- map page chrome (built on kc.css tokens) ---- */
+  .map-hero{padding:40px 0 22px;text-align:center}
+  .map-hero h1{font-size:clamp(2.2rem,6vw,3.6rem);margin-bottom:12px}
+  .map-hero .lede{margin:0 auto;max-width:600px}
+
+  .map-toolbar{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;align-items:center;margin:0 auto 18px}
+  .cat-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--serif);font-size:0.78rem;
+    letter-spacing:0.6px;font-weight:600;color:var(--ink-mid);background:var(--bg-card);
+    border:1px solid var(--rule);border-radius:999px;padding:9px 16px;cursor:pointer;
+    transition:all .16s;user-select:none;-webkit-tap-highlight-color:transparent}
+  .cat-chip:hover{border-color:var(--gold)}
+  .cat-chip .swatch{width:12px;height:12px;border-radius:50%;flex:0 0 auto;
+    box-shadow:0 0 0 3px rgba(255,255,255,.7);transition:transform .16s}
+  .cat-chip[aria-pressed="false"]{opacity:.5;background:var(--bg-soft);color:var(--ink-faint)}
+  .cat-chip[aria-pressed="false"] .swatch{transform:scale(.7);filter:grayscale(1)}
+  .cat-chip.all{border-color:var(--ink);color:var(--ink)}
+
+  .map-frame{position:relative;width:100%;border-radius:16px;overflow:hidden;
+    border:1px solid var(--rule);box-shadow:var(--shadow);background:var(--bg-soft)}
+  #kc-map{width:100%;height:72vh;min-height:460px}
+  .leaflet-container{font-family:var(--serif);background:var(--bg-soft)}
+
+  /* popups */
+  .leaflet-popup-content-wrapper{border-radius:12px;box-shadow:var(--shadow);
+    border:1px solid var(--rule);background:var(--bg-card)}
+  .leaflet-popup-content{margin:14px 16px;line-height:1.5}
+  .pin-pop .pin-cat{font-family:var(--serif);font-size:0.56rem;letter-spacing:2px;text-transform:uppercase;
+    font-weight:700;display:block;margin-bottom:4px}
+  .pin-pop .pin-name{font-family:var(--display);font-weight:900;font-size:1.08rem;color:var(--ink);
+    line-height:1.15;display:block;margin-bottom:4px}
+  .pin-pop .pin-desc{font-size:0.85rem;color:var(--ink-mid);display:block}
+  .pin-pop .pin-link{display:inline-block;margin-top:9px;font-size:0.72rem;letter-spacing:1.5px;
+    text-transform:uppercase;font-weight:600;color:var(--gold);border-bottom:1px solid rgba(139,105,20,.4)}
+  .pin-pop .pin-link:hover{color:var(--gold-deep)}
+
+  .map-note{font-size:0.86rem;color:var(--ink-soft);font-style:italic;text-align:center;
+    margin:16px auto 0;max-width:640px;line-height:1.55}
+  .map-note b{color:var(--ink)}
+
+  .map-cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:30px}
+
+  @media(max-width:560px){
+    #kc-map{height:66vh}
+    .cat-chip{font-size:0.72rem;padding:8px 13px}
+  }
+</style>
+</head>
+<body>
+
+<header class="map-hero wrap reveal">
+  <div class="eyebrow">The whole city, one screen</div>
+  <h1>Interactive KC Map</h1>
+  <p class="lede">Every Kansas City essential on one map — tap a pin for the details. Filter by what you’re here for.</p>
+</header>
+
+<main class="wrap">
+
+  <div class="map-toolbar" id="catToolbar" role="group" aria-label="Map category filters">
+    <button class="cat-chip all" type="button" data-cat="__all" aria-pressed="true">Show all</button>
+    <button class="cat-chip" type="button" data-cat="stadiums" aria-pressed="true"><span class="swatch" style="background:#e31837"></span>Stadiums</button>
+    <button class="cat-chip" type="button" data-cat="bbq" aria-pressed="true"><span class="swatch" style="background:#8b6914"></span>BBQ</button>
+    <button class="cat-chip" type="button" data-cat="attractions" aria-pressed="true"><span class="swatch" style="background:#2f8a8a"></span>Attractions</button>
+    <button class="cat-chip" type="button" data-cat="neighborhoods" aria-pressed="true"><span class="swatch" style="background:#1a1d2a"></span>Neighborhoods</button>
+    <button class="cat-chip" type="button" data-cat="getting" aria-pressed="true"><span class="swatch" style="background:#004687"></span>Getting Here</button>
+  </div>
+
+  <div class="map-frame reveal">
+    <div id="kc-map"></div>
+  </div>
+
+  <p class="map-note">
+    The <b>free KC Streetcar</b> connects the River Market to Union Station and the Crossroads, with the line extended down to the Country Club Plaza — a no-cost way to hop between many of these pins.
+  </p>
+
+  <div class="map-cta">
+    <a class="btn" href="/neighborhoods">Explore Neighborhoods</a>
+    <a class="btn-ghost btn" href="/kc-guide">Open the Full Guide</a>
+  </div>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  var CAT = {
+    stadiums:      { color: "#e31837", label: "Stadium" },
+    bbq:           { color: "#8b6914", label: "BBQ" },
+    attractions:   { color: "#2f8a8a", label: "Attraction" },
+    neighborhoods: { color: "#1a1d2a", label: "Neighborhood" },
+    getting:       { color: "#004687", label: "Getting Here" }
+  };
+
+  var PINS = [
+    // STADIUMS
+    { cat:"stadiums", name:"Arrowhead / GEHA Field", lat:39.0489, lng:-94.4839, desc:"Home of the Chiefs — the loudest stadium in the NFL.", link:"/chiefs", linkLabel:"Chiefs Corner" },
+    { cat:"stadiums", name:"Kauffman Stadium — “The K”", lat:39.0517, lng:-94.4803, desc:"Royals baseball, fountains beyond the outfield wall.", link:"/royals", linkLabel:"Royals Corner" },
+    { cat:"stadiums", name:"Children’s Mercy Park, KCK", lat:39.1217, lng:-94.8233, desc:"Sporting KC’s pitch in Kansas City, Kansas.", link:"/soccer", linkLabel:"Soccer & The Summer" },
+    { cat:"stadiums", name:"CPKC Stadium — Berkley Riverfront", lat:39.1147, lng:-94.5586, desc:"KC Current — the world’s first stadium built for a women’s pro team.", link:"/soccer", linkLabel:"Soccer & The Summer" },
+
+    // BBQ
+    { cat:"bbq", name:"Joe’s KC (original, KCK)", lat:39.0436, lng:-94.6356, desc:"The gas-station legend. Order the Z-Man.", link:"/eat", linkLabel:"Where to Eat" },
+    { cat:"bbq", name:"Arthur Bryant’s", lat:39.0913, lng:-94.5594, desc:"1727 Brooklyn Ave — a KC institution since the burnt-end days.", link:"/eat", linkLabel:"Where to Eat" },
+    { cat:"bbq", name:"Gates Bar-B-Q", lat:39.0996, lng:-94.5599, desc:"“Hi, may I help you?” — sweet-tangy sauce, KC classic.", link:"/eat", linkLabel:"Where to Eat" },
+    { cat:"bbq", name:"LC’s Bar-B-Q", lat:39.0233, lng:-94.5099, desc:"5800 Blue Pkwy — smoky, no-frills, beloved by locals.", link:"/eat", linkLabel:"Where to Eat" },
+    { cat:"bbq", name:"Q39 Midtown", lat:39.0556, lng:-94.5928, desc:"Competition-style ’cue in a polished sit-down room.", link:"/eat", linkLabel:"Where to Eat" },
+    { cat:"bbq", name:"Slap’s BBQ, KCK", lat:39.1153, lng:-94.6275, desc:"Strawberry Hill ribs and burnt ends worth the line.", link:"/eat", linkLabel:"Where to Eat" },
+
+    // ATTRACTIONS
+    { cat:"attractions", name:"Nelson-Atkins Museum of Art", lat:39.0454, lng:-94.5814, desc:"Free admission. Famous Shuttlecocks on the lawn. Closed Tue/Wed.", link:"", linkLabel:"" },
+    { cat:"attractions", name:"National WWI Museum & Memorial", lat:39.0814, lng:-94.5853, desc:"America’s WWI museum, with the Liberty Memorial tower view.", link:"", linkLabel:"" },
+    { cat:"attractions", name:"Union Station", lat:39.0844, lng:-94.5852, desc:"Restored 1914 depot — exhibits, Science City, Streetcar stop.", link:"", linkLabel:"" },
+    { cat:"attractions", name:"City Market / River Market", lat:39.1097, lng:-94.5822, desc:"Weekend farmers market and the north end of the free Streetcar.", link:"/market", linkLabel:"Market & Yard Sales" },
+    { cat:"attractions", name:"Country Club Plaza", lat:39.0426, lng:-94.5905, desc:"Spanish-style shopping district — fountains, dining, holiday lights.", link:"", linkLabel:"" },
+    { cat:"attractions", name:"18th & Vine + Negro Leagues Museum", lat:39.0913, lng:-94.5612, desc:"1616 E 18th — historic jazz district and baseball history.", link:"/eastside", linkLabel:"East Side & Troost" },
+    { cat:"attractions", name:"Crown Center", lat:39.0839, lng:-94.5822, desc:"Shops, the holiday ice terrace, and family attractions.", link:"", linkLabel:"" },
+    { cat:"attractions", name:"Boulevard Brewing", lat:39.0809, lng:-94.6020, desc:"KC’s flagship brewery — tours and a rooftop tasting room.", link:"", linkLabel:"" },
+
+    // NEIGHBORHOODS
+    { cat:"neighborhoods", name:"Power & Light District", lat:39.0997, lng:-94.5830, desc:"Downtown’s entertainment block — bars, music, the KC Live! stage.", link:"/neighborhoods", linkLabel:"All Neighborhoods" },
+    { cat:"neighborhoods", name:"Crossroads Arts District", lat:39.0905, lng:-94.5830, desc:"Galleries, chef-driven restaurants, First Fridays.", link:"/neighborhoods", linkLabel:"All Neighborhoods" },
+    { cat:"neighborhoods", name:"Westport", lat:39.0533, lng:-94.5912, desc:"KC’s oldest district — historic by day, nightlife after dark.", link:"/neighborhoods", linkLabel:"All Neighborhoods" },
+
+    // GETTING HERE
+    { cat:"getting", name:"KCI Airport (MCI)", lat:39.2976, lng:-94.7139, desc:"Kansas City International — the new single-terminal airport, ~25 min from downtown.", link:"", linkLabel:"" }
+  ];
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+
+  var map = L.map("kc-map", { scrollWheelZoom: true }).setView([39.0997, -94.5786], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  // one layer group per category
+  var groups = {};
+  Object.keys(CAT).forEach(function (k) { groups[k] = L.layerGroup().addTo(map); });
+
+  var bounds = [];
+
+  PINS.forEach(function (p) {
+    var c = CAT[p.cat];
+    var marker = L.circleMarker([p.lat, p.lng], {
+      radius: 9, color: "#ffffff", weight: 2, fillColor: c.color, fillOpacity: 0.95
+    });
+
+    var html = '<div class="pin-pop">' +
+      '<span class="pin-cat" style="color:' + c.color + '">' + esc(c.label) + '</span>' +
+      '<span class="pin-name">' + esc(p.name) + '</span>' +
+      '<span class="pin-desc">' + esc(p.desc) + '</span>' +
+      (p.link ? '<a class="pin-link" href="' + esc(p.link) + '">' + esc(p.linkLabel || "Read more") + ' &rarr;</a>' : '') +
+      '</div>';
+
+    marker.bindPopup(html, { closeButton: true, maxWidth: 260 });
+    marker.bindTooltip(p.name, { direction: "top", offset: [0, -8], opacity: 0.92 });
+    marker.addTo(groups[p.cat]);
+    bounds.push([p.lat, p.lng]);
+  });
+
+  // fit to all pins on load, but keep the requested KC center/zoom as a sensible floor
+  if (bounds.length) {
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+  }
+
+  // ---- category toggles ----
+  var toolbar = document.getElementById("catToolbar");
+  function setCat(cat, on) {
+    if (on) { if (!map.hasLayer(groups[cat])) groups[cat].addTo(map); }
+    else { if (map.hasLayer(groups[cat])) map.removeLayer(groups[cat]); }
+  }
+  function syncAllChip() {
+    var chips = toolbar.querySelectorAll('.cat-chip[data-cat]:not(.all)');
+    var allOn = true;
+    chips.forEach(function (ch) { if (ch.getAttribute("aria-pressed") === "false") allOn = false; });
+    toolbar.querySelector('.cat-chip.all').setAttribute("aria-pressed", allOn ? "true" : "false");
+  }
+
+  toolbar.addEventListener("click", function (e) {
+    var chip = e.target.closest(".cat-chip");
+    if (!chip) return;
+    var cat = chip.getAttribute("data-cat");
+
+    if (cat === "__all") {
+      var turnOn = chip.getAttribute("aria-pressed") === "false"; // pressing when "off" turns everything on
+      Object.keys(CAT).forEach(function (k) {
+        setCat(k, turnOn);
+        toolbar.querySelector('.cat-chip[data-cat="' + k + '"]').setAttribute("aria-pressed", turnOn ? "true" : "false");
+      });
+      chip.setAttribute("aria-pressed", turnOn ? "true" : "false");
+      return;
+    }
+
+    var nowOn = chip.getAttribute("aria-pressed") === "false";
+    chip.setAttribute("aria-pressed", nowOn ? "true" : "false");
+    setCat(cat, nowOn);
+    syncAllChip();
+  });
+})();
+</script>
+<script src="/kc-nav.js" defer></script>
+
+</body>
+</html>

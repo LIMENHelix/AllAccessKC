@@ -619,32 +619,55 @@
       <a href="/gameday" style="flex:1 1 150px;text-align:center;text-decoration:none;background:rgba(251,246,232,0.94);border:1px solid var(--rule,#d4cdb8);border-radius:12px;padding:12px 10px;color:#1a1d2a;font-weight:700;font-size:0.92rem">🏟 Game-day toolkit</a>
     </div>
 
-    <div class="rule"></div>
-
-    <!-- Personal intro — editorial voice, over the image -->
-    <div class="intro">
-      <p>
-        Hi — I'm Alex. I live in Kansas City. I've spent years figuring out where locals actually go, where they don't, and which spots quietly book up first. Whether you're here for a weekend, a week, or a major sporting summer — this is the guide.
-      </p>
-      <p>
-        <b>The whole guide is free</b> — no paywall, no signup. Updated weekly. Got a question? <b>Ask a local right on the page.</b>
-      </p>
-    </div>
-
-    <!-- What's inside — value stack, not feature list -->
-    <div class="what">
-      <div class="what-label">Free · $1,000+ in real value</div>
-      <ul>
-        <li><span class="num">01</span><span><b>$310+ in stackable rewards across 65 chains.</b> Coffee, fast food, sit-down, subs, sweets, breakfast, Mexican, Italian, BBQ, sports bars — mapped to your KC area. 30 seconds per signup. Most are "free X with $1-15 purchase," meaning every meal you'd eat anyway triggers a free side, app, drink, or extra entrée. +$60 more in pure-freebie birthday perks if a birthday lands in your trip = up to ~$370+ stacked.</span></li>
-        <li><span class="num">02</span><span><b>$120+ saved on game-day parking.</b> The trick locals use that drops $50 lots to $10. Same goes for daily downtown parking.</span></li>
-        <li><span class="num">03</span><span><b>Real day-plans, not bullet lists.</b> Morning coffee → breakfast → lunch → dinner → nightcap, mapped to walking distance from wherever you're staying.</span></li>
-        <li><span class="num">04</span><span><b>The BBQ debate settled.</b> The famous joint locals avoid, the one they actually go to, the time slot that means no wait.</span></li>
-        <li><span class="num">05</span><span><b>Sports bars + watch parties.</b> Where each country's fans gather, where to watch any game in town, the bar trick that gets you the best seat.</span></li>
-        <li><span class="num">06</span><span><b>Booking help.</b> Email and we'll do our best to find you an alternative when a spot is full.</span></li>
-      </ul>
-    </div>
+    <p style="color:#e8dfc4;text-shadow:0 1px 10px rgba(0,0,0,0.6);font-size:0.74rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;margin:26px 0 0">Written by locals · updated weekly · always free</p>
+    <a href="#now" class="hero-scroll" style="display:inline-block;margin-top:20px;color:#f9d080;text-decoration:none;font-size:0.82rem;letter-spacing:1.5px;text-shadow:0 1px 10px rgba(0,0,0,0.6);border-bottom:1px solid rgba(240,192,96,0.4);padding-bottom:3px">See what's live in KC today&nbsp;↓</a>
 
   </div>
+
+  <!-- ════════ What you get — value, restated cleanly on cream ════════ -->
+  <style>
+    .value-band{max-width:960px;margin:8px auto 0;padding:0 20px}
+    .value-band .vb-byline{max-width:680px;margin:0 auto 30px;text-align:center;font-size:1.06rem;
+      line-height:1.65;color:var(--ink-mid);font-style:italic}
+    .value-band .vb-byline b{color:var(--ink);font-style:normal}
+    .vb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .vb-card{background:var(--bg-soft);border:1px solid var(--rule);border-radius:14px;padding:22px 22px 24px;
+      border-top:4px solid var(--gold);transition:transform .18s,box-shadow .18s}
+    .vb-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,29,42,0.13)}
+    .vb-card .vb-big{font-family:'Fraunces',Georgia,serif;font-size:1.7rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:8px}
+    .vb-card h3{font-size:1.05rem;color:var(--ink);margin:0 0 6px;font-weight:700}
+    .vb-card p{font-size:0.9rem;line-height:1.55;color:var(--ink-soft);margin:0}
+    .vb-cta{text-align:center;margin-top:26px}
+    .vb-cta a{display:inline-block;font-family:Georgia,serif;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;
+      font-weight:600;padding:14px 34px;background:var(--ink);color:var(--bg);text-decoration:none;border-radius:999px;transition:all .2s}
+    .vb-cta a:hover{background:var(--gold);color:var(--ink)}
+  </style>
+  <section class="value-band">
+    <p class="vb-byline">Hi — I'm Alex, and I actually live in Kansas City. This is the stuff most guides get wrong or never tell you — where locals really go, what quietly books up first, and how to do the big summer without overpaying. <b>The whole guide is free.</b></p>
+    <div class="vb-grid">
+      <div class="vb-card">
+        <div class="vb-big">$370+</div>
+        <h3>Stacked food rewards</h3>
+        <p>Free sides, apps and entrées across 65 chains — mapped to your KC area, plus birthday freebies.</p>
+      </div>
+      <div class="vb-card">
+        <div class="vb-big">$120+</div>
+        <h3>Saved on parking</h3>
+        <p>The local trick that drops $50 game-day lots to about $10 — downtown too.</p>
+      </div>
+      <div class="vb-card">
+        <div class="vb-big">🍖</div>
+        <h3>The BBQ debate, settled</h3>
+        <p>The famous joint locals skip, the one they actually go to, and the time slot with no wait.</p>
+      </div>
+      <div class="vb-card">
+        <div class="vb-big">🗺</div>
+        <h3>Real day-plans</h3>
+        <p>Coffee → breakfast → dinner → nightcap, mapped to walking distance from where you're staying.</p>
+      </div>
+    </div>
+    <div class="vb-cta"><a href="/kc-guide.html">Open the full guide →</a></div>
+  </section>
 
   <!-- ════════ Live from Kansas City — free public feeds ════════ -->
   <!-- ════════ Kansas City, right now · 2026 — the overhaul band ════════ -->
@@ -713,7 +736,7 @@
     .kc-now b{color:var(--ink)}
   </style>
 
-  <section class="kc2026">
+  <section class="kc2026" id="now">
     <div class="eyebrow">Updated for 2026 · what's actually true right now</div>
     <h2>Kansas City is having a moment.</h2>
     <p class="lede">New stadiums, a free streetcar that finally goes everywhere, a James-Beard-finalist food scene, and the biggest summer the city has ever hosted. Here's the part most guides haven't caught up to yet.</p>

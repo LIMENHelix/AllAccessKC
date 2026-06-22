@@ -82,9 +82,53 @@
       .catch(function(){ host.innerHTML = fb?('<span class="kcm-pre">'+esc(fb)+'</span>'):''; if(!fb) host.remove(); });
   }
 
+  /* ── Upcoming schedule: next N games for a team via ESPN team schedule ──
+     Usage: <div class="kc-sched" data-sport="baseball/mlb" data-team="kc" data-name="Royals" data-accent="#004687" data-count="5"></div> */
+  function initSched(host){
+    var sport=host.getAttribute('data-sport'), team=host.getAttribute('data-team')||'kc',
+        accent=host.getAttribute('data-accent')||'#8b6914', count=+(host.getAttribute('data-count')||5);
+    host.innerHTML='<div class="kcs" style="--kga:'+accent+'"><div class="kcs-load">Loading the schedule…</div></div>';
+    var box=host.firstChild;
+    fetch('https://site.api.espn.com/apis/site/v2/sports/'+sport+'/teams/'+team+'/schedule')
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){
+        var evs=(d&&d.events)||[], rows=[];
+        for(var i=0;i<evs.length && rows.length<count;i++){
+          var e=evs[i], c=e.competitions&&e.competitions[0]; if(!c) continue;
+          var st=(c.status&&c.status.type)||{}, state=st.state;
+          if(state==='post') continue; // upcoming only
+          var comps=c.competitors||[];
+          var home=comps.filter(function(x){return x.homeAway==='home';})[0]||comps[0]||{};
+          var away=comps.filter(function(x){return x.homeAway==='away';})[0]||comps[1]||{};
+          var meHome = isMe(home,team);
+          var opp = meHome?away:home;
+          var oppNm=esc((opp.team&&(opp.team.shortDisplayName||opp.team.displayName||opp.team.abbreviation))||'TBD');
+          var oppLogo=(opp.team&&((opp.team.logos&&opp.team.logos[0]&&opp.team.logos[0].href)||opp.team.logo))||'';
+          var live = state==='in';
+          rows.push('<li>'+
+            (oppLogo?'<img class="kcs-logo" src="'+esc(oppLogo)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">':'<span class="kcs-logo"></span>')+
+            '<span class="kcs-vs">'+(meHome?'vs':'@')+' '+oppNm+'</span>'+
+            '<span class="kcs-when">'+(live?'<span class="kcs-live">● Live</span>':esc(fmtDate(e.date)))+'</span>'+
+            '</li>');
+        }
+        box.innerHTML = rows.length
+          ? '<div class="kcs-title">Next up</div><ul class="kcs-list">'+rows.join('')+'</ul>'
+          : '<div class="kcs-note">No upcoming games on the board — back in season.</div>';
+      })
+      .catch(function(){ box.innerHTML='<div class="kcs-note">Schedule unavailable right now — check the team\'s site.</div>'; });
+  }
+  function isMe(competitor, team){
+    if(!competitor||!competitor.team) return false;
+    var ab=(competitor.team.abbreviation||'').toLowerCase();
+    var slug=(competitor.team.slug||'').toLowerCase();
+    var t=(''+team).toLowerCase();
+    return ab===t || slug.indexOf(t)>=0 || (''+competitor.id)===t;
+  }
+
   function go(){
     var els=document.querySelectorAll('.kc-games');for(var i=0;i<els.length;i++)init(els[i]);
     var ms=document.querySelectorAll('.kc-match');for(var j=0;j<ms.length;j++)initMatch(ms[j]);
+    var ss=document.querySelectorAll('.kc-sched');for(var k=0;k<ss.length;k++)initSched(ss[k]);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
 })();

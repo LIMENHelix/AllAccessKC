@@ -195,6 +195,18 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:900;line-height:1.05;color:va
   background:var(--ink);color:#fff;border-radius:999px;padding:2px 9px;margin-right:7px;vertical-align:1px}
 .kcm-tag.live{background:#c0392b;animation:kcgpulse 1.4s infinite}
 
+/* Upcoming schedule (.kc-sched) */
+.kcs{background:var(--bg-soft);border:1px solid var(--rule);border-left:4px solid var(--kga,var(--gold));border-radius:12px;padding:16px 18px}
+.kcs-title{font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--kga,var(--gold));margin-bottom:8px}
+.kcs-list{list-style:none;margin:0;padding:0}
+.kcs-list li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--rule);font-size:0.92rem;color:var(--ink-mid)}
+.kcs-list li:first-child{border-top:none}
+.kcs-logo{width:24px;height:24px;object-fit:contain;flex:0 0 auto}
+.kcs-vs{font-weight:700;color:var(--ink);flex:1 1 auto;min-width:0}
+.kcs-when{color:var(--ink-soft);font-size:0.84rem;text-align:right;flex:0 0 auto}
+.kcs-live{color:#c0392b;font-weight:700;animation:kcgpulse 1.4s infinite}
+.kcs-note,.kcs-load{font-size:0.88rem;color:var(--ink-faint);font-style:italic}
+
 /* per-venue action links (directions / reserve) */
 .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .act{font-family:var(--serif);font-size:0.78rem;display:inline-flex;align-items:center;gap:5px;

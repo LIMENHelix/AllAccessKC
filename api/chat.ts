@@ -105,7 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // COST PAUSE (2026-06-20): Anthropic spend paused per operator request.
   // Set CHAT_ENABLED back to true (or remove this block) to re-enable the
   // concierge. While paused we never call Anthropic.
-  const CHAT_ENABLED = true; // re-enabled on Haiku 2026-06-20
+  const CHAT_ENABLED = false; // PAUSED 2026-06-26 per operator — stop all Anthropic billing (was Haiku)
   if (!CHAT_ENABLED) {
     return res.status(503).json({
       error: "paused",

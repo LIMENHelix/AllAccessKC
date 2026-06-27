@@ -406,6 +406,42 @@
   }
   .gov-links-row a:hover{border-color:var(--gold);color:var(--cream);background:rgba(217,164,74,0.08)}
 
+  /* ── Live World Cup bracket (kc-wc-bracket.js) — guide palette ── */
+  .wcb-head{margin-bottom:16px}
+  .wcb-sub{color:var(--soft-dim);font-size:0.92rem;margin-top:6px;line-height:1.5}
+  .kc-wcb{margin:0}
+  .wcb-scroll{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 16px;-webkit-overflow-scrolling:touch}
+  .wcb-round{flex:0 0 200px;display:flex;flex-direction:column}
+  .wcb-rhead{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--soft-dim);
+    text-align:center;padding-bottom:8px;border-bottom:2px solid var(--gold-deep);margin-bottom:12px}
+  .wcb-cards{display:flex;flex-direction:column;gap:10px;justify-content:space-around;flex:1}
+  .wcb-match{background:var(--bg-soft);border:1px solid var(--gold-deep);border-radius:10px;padding:5px 9px}
+  .wcb-match.kc{border:2px solid var(--red);box-shadow:0 6px 18px rgba(196,72,72,0.18)}
+  .wcb-team{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 2px}
+  .wcb-team + .wcb-team{border-top:1px solid var(--gold-deep)}
+  .wcb-nm{font-weight:700;font-size:0.9rem;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wcb-team.win .wcb-nm{color:var(--red)}
+  .wcb-team.tbd .wcb-nm{color:var(--soft-dim);font-weight:500;font-style:italic;font-size:0.82rem}
+  .wcb-sc{font-weight:800;font-size:0.95rem;color:var(--cream);min-width:1.1em;text-align:right;flex:0 0 auto}
+  .wcb-meta{display:flex;gap:7px;align-items:center;margin-top:5px;min-height:13px}
+  .wcb-tag{font-size:0.5rem;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;
+    background:var(--cream);color:var(--bg);border-radius:999px;padding:1px 7px}
+  .wcb-tag.live{background:#c0392b;color:#fff}
+  .wcb-kc{font-size:0.56rem;letter-spacing:1.1px;text-transform:uppercase;font-weight:700;color:var(--red)}
+  .wcb-empty,.wcb-load{font-size:0.85rem;color:var(--soft-dim);font-style:italic;text-align:center;padding:14px}
+  .wcb-foot{margin-top:10px;font-size:0.8rem;color:var(--soft-dim);font-style:italic;line-height:1.5}
+  /* KC matches strip (group stage isn't a bracket) */
+  .kc-strip{margin-top:26px;border-top:1px solid var(--gold-deep);padding-top:18px}
+  .kc-strip-h{font-size:0.62rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--red);margin-bottom:12px}
+  .kc-strip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(184px,1fr));gap:10px}
+  .kc-chip{background:var(--bg-soft);border:1px solid var(--gold-deep);border-left:3px solid var(--red);
+    border-radius:8px;padding:9px 12px;font-size:0.9rem;color:var(--cream)}
+  .kc-chip b{color:var(--red);margin-right:8px}
+  .kc-chip span{display:block;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--soft-dim);margin-top:3px}
+  .kc-chip.ko{border-left-color:var(--gold-bright)}
+  .kc-chip.ko b{color:var(--gold-bright)}
+  @media(max-width:680px){.wcb-round{flex-basis:172px}}
+
   /* Arrowhead match-day section */
   .matchday{margin-top:34px;margin-bottom:32px}
   .matchday-header{
@@ -1720,17 +1756,25 @@
 
   <div class="tab-panel active" data-tab="events">
 
-  <div class="toolbar">
-    <div class="toolbar-title" data-t="toolbarTitle">Tournament schedule · 104 matches</div>
-    <div class="toolbar-btns">
-      <button data-filter="all" class="active"><span data-t="filterAll">All matches</span> <span class="cnt" id="cntAll">104</span></button>
-      <button data-filter="kc"><span data-t="filterKc">KC · Arrowhead</span> <span class="cnt" id="cntKc">6</span></button>
-      <button data-filter="group"><span data-t="filterGroup">Group stage</span> <span class="cnt" id="cntGroup">72</span></button>
-      <button data-filter="knockout"><span data-t="filterKnockout">Knockouts · bracket</span> <span class="cnt" id="cntKo">32</span></button>
-    </div>
+  <div class="wcb-head">
+    <div class="toolbar-title">The World Cup bracket</div>
+    <p class="wcb-sub">Every knockout round from the Round of 32 to the Final &mdash; it fills in <b>automatically</b> as matches are played, winners advancing in real time. <b class="wcb-kc">●</b> = played at Arrowhead in Kansas City.</p>
   </div>
 
-  <div id="events"></div>
+  <div class="kc-wcb"></div>
+
+  <div class="kc-strip">
+    <div class="kc-strip-h">Kansas City&rsquo;s 6 matches at Arrowhead</div>
+    <div class="kc-strip-grid">
+      <div class="kc-chip"><b>Jun 16</b>Argentina v Algeria<span>Group J</span></div>
+      <div class="kc-chip"><b>Jun 20</b>Ecuador v Curaçao<span>Group E</span></div>
+      <div class="kc-chip"><b>Jun 25</b>Tunisia v Netherlands<span>Group F</span></div>
+      <div class="kc-chip"><b>Jun 27</b>Algeria v Austria<span>Group J</span></div>
+      <div class="kc-chip ko"><b>Jul 3</b>Round of 32<span>Knockout</span></div>
+      <div class="kc-chip ko"><b>Jul 11</b>Quarterfinal<span>Knockout</span></div>
+    </div>
+    <p class="wcb-foot">The group stage is round-robin, not a bracket &mdash; these are KC&rsquo;s six matches. The two knockout dates above are the Arrowhead slots in the bracket.</p>
+  </div>
 
   </div><!-- /schedule panel -->
 
@@ -6249,6 +6293,7 @@
   function render(filter){
     filter = filter || 'all';
     var container = document.getElementById('events');
+    if (!container) return; // schedule list replaced by the live bracket (.kc-wcb)
     var byDay = {};
     SCHEDULE.forEach(function(m){
       var isKC = KC_MATCH_IDS.indexOf(m.id) >= 0;
@@ -6616,6 +6661,8 @@
     if (T_GUIDE[nav]) applyLangGuide(nav); else applyLangGuide('en');
   })();
 </script>
+
+<script src="/kc-wc-bracket.js" defer></script>
 
 </body>
 </html>

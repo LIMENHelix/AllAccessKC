@@ -14,6 +14,19 @@
 <meta name="twitter:title" content="The Big Summer at Arrowhead | All Access KC">
 <meta name="twitter:description" content="Six huge soccer matches at Arrowhead this summer. Match board, transit, where to watch, where to stay.">
 <link rel="stylesheet" href="/kc.css">
+<!-- Elegant type pass — THIS PAGE ONLY (pilot): lighter Fraunces headlines + Inter body/UI.
+     Scoped here so the rest of the site is untouched until we like it. -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  /* swap the body/UI serif to a clean neutral sans, keep Fraunces for display only */
+  :root{--serif:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+  body{font-size:16px;line-height:1.6}
+  /* drop heading weight off the heavy "Black" cut — this is what kills the bubbly look */
+  h1,h2,h3,h4{font-weight:500;letter-spacing:-0.012em}
+  .kc-hero h1{font-weight:400}
+  .lede{font-style:italic}
+</style>
 </head>
 <body>
 

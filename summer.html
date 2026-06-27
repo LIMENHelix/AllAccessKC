@@ -18,7 +18,7 @@
 <body>
 
 <!-- ============ HERO ============ -->
-<header class="kc-hero" style="--hero-img:url('/kc-schedule-bg.jpg');--accent:#6f263d">
+<header class="kc-hero" style="--hero-img:url('/kc-schedule-bg.jpg');--accent:#e31837">
   <div class="inner">
     <div class="eyebrow">Kansas City &middot; Summer 2026</div>
     <h1>The Big Summer <span class="accent">at Arrowhead</span></h1>
@@ -39,37 +39,87 @@
     <p class="lede">For four weeks, Kansas City becomes one of the loudest soccer cities on the planet. Six enormous matches land at Arrowhead &mdash; four in the group stage, then the knockouts, finishing with a marquee quarterfinal on July 11. Whether you have a ticket or you're watching from a downtown fan zone, this page keeps you a step ahead of the crowds.</p>
   </section>
 
+  <!-- ============ TOURNAMENT BRACKET ============ -->
+  <section class="section reveal" id="bracket">
+    <div class="eyebrow">Where the teams are</div>
+    <h2 style="color:#e31837">The road through Kansas City</h2>
+    <p class="lede">Follow the tournament from the group stage to the trophy. The rounds in <strong style="color:#e31837">red</strong> are played right here at Arrowhead &mdash; swipe to see the whole path.</p>
+
+    <div class="kc-bracket">
+      <div class="kc-round kc-here">
+        <div class="kc-round-head">Group Stage · KC</div>
+        <div class="nodes">
+          <div class="kc-node kc-here-node"><div class="teams">Argentina v Algeria</div><div class="meta">Jun 16 · Group J</div></div>
+          <div class="kc-node kc-here-node"><div class="teams">Ecuador v Curaçao</div><div class="meta">Jun 20 · Group E</div></div>
+          <div class="kc-node kc-here-node"><div class="teams">Netherlands v Tunisia</div><div class="meta">Jun 25 · Group F</div></div>
+          <div class="kc-node kc-here-node"><div class="teams">Algeria v Austria</div><div class="meta">Jun 27 · Group J</div></div>
+        </div>
+      </div>
+      <div class="kc-round kc-here">
+        <div class="kc-round-head">Round of 32 · KC</div>
+        <div class="nodes">
+          <div class="kc-node kc-here-node"><div class="teams">Group winners meet</div><div class="meta">Jul 3</div><span class="here-badge">At Arrowhead</span></div>
+        </div>
+      </div>
+      <div class="kc-round">
+        <div class="kc-round-head">Round of 16</div>
+        <div class="nodes">
+          <div class="kc-node tbd"><div class="teams">Played elsewhere</div><div class="meta">Set by results</div></div>
+        </div>
+      </div>
+      <div class="kc-round kc-here">
+        <div class="kc-round-head">Quarterfinal · KC</div>
+        <div class="nodes">
+          <div class="kc-node kc-here-node"><div class="teams">Last 8 in the world</div><div class="meta">Jul 11</div><span class="here-badge">At Arrowhead</span></div>
+        </div>
+      </div>
+      <div class="kc-round">
+        <div class="kc-round-head">Semifinal</div>
+        <div class="nodes">
+          <div class="kc-node tbd"><div class="teams">Played elsewhere</div><div class="meta">Set by results</div></div>
+        </div>
+      </div>
+      <div class="kc-round kc-champ">
+        <div class="kc-round-head">Final</div>
+        <div class="nodes">
+          <div class="kc-node tbd"><div class="trophy">🏆</div><div class="teams">World Champion</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="center" style="margin-top:6px;opacity:.65;font-size:.85em">Kansas City hosts four group-stage matches, a Round of 32, and a marquee quarterfinal. Knockout opponents are set once the results come in.</p>
+  </section>
+
   <!-- ============ DATE-AWARE MATCH BOARD ============ -->
   <section class="section reveal" id="board">
     <div class="eyebrow">The centerpiece</div>
-    <h2 style="color:#6f263d">The six matches at Arrowhead</h2>
+    <h2 style="color:#e31837">The six matches at Arrowhead</h2>
     <p class="lede">Updates itself by date &mdash; finished matches are marked <strong>FINAL</strong>, and the next one up is flagged so you always know what's coming.</p>
 
     <div id="board-status" class="band-dark reveal" style="margin-bottom:20px;display:none"></div>
 
     <div class="grid g3" id="match-grid">
-      <div class="card accent match-card" data-date="2026-06-16" style="--accent:#6f263d">
+      <div class="card accent match-card" data-date="2026-06-16" style="--accent:#e31837">
         <div class="k-sport">Group J</div>
         <h3 class="match-title">Argentina vs. Algeria <span class="badge-slot"></span></h3>
         <p class="match-when"></p>
         <div class="kc-match" data-date="20260616" data-fallback=""></div>
         <p>The world champions opened KC's tournament &mdash; a marquee first night that set the tone for the whole month.</p>
       </div>
-      <div class="card accent match-card" data-date="2026-06-20" style="--accent:#6f263d">
+      <div class="card accent match-card" data-date="2026-06-20" style="--accent:#e31837">
         <div class="k-sport">Group E</div>
         <h3 class="match-title">Ecuador vs. Curaçao <span class="badge-slot"></span></h3>
         <p class="match-when"></p>
         <div class="kc-match" data-date="20260620" data-fallback=""></div>
         <p>Curaçao's first-ever trip to this stage made the Saturday opener a party &mdash; one of the great underdog stories of the group stage.</p>
       </div>
-      <div class="card accent match-card" data-date="2026-06-25" style="--accent:#6f263d">
+      <div class="card accent match-card" data-date="2026-06-25" style="--accent:#e31837">
         <div class="k-sport">Group F</div>
         <h3 class="match-title">Netherlands vs. Tunisia <span class="badge-slot"></span></h3>
         <p class="match-when"></p>
         <div class="kc-match" data-date="20260625" data-fallback=""></div>
         <p>The Dutch bring their orange army to Arrowhead &mdash; likely the loudest, most-traveled crowd of KC's group stage.</p>
       </div>
-      <div class="card accent match-card" data-date="2026-06-27" style="--accent:#6f263d">
+      <div class="card accent match-card" data-date="2026-06-27" style="--accent:#e31837">
         <div class="k-sport">Group J</div>
         <h3 class="match-title">Algeria vs. Austria <span class="badge-slot"></span></h3>
         <p class="match-when"></p>
@@ -129,7 +179,7 @@
     <p class="lede">You don't need a seat inside to feel it. Downtown will be electric for every match on the board.</p>
 
     <div class="grid g2">
-      <div class="card accent" style="--accent:#6f263d">
+      <div class="card accent" style="--accent:#e31837">
         <div class="k-sport">The heart of it</div>
         <h3>Power &amp; Light District</h3>
         <p>The <strong>KC Live! block</strong> in the Power &amp; Light District is the place to be &mdash; <strong>fan zones and watch parties</strong> on huge screens, with the loudest crowds in the city when the big summer matches kick off. Go early on Saturdays; it fills fast.</p>

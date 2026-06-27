@@ -236,6 +236,35 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:900;line-height:1.05;color:va
 .kc-foot .fine{width:100%;border-top:1px solid rgba(255,255,255,.12);margin-top:24px;padding-top:18px;
   font-size:0.74rem;color:#9a9db0;line-height:1.6}
 
+/* ============================================================
+   TOURNAMENT BRACKET  (.kc-bracket)  — the World Cup path at Arrowhead
+   KC-hosted rounds highlighted in Chiefs red. Scrolls horizontally.
+   ============================================================ */
+.kc-bracket{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 18px;
+  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.kc-bracket::-webkit-scrollbar{height:8px}
+.kc-bracket::-webkit-scrollbar-thumb{background:var(--rule);border-radius:999px}
+.kc-round{flex:0 0 196px;display:flex;flex-direction:column;scroll-snap-align:start}
+.kc-round-head{font-family:var(--serif);font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+  font-weight:700;color:var(--ink-soft);text-align:center;padding-bottom:9px;
+  border-bottom:2px solid var(--rule);margin-bottom:12px}
+.kc-round.kc-here .kc-round-head{color:var(--chiefs);border-color:var(--chiefs)}
+.kc-round .nodes{display:flex;flex-direction:column;gap:10px;justify-content:center;flex:1}
+.kc-node{background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.kc-node .teams{font-family:var(--display);font-weight:700;color:var(--ink);font-size:0.92rem;line-height:1.2}
+.kc-node .meta{font-size:0.64rem;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+.kc-node.kc-here-node{border:2px solid var(--chiefs);box-shadow:0 6px 18px rgba(227,24,55,.16)}
+.kc-node .here-badge{display:inline-block;font-size:0.52rem;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;
+  background:var(--chiefs);color:#fff;border-radius:999px;padding:2px 8px;margin-top:7px}
+.kc-node.tbd{border-style:dashed;background:transparent}
+.kc-node.tbd .teams{color:var(--ink-faint);font-weight:600}
+.kc-champ{flex:0 0 150px}
+.kc-champ .nodes{align-items:center}
+.kc-champ .kc-node{text-align:center;border-color:var(--gold-bright)}
+.kc-champ .trophy{font-size:1.7rem;line-height:1}
+.kc-champ .teams{color:var(--gold-deep)}
+@media(max-width:680px){.kc-round{flex-basis:168px}}
+
 /* ---------- reveal animation ---------- */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}

@@ -265,6 +265,39 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:900;line-height:1.05;color:va
 .kc-champ .teams{color:var(--gold-deep)}
 @media(max-width:680px){.kc-round{flex-basis:168px}}
 
+/* ============================================================
+   LIVE WORLD CUP BRACKET  (.kc-wcb / kc-wc-bracket.js)
+   One big knockout bracket that fills in as games are played.
+   Arrowhead/KC matches highlighted in Chiefs red. Scrolls horizontally.
+   ============================================================ */
+.kc-wcb{margin:0}
+.wcb-scroll{display:flex;gap:18px;overflow-x:auto;padding:6px 2px 16px;
+  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.wcb-scroll::-webkit-scrollbar{height:8px}
+.wcb-scroll::-webkit-scrollbar-thumb{background:var(--rule);border-radius:999px}
+.wcb-round{flex:0 0 208px;display:flex;flex-direction:column;scroll-snap-align:start}
+.wcb-rhead{font-family:var(--serif);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  color:var(--ink-soft);text-align:center;padding-bottom:9px;border-bottom:2px solid var(--rule);margin-bottom:12px}
+.wcb-cards{display:flex;flex-direction:column;gap:10px;justify-content:space-around;flex:1}
+.wcb-match{background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;padding:5px 9px;transition:box-shadow .18s}
+.wcb-match.kc{border:2px solid var(--chiefs);box-shadow:0 6px 18px rgba(227,24,55,.16)}
+.wcb-team{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 2px}
+.wcb-team+.wcb-team{border-top:1px solid var(--rule)}
+.wcb-nm{font-family:var(--display);font-weight:600;font-size:.9rem;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wcb-team.win{font-weight:800}
+.wcb-team.win .wcb-nm{color:var(--chiefs)}
+.wcb-team.tbd .wcb-nm{color:var(--ink-faint);font-weight:500;font-style:italic;font-size:.82rem}
+.wcb-sc{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--ink);min-width:1.1em;text-align:right;flex:0 0 auto}
+.wcb-meta{display:flex;gap:7px;align-items:center;margin-top:5px;min-height:13px}
+.wcb-tag{font-size:.5rem;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;
+  background:var(--ink);color:#fff;border-radius:999px;padding:1px 7px}
+.wcb-tag.live{background:#c0392b;animation:kcgpulse 1.4s infinite}
+.wcb-kc{font-size:.52rem;letter-spacing:1.1px;text-transform:uppercase;font-weight:700;color:var(--chiefs)}
+.wcb-empty,.wcb-load{font-size:.85rem;color:var(--ink-faint);font-style:italic;text-align:center;padding:14px}
+.wcb-foot{margin-top:8px;font-size:.82rem;color:var(--ink-faint);font-style:italic}
+@media(max-width:680px){.wcb-round{flex-basis:176px}}
+
 /* ---------- reveal animation ---------- */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}

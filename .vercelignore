@@ -1,0 +1,3 @@
+# Keep the operator automation control surface OFF the public site.
+# These are internal Claude Code config, read via git only, never web-served.
+.claude/
